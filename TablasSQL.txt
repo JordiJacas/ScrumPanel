@@ -1,0 +1,2 @@
+//tabla Usuario
+CREATE TABLE `scrumdb`.`Usuario` ( `usuario_id` INT NOT NULL AUTO_INCREMENT , `nombre` VARCHAR(15) NOT NULL , `nombre_usuario` VARCHAR(15) NOT NULL , `contraseña` VARCHAR(20) NOT NULL , `email` VARCHAR(30) NOT NULL , `permisos` VARCHAR NOT NULL , `grupo_usuario_id` INT NOT NULL , PRIMARY KEY (`usuario_id`), UNIQUE (`nombre_usuario`(15))) ENGINE = InnoDB;
