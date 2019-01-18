@@ -1,2 +1,22 @@
 //tabla Usuario
 CREATE TABLE `scrumdb`.`Usuario` ( `usuario_id` INT NOT NULL AUTO_INCREMENT , `nombre` VARCHAR(15) NOT NULL , `nombre_usuario` VARCHAR(15) NOT NULL , `contraseña` VARCHAR(20) NOT NULL , `email` VARCHAR(30) NOT NULL , `permisos` VARCHAR NOT NULL , `grupo_usuario_id` INT NOT NULL , PRIMARY KEY (`usuario_id`), UNIQUE (`nombre_usuario`(15))) ENGINE = InnoDB;
+
+//tabla Grupo de Usuario
+CREATE TABLE `scrumdb`.`grupoUsuarios` ( `grupo_usuario_id` INT NOT NULL AUTO_INCREMENT , `nombre_grupo` VARCHAR(20) NOT NULL , `usuario_id` INT NOT NULL , PRIMARY KEY (`grupo_usuario_id`), UNIQUE (`nombre_grupo`(20))) ENGINE = InnoDB;
+ALTER TABLE `grupousuarios` ADD `proyecto_id` INT NOT NULL ;
+
+//tabla Proyecto
+CREATE TABLE `scrumdb`.`proyecto` ( `proyecto_id` INT NOT NULL AUTO_INCREMENT , `nombre_proyecto` VARCHAR(20) NOT NULL , `descripcion` VARCHAR(50) NULL , `scrumMaster` INT NOT NULL , `productOwner` INT NOT NULL , PRIMARY KEY (`proyecto_id`), UNIQUE (`nombre_proyecto`(20))) ENGINE = InnoDB;
+
+//tabla Especificacion
+CREATE TABLE `scrumdb`.`Especificacion` ( `especificacion_id` INT NOT NULL AUTO_INCREMENT , `posicion` INT NOT NULL , `sprint_id` INT NOT NULL , PRIMARY KEY (`especificacion_id`)) ENGINE = InnoDB;
+
+//tabla Sprint
+CREATE TABLE `scrumdb`.`sprints` ( `sprint_id` INT NOT NULL AUTO_INCREMENT , `horas` INT NOT NULL , `proyecto_id` INT NOT NULL , PRIMARY KEY (`sprint_id`)) ENGINE = InnoDB;
+
+//tabla grupoProyecto
+CREATE TABLE `scrumdb`.`grupoProyecto` ( `grupo_proyecto_id` INT NOT NULL AUTO_INCREMENT , `cantidad` INT NOT NULL , `proyecto_id` INT NOT NULL , PRIMARY KEY (`grupo_proyecto_id`)) ENGINE = InnoDB;
+
+//Constraint FK usuario_id y proyecto_id
+ALTER TABLE `grupousuarios` ADD CONSTRAINT `usuario_id_fk` FOREIGN KEY (`usuario_id`) REFERENCES `usuario`(`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `grupousuarios` ADD CONSTRAINT `proyecto_id_fk` FOREIGN KEY (`proyecto_id`) REFERENCES `proyecto`(`proyecto_id`) ON DELETE CASCADE ON UPDATE CASCADE;
