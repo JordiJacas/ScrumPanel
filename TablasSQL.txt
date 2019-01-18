@@ -36,3 +36,7 @@ ALTER TABLE `sprints` ADD CONSTRAINT `proyecto_id_fk2` FOREIGN KEY (`proyecto_id
 
 //Constraint FK GrupoProyecto
 ALTER TABLE `grupoproyecto` ADD CONSTRAINT `proyecto_id_fk3` FOREIGN KEY (`proyecto_id`) REFERENCES `proyecto`(`proyecto_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+//Inserts GrupoUsuario
+INSERT INTO `grupousuarios` (`grupo_usuario_id`, `nombre_grupo`) VALUES ('1', 'Master Owner'), ('2', 'Scrum Master'), ('3', 'Developer'), ('4', 'Administrador');
