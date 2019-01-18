@@ -1,12 +1,13 @@
 //tabla Usuario
 CREATE TABLE `scrumdb`.`Usuario` ( `usuario_id` INT NOT NULL AUTO_INCREMENT , `nombre` VARCHAR(15) NOT NULL , `nombre_usuario` VARCHAR(15) NOT NULL , `contraseña` VARCHAR(20) NOT NULL , `email` VARCHAR(30) NOT NULL , PRIMARY KEY (`usuario_id`), UNIQUE (`nombre_usuario`(15))) ENGINE = InnoDB;
+ALTER TABLE `usuario` ADD `proyecto_id` INT NOT NULL AFTER `email`, ADD `grupo_proyecto_id` INT NOT NULL AFTER `proyecto_id`, ADD `grupo_usuario_id` INT NOT NULL AFTER `grupo_proyecto_id`;
 
 //tabla Grupo de Usuario
-CREATE TABLE `scrumdb`.`grupoUsuarios` ( `grupo_usuario_id` INT NOT NULL AUTO_INCREMENT , `nombre_grupo` VARCHAR(20) NOT NULL , `usuario_id` INT NOT NULL , PRIMARY KEY (`grupo_usuario_id`), UNIQUE (`nombre_grupo`(20))) ENGINE = InnoDB;
-ALTER TABLE `grupousuarios` ADD `proyecto_id` INT NOT NULL ;
+CREATE TABLE `scrumdb`.`grupoUsuarios` ( `grupo_usuario_id` INT NOT NULL AUTO_INCREMENT , `nombre_grupo` VARCHAR(20) NOT NULL , PRIMARY KEY (`grupo_usuario_id`), UNIQUE (`nombre_grupo`(20))) ENGINE = InnoDB;
 
 //tabla Proyecto
 CREATE TABLE `scrumdb`.`proyecto` ( `proyecto_id` INT NOT NULL AUTO_INCREMENT , `nombre_proyecto` VARCHAR(20) NOT NULL , `descripcion` VARCHAR(50) NULL , `scrumMaster` INT NOT NULL , `productOwner` INT NOT NULL , PRIMARY KEY (`proyecto_id`), UNIQUE (`nombre_proyecto`(20))) ENGINE = InnoDB;
+ALTER TABLE `proyecto` ADD `grupo_proyecto_id` INT NOT NULL AFTER `productOwner`;
 
 //tabla Especificacion
 CREATE TABLE `scrumdb`.`Especificacion` ( `especificacion_id` INT NOT NULL AUTO_INCREMENT , `posicion` INT NOT NULL , `sprint_id` INT NOT NULL , PRIMARY KEY (`especificacion_id`)) ENGINE = InnoDB;
@@ -14,10 +15,24 @@ CREATE TABLE `scrumdb`.`Especificacion` ( `especificacion_id` INT NOT NULL AUTO_
 //tabla Sprint
 CREATE TABLE `scrumdb`.`sprints` ( `sprint_id` INT NOT NULL AUTO_INCREMENT , `horas` INT NOT NULL , `proyecto_id` INT NOT NULL , PRIMARY KEY (`sprint_id`)) ENGINE = InnoDB;
 
-//Constraint FK 
+//tabla grupo Proyecto
+CREATE TABLE `scrumdb`.`grupoProyecto` ( `grupo_proyecto_id` INT NOT NULL AUTO_INCREMENT , `proyecto_id` INT NOT NULL , `cantidad` INT NOT NULL , PRIMARY KEY (`grupo_proyecto_id`)) ENGINE = InnoDB;
+
+//Constraint FK usuario
 ALTER TABLE `usuario` ADD CONSTRAINT `grupo_usuario_id_fk` FOREIGN KEY (`grupo_usuario_id`) REFERENCES `grupousuarios`(`grupo_usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `usuario` ADD CONSTRAINT `grupo_proyecto_id_fk` FOREIGN KEY (`grupo_proyecto_id`) REFERENCES `grupoproyecto`(`grupo_proyecto_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `usuario` ADD CONSTRAINT `proyecto_id_fk` FOREIGN KEY (`proyecto_id`) REFERENCES `proyecto`(`proyecto_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `grupousuarios` ADD CONSTRAINT `usuario_id_fk` FOREIGN KEY (`usuario_id`) REFERENCES `usuario`(`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+//Constraint FK proyecto
+ALTER TABLE `proyecto` ADD CONSTRAINT `scrum_master_fk` FOREIGN KEY (`scrumMaster`) REFERENCES `usuario`(`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `proyecto` ADD CONSTRAINT `product_owner_fk` FOREIGN KEY (`productOwner`) REFERENCES `usuario`(`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `proyecto` ADD CONSTRAINT `grupo_proyecto_fk2` FOREIGN KEY (`grupo_proyecto_id`) REFERENCES `grupoproyecto`(`grupo_proyecto_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `grupousuarios` ADD CONSTRAINT `proyecto_id_fk` FOREIGN KEY (`proyecto_id`) REFERENCES `proyecto`(`proyecto_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+//Constraint FK Especificacion
+ALTER TABLE `especificacion` ADD CONSTRAINT `sprint_id_fk` FOREIGN KEY (`sprint_id`) REFERENCES `sprints`(`sprint_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+//Constraint FK Sprint
+ALTER TABLE `sprints` ADD CONSTRAINT `proyecto_id_fk2` FOREIGN KEY (`proyecto_id`) REFERENCES `proyecto`(`proyecto_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+//Constraint FK GrupoProyecto
+ALTER TABLE `grupoproyecto` ADD CONSTRAINT `proyecto_id_fk3` FOREIGN KEY (`proyecto_id`) REFERENCES `proyecto`(`proyecto_id`) ON DELETE CASCADE ON UPDATE CASCADE;
