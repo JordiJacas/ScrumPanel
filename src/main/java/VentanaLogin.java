@@ -2,51 +2,57 @@ import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class VentanaLogin extends JPanel{
+public class VentanaLogin extends JPanel implements KeyListener{
 	private JTextField tfLogin;
 	private JTextField tfPassword;
+	//funciones de keyListener para que enter ejecute login
+	public void keyPressed(KeyEvent e) {
+		 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+	        	login();
+	        }
+	}
 
+    public void keyReleased(KeyEvent e) {}
+    
+    public void keyTyped(KeyEvent e) {}
+	
 	/**
 	 * Create the panel.
 	 */
 	public VentanaLogin() {
+		setFocusable(true);
+		addKeyListener(this);
 		
 		JLabel lblLogin = new JLabel("Login:");
 		lblLogin.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
 		tfLogin = new JTextField();
 		tfLogin.setColumns(10);
+		tfLogin.addKeyListener(this);
 		
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
 		tfPassword = new JTextField();
-		tfPassword.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				if(arg0.getKeyCode() == KeyEvent.VK_ENTER) {
-					//Preguntar al Espeja - Solo tfPassword o mas
-					//Codigo Inicio Sesion
-					System.out.println("[INFO] - Comparando campos");
-				}
-			}
-		});
 		tfPassword.setColumns(10);
+		tfPassword.addKeyListener(this);
 		
 		JButton btnLogin = new JButton("Entrar");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Codigo Inicio Sesion
-				System.out.println("[INFO] - Comparando campos");
+				login();
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -82,5 +88,17 @@ public class VentanaLogin extends JPanel{
 					.addContainerGap(46, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
+	}
+	
+	private void login() {
+		String user = tfLogin.getText();
+		String password = tfPassword.getText();
+		if (user.isEmpty() || password.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Introduzca el usuario y la contrasena para logearte");
+		} else {
+			//logica de login
+			System.out.println("Comprobando datos...");
+		}
+		
 	}
 }
