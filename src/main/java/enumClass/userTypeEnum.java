@@ -1,4 +1,4 @@
-package modelo;
+package enumClass;
 
 public enum userTypeEnum {
 	DEVELOPER, //solo visualizar proyectos asignados

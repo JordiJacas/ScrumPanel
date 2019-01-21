@@ -1,4 +1,6 @@
+package ventanas;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -8,6 +10,8 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -16,22 +20,14 @@ import java.awt.event.ActionEvent;
 
 public class VentanaLogin extends JPanel implements KeyListener{
 	private JTextField tfLogin;
-	private JTextField tfPassword;
-	//funciones de keyListener para que enter ejecute login
-	public void keyPressed(KeyEvent e) {
-		 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-	        	login();
-	        }
-	}
-
-    public void keyReleased(KeyEvent e) {}
-    
-    public void keyTyped(KeyEvent e) {}
+	private JPasswordField tfPassword;
+	private JInternalFrame iLogin;
 	
 	/**
 	 * Create the panel.
 	 */
-	public VentanaLogin() {
+	public VentanaLogin(JInternalFrame iLogin) {
+		this.iLogin = iLogin;
 		setFocusable(true);
 		addKeyListener(this);
 		
@@ -45,7 +41,7 @@ public class VentanaLogin extends JPanel implements KeyListener{
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		tfPassword = new JTextField();
+		tfPassword = new JPasswordField();
 		tfPassword.setColumns(10);
 		tfPassword.addKeyListener(this);
 		
@@ -97,8 +93,19 @@ public class VentanaLogin extends JPanel implements KeyListener{
 			JOptionPane.showMessageDialog(null, "Introduzca el usuario y la contrasena para logearte");
 		} else {
 			//logica de login
-			System.out.println("Comprobando datos...");
+			System.out.println("[INFO] - Comprobando datos...");
+			iLogin.setVisible(false);
 		}
-		
 	}
+	
+	//funciones de keyListener para que enter ejecute login
+	public void keyPressed(KeyEvent e) {
+		 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+	        	login();
+	        }
+	}
+
+    public void keyReleased(KeyEvent e) {}
+    
+    public void keyTyped(KeyEvent e) {}
 }

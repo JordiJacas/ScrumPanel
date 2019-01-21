@@ -1,3 +1,4 @@
+package ventanas;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.KeyAdapter;
@@ -12,8 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 public class VentanaGeneral extends JFrame {
-	protected JDesktopPane dp;
 	
+	protected JDesktopPane dp;
+	private JInternalFrame iLogin;
+	private JInternalFrame iNuevoUsuario;
 	private JPanel contentPane;
 
 	/**
@@ -43,34 +46,37 @@ public class VentanaGeneral extends JFrame {
 		dp = new JDesktopPane();
 		getContentPane().add(dp);
 	    
-	    JPanel p = new VentanaLogin();
-	    
 		// Se construye el JInternalFrame
-		JInternalFrame internal = new JInternalFrame("Login");
-		internal.add(p);
-	 
+		iLogin = new JInternalFrame("Login");
+		iNuevoUsuario = new JInternalFrame("Nuevo Usuairo");
+		
+		//Creamos el panel que contendra el JInternalFrame
+		JPanel login = new VentanaLogin(iLogin);
+		JPanel nuevoUsuario = new VentanaUsuarios();
+		
+		//Añadimos el panel al JInternalFram
+		iLogin.add(login);
+		iNuevoUsuario.add(nuevoUsuario);
+		
 		// Es importante darle tamaño -pack()- al JInternalFrame,
 		// porque si no, tendrá tamaño 0,0 y no lo veremos.
-		internal.pack();
+		iLogin.pack();
+		iNuevoUsuario.pack();
 		
 		// Por defecto el JInternalFrame no es redimensionable ni
 		// tiene el botón de cerrar, así que se lo ponemos.
-		internal.setResizable(true);
-		internal.setClosable(true);
+		iLogin.setResizable(true);
+		iLogin.setClosable(true);
+		iNuevoUsuario.setResizable(true);
+		iNuevoUsuario.setClosable(true);
 		
 		// Se mete el internal en el JDesktopPane
-		dp.add(internal);
+		dp.add(iLogin);
+		dp.add(iNuevoUsuario);
 		
 		// Se visualiza el JInternalFrame 
-		internal.setVisible(true);
-		
-		internal.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent ev)
-			{
-				JOptionPane.showInternalMessageDialog(dp, "keyPressed!", "information", JOptionPane.INFORMATION_MESSAGE);
-			}
-		});
-		
+		iLogin.setVisible(true);
+		iNuevoUsuario.setVisible(true);		
 	     
 	}
 }
