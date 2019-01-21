@@ -9,6 +9,11 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import daoImpl.UsuarioDAOImpl;
+import iDao.IUsuario;
+import modelo.Usuario;
+
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 
@@ -92,9 +97,18 @@ public class VentanaLogin extends JPanel implements KeyListener{
 		if (user.isEmpty() || password.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Introduzca el usuario y la contrasena para logearte");
 		} else {
-			//logica de login
 			System.out.println("[INFO] - Comprobando datos...");
-			iLogin.setVisible(false);
+			
+			IUsuario gestorUsuarios = new UsuarioDAOImpl();
+			Usuario usuario = gestorUsuarios.getUsuarioByNombreUsuario(user);
+			
+			if(usuario.getNombre_usuario().equals(user) & usuario.getContraseña().equals(password)) {
+				System.out.println("[INFO] - Usuario " + usuario.getNombre() + " Conectado");
+			
+				//iLogin.setVisible(false);
+			}else {
+				System.out.println("[INFO] - Nombre de Usuario o Contraseña incorrectos");
+			}		
 		}
 	}
 	

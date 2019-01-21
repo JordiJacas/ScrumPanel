@@ -1,15 +1,24 @@
 package modelo;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import enumClass.userTypeEnum;
 
 @Entity
 @Table(name="usuario")
 public class Usuario {
 	
 	@Id
+	@GeneratedValue
 	private int usuario_id;
 	
 	@Column
@@ -24,22 +33,24 @@ public class Usuario {
 	@Column
 	private String email;
 	
-	@Column
-	private Proyecto grupo_proyecto_id;
+	@OneToMany(cascade=CascadeType.PERSIST)
+	private List<Proyecto> grupo_proyecto_id;
 	
 	@Column
-	private GrupoProyecto grupo_usuario_id;
+	private  userTypeEnum rol_usuario;
 
-	public Usuario(int usuario_id, String nombre_usuario, String nombre, String contraseña, String email,
-			Proyecto grupo_proyecto_id, GrupoProyecto grupo_usuario_id) {
+	public Usuario() {
+	}
+
+	public Usuario(String nombre_usuario, String nombre, String contraseña, String email,
+			List<Proyecto> grupo_proyecto_id, userTypeEnum rol_usuario) {
 		super();
-		this.usuario_id = usuario_id;
 		this.nombre_usuario = nombre_usuario;
 		this.nombre = nombre;
 		this.contraseña = contraseña;
 		this.email = email;
 		this.grupo_proyecto_id = grupo_proyecto_id;
-		this.grupo_usuario_id = grupo_usuario_id;
+		this.rol_usuario = rol_usuario;
 	}
 
 	public String getNombre_usuario() {
@@ -74,20 +85,20 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public Proyecto getGrupo_proyecto_id() {
+	public List<Proyecto> getGrupo_proyecto_id() {
 		return grupo_proyecto_id;
 	}
 
-	public void setGrupo_proyecto_id(Proyecto grupo_proyecto_id) {
+	public void setGrupo_proyecto_id(List<Proyecto> grupo_proyecto_id) {
 		this.grupo_proyecto_id = grupo_proyecto_id;
 	}
 
-	public GrupoProyecto getGrupo_usuario_id() {
-		return grupo_usuario_id;
+	public userTypeEnum getRol_usuario() {
+		return rol_usuario;
 	}
 
-	public void setGrupo_usuario_id(GrupoProyecto grupo_usuario_id) {
-		this.grupo_usuario_id = grupo_usuario_id;
+	public void setRol_usuario(userTypeEnum rol_usuario) {
+		this.rol_usuario = rol_usuario;
 	}
 
 	public int getUsuario_id() {
