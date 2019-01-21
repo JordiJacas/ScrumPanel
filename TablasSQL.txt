@@ -18,6 +18,7 @@ CREATE TABLE `scrumdb`.`grupoProyecto` ( `grupo_proyecto_id` INT NOT NULL AUTO_I
 
 //Constraint FK usuario
 ALTER TABLE `usuario` ADD CONSTRAINT `grupo_proyecto_id_fk` FOREIGN KEY (`grupo_proyecto_id`) REFERENCES `grupoproyecto`(`grupo_proyecto_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE usuario ADD CONSTRAINT CHK_Usuario CHECK (tipo_usuario IN('Scrum Master', 'Product Owner', 'Developer', 'Administrador'));
 
 //Constraint FK proyecto
 ALTER TABLE `proyecto` ADD CONSTRAINT `scrum_master_fk` FOREIGN KEY (`scrumMaster`) REFERENCES `usuario`(`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
