@@ -7,7 +7,10 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import daoImpl.UsuarioDAOImpl;
 import enumClass.userTypeEnum;
+import iDao.IUsuario;
+import modelo.Usuario;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -82,7 +85,7 @@ public class VentanaUsuarios extends JPanel {
 				String login = tfLogin.getText();
 				String password = tfPassword.getText();
 				String email = tfEmail.getText();
-				String rol = comboBox.getSelectedItem().toString();
+				userTypeEnum rol = userTypeEnum.valueOf(comboBox.getSelectedItem().toString());
 				
 				System.out.println("[INFO] - Creando usuario: ");
 				System.out.println("[INFO] - Nombre: " + nombre);
@@ -90,6 +93,11 @@ public class VentanaUsuarios extends JPanel {
 				System.out.println("[INFO] - password: " + password);
 				System.out.println("[INFO] - Email: " + email);
 				System.out.println("[INFO] - Rol: " + rol);
+				
+				IUsuario gestorUsuario = new UsuarioDAOImpl();
+				gestorUsuario.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
+				
+				System.out.println("[INFO] - Usuario creado");
 
 			}
 		});

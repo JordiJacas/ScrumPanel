@@ -43,7 +43,7 @@ public class Usuario {
 	}
 
 	public Usuario(String nombre_usuario, String nombre, String contraseña, String email,
-			List<Proyecto> grupo_proyecto_id, userTypeEnum rol_usuario) {
+			userTypeEnum rol_usuario, List<Proyecto> grupo_proyecto_id) {
 		super();
 		this.nombre_usuario = nombre_usuario;
 		this.nombre = nombre;
