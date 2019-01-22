@@ -81,25 +81,25 @@ public class VentanaUsuarios extends JPanel {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				String nombre = tfNombre.getText();
-				String login = tfLogin.getText();
-				String password = tfPassword.getText();
-				String email = tfEmail.getText();
-				userTypeEnum rol = userTypeEnum.valueOf(comboBox.getSelectedItem().toString());
-				
-				System.out.println("[INFO] - Creando usuario: ");
-				System.out.println("[INFO] - Nombre: " + nombre);
-				System.out.println("[INFO] - Login: " + login);
-				System.out.println("[INFO] - password: " + password);
-				System.out.println("[INFO] - Email: " + email);
-				System.out.println("[INFO] - Rol: " + rol);
-				
-				IUsuario gestorUsuario = new UsuarioDAOImpl();
-				gestorUsuario.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
-				
-				System.out.println("[INFO] - Usuario creado");
-
+				if (formValid()) {
+					String nombre = tfNombre.getText();
+					String login = tfLogin.getText();
+					String password = tfPassword.getText();
+					String email = tfEmail.getText();
+					userTypeEnum rol = userTypeEnum.valueOf(comboBox.getSelectedItem().toString());
+					
+					System.out.println("[INFO] - Creando usuario: ");
+					System.out.println("[INFO] - Nombre: " + nombre);
+					System.out.println("[INFO] - Login: " + login);
+					System.out.println("[INFO] - password: " + password);
+					System.out.println("[INFO] - Email: " + email);
+					System.out.println("[INFO] - Rol: " + rol);
+					
+					IUsuario gestorUsuario = new UsuarioDAOImpl();
+					gestorUsuario.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
+					
+					System.out.println("[INFO] - Usuario creado");
+				}
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -166,4 +166,20 @@ public class VentanaUsuarios extends JPanel {
 		setLayout(groupLayout);
 
 	}
+	
+	String nombre = tfNombre.getText();
+	String login = tfLogin.getText();
+	String password = tfPassword.getText();
+	String email = tfEmail.getText();
+	userTypeEnum rol = userTypeEnum.valueOf(comboBox.getSelectedItem().toString());
+	
+	public boolean formValid() {
+		if (tfNombre.getText().isEmpty() || tfLogin.getText().isEmpty() 
+				|| tfPassword.getText().isEmpty() || tfPassword2.getText().isEmpty()
+				|| !tfPassword.getText().equals(tfPassword2.getText()) || tfEmail.getText().isEmpty()
+				|| comboBox.getSelectedItem().toString().isEmpty())
+			return false;
+		return true;
+	}
+	
 }

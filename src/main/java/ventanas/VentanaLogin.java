@@ -98,27 +98,57 @@ public class VentanaLogin extends JPanel implements KeyListener{
 	private void login() {
 		String user = tfLogin.getText();
 		String password = tfPassword.getText();
+		
+		
+		
+		//Descomentar para hacer la prueba OFFLINE
+		
+		Usuario usuario = new Usuario();
+		usuario.setNombre("Admin");
+		usuario.setNombre_usuario("admin");
+		usuario.setContraseña("admin");
+		usuario.setEmail("admin@gmail.com");
+		usuario.setRol_usuario(userTypeEnum.USER_ADMINISTRATOR);
+		
 		if (user.isEmpty() || password.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Introduzca el usuario y la contrasena para logearte");
 		} else {
-			System.out.println("[INFO] - Comprobando datos...");
-			
-			IUsuario gestorUsuarios = new UsuarioDAOImpl();
-			Usuario usuario = gestorUsuarios.getUsuarioByNombreUsuario(user);
-			
 			if(usuario.getNombre_usuario().equals(user) & usuario.getContraseña().equals(password)) {
 				JOptionPane.showMessageDialog(null,  "Usuario " + usuario.getNombre() + " Conectado");
-			
 				iLogin.setVisible(false);
 				if(usuario.getRol_usuario().equals(userTypeEnum.USER_ADMINISTRATOR)) {
 					iNuevoUsuario.setVisible(true);
 				}
-				
 			}else {
 				JOptionPane.showMessageDialog(null,  "Nombre de Usuario o Contraseña incorrectos");
-				
 			}
 		}
+		
+		
+		
+		//Descomentar para hacer la prueba ONLINE
+		
+//		if (user.isEmpty() || password.isEmpty()) {
+//			JOptionPane.showMessageDialog(null, "Introduzca el usuario y la contrasena para logearte");
+//		} else {
+//			System.out.println("[INFO] - Comprobando datos...");
+//			
+//			IUsuario gestorUsuarios = new UsuarioDAOImpl();
+//			Usuario usuario = gestorUsuarios.getUsuarioByNombreUsuario(user);
+//			
+//			if(usuario.getNombre_usuario().equals(user) & usuario.getContraseña().equals(password)) {
+//				JOptionPane.showMessageDialog(null,  "Usuario " + usuario.getNombre() + " Conectado");
+//			
+//				iLogin.setVisible(false);
+//				if(usuario.getRol_usuario().equals(userTypeEnum.USER_ADMINISTRATOR)) {
+//					iNuevoUsuario.setVisible(true);
+//				}
+//				
+//			}else {
+//				JOptionPane.showMessageDialog(null,  "Nombre de Usuario o Contraseña incorrectos");
+//				
+//			}
+//		}
 	}
 	
 	//funciones de keyListener para que enter ejecute login
