@@ -1,0 +1,1 @@
+INSERT INTO `usuario`(`contraseña`, `email`, `nombre`, `nombre_usuario`, `rol_usuario`) VALUES ('P@ssw0rd','admin.usuario@gmail.com','Administrador Usuario','admin.usuario',3)

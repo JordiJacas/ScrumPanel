@@ -16,7 +16,7 @@ public class ConnnectDBDaoTest {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
 		EntityManager entityManager = factory.createEntityManager();
 		 
-		entityManager.getTransaction().begin();
+		//entityManager.getTransaction().begin();
 				
 		/*Usuario newUser = new Usuario();
 		newUser.setNombre("Jordi Jacas");
