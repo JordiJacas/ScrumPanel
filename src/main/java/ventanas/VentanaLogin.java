@@ -105,7 +105,7 @@ public class VentanaLogin extends JPanel implements KeyListener{
 			if(usuario.getNombre_usuario().equals(user) & usuario.getContraseña().equals(password)) {
 				System.out.println("[INFO] - Usuario " + usuario.getNombre() + " Conectado");
 			
-				//iLogin.setVisible(false);
+				iLogin.setVisible(false);
 			}else {
 				System.out.println("[INFO] - Nombre de Usuario o Contraseña incorrectos");
 			}		

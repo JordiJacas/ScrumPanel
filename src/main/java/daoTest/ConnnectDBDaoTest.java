@@ -16,7 +16,7 @@ public class ConnnectDBDaoTest {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
 		EntityManager entityManager = factory.createEntityManager();
 		 
-		//entityManager.getTransaction().begin();
+		entityManager.getTransaction().begin();
 				
 		/*Usuario newUser = new Usuario();
 		newUser.setNombre("Jordi Jacas");
@@ -28,9 +28,9 @@ public class ConnnectDBDaoTest {
 		entityManager.persist(newUser);
 		entityManager.getTransaction().commit();*/		
 		
-		String sql = "SELECT u from Usuario u where u.nombre_usuario = 'jordi.jacas'";
+		/*String sql = "SELECT u from Usuario u where u.nombre_usuario = 'jordi.jacas'";
 		Query query = entityManager.createQuery(sql);
-		Usuario user = (Usuario) query.getSingleResult();
+		Usuario user = (Usuario) query.getSingleResult();*/
 		 
 		/*System.out.println(user.getNombre_usuario());
 		System.out.println(user.getContraseña());
@@ -39,7 +39,7 @@ public class ConnnectDBDaoTest {
 		//Integer primaryKey = 1;
 		//Usuario user = entityManager.find(Usuario.class, primaryKey);
 		 
-		System.out.println(user.getNombre());
+		//System.out.println(user.getNombre());
 		
 		entityManager.close();
         factory.close();
