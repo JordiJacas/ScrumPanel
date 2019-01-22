@@ -10,11 +10,24 @@ import modelo.Usuario;
 
 
 public class ConnnectDBDaoTest {
+	
+	private static String state = "ONLINE";
 
-	public static void main(String[] args) {
+	public String getState() {
+		return this.state;
+	}
+	
+	public ConnnectDBDaoTest() {
 		// TODO Auto-generated method stub
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
-		EntityManager entityManager = factory.createEntityManager();
+		try {
+			EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
+			EntityManager entityManager = factory.createEntityManager();
+			entityManager.close();
+			factory.close();
+		} catch (Exception e) {
+			state = "OFFLINE";
+		}
+		
 		 
 		//entityManager.getTransaction().begin();
 				
@@ -41,7 +54,6 @@ public class ConnnectDBDaoTest {
 		 
 		//System.out.println(user.getNombre());
 		
-		entityManager.close();
-        factory.close();
+		
 	}
 }

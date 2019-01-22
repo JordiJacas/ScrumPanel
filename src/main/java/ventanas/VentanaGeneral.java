@@ -12,6 +12,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import daoTest.ConnnectDBDaoTest;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -29,7 +32,7 @@ public class VentanaGeneral extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaGeneral frame = new VentanaGeneral();
+					VentanaGeneral frame = new VentanaGeneral(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,8 +44,8 @@ public class VentanaGeneral extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaGeneral() {		
-	    setTitle("SCRUM");
+	public VentanaGeneral(String state) {		
+	    setTitle("SCRUM - " + state);
 	    setSize(800,500);
 	    setVisible(true);
 	    

@@ -107,17 +107,14 @@ public class VentanaLogin extends JPanel implements KeyListener{
 			Usuario usuario = gestorUsuarios.getUsuarioByNombreUsuario(user);
 			
 			if(usuario.getNombre_usuario().equals(user) & usuario.getContraseña().equals(password)) {
-				System.out.println("[INFO] - Usuario " + usuario.getNombre() + " Conectado");
 				JOptionPane.showMessageDialog(null,  "Usuario " + usuario.getNombre() + " Conectado");
 			
 				iLogin.setVisible(false);
-				System.out.println(usuario.getRol_usuario());
 				if(usuario.getRol_usuario().equals(userTypeEnum.USER_ADMINISTRATOR)) {
 					iNuevoUsuario.setVisible(true);
 				}
 				
 			}else {
-				System.out.println("[INFO] - Nombre de Usuario o Contraseña incorrectos");
 				JOptionPane.showMessageDialog(null,  "Nombre de Usuario o Contraseña incorrectos");
 				
 			}
