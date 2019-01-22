@@ -27,12 +27,15 @@ public class VentanaLogin extends JPanel implements KeyListener{
 	private JTextField tfLogin;
 	private JPasswordField tfPassword;
 	private JInternalFrame iLogin;
+	private JInternalFrame iNuevoUsuario;
 	
 	/**
 	 * Create the panel.
 	 */
-	public VentanaLogin(JInternalFrame iLogin) {
+	public VentanaLogin(JInternalFrame iLogin, JInternalFrame iNuevoUsuario) {
 		this.iLogin = iLogin;
+		this.iNuevoUsuario = iNuevoUsuario;
+		
 		setFocusable(true);
 		addKeyListener(this);
 		
@@ -99,16 +102,23 @@ public class VentanaLogin extends JPanel implements KeyListener{
 		} else {
 			System.out.println("[INFO] - Comprobando datos...");
 			
-			IUsuario gestorUsuarios = new UsuarioDAOImpl();
+			/*IUsuario gestorUsuarios = new UsuarioDAOImpl();
 			Usuario usuario = gestorUsuarios.getUsuarioByNombreUsuario(user);
 			
 			if(usuario.getNombre_usuario().equals(user) & usuario.getContraseña().equals(password)) {
 				System.out.println("[INFO] - Usuario " + usuario.getNombre() + " Conectado");
+				JOptionPane.showMessageDialog(null,  "Usuario " + usuario.getNombre() + " Conectado");
 			
 				iLogin.setVisible(false);
+				iNuevoUsuario.setVisible(true);
 			}else {
 				System.out.println("[INFO] - Nombre de Usuario o Contraseña incorrectos");
-			}		
+				JOptionPane.showMessageDialog(null,  "Nombre de Usuario o Contraseña incorrectos");
+				
+			}	*/	
+			
+			iLogin.setVisible(false);
+			iNuevoUsuario.setVisible(true);
 		}
 	}
 	

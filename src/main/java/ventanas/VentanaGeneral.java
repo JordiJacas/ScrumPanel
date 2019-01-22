@@ -48,8 +48,6 @@ public class VentanaGeneral extends JFrame {
 	    
 		dp = new JDesktopPane();
 		getContentPane().add(dp);
-		
-		JButton btn = new JButton("Next");
 	    
 		// Se construye el JInternalFrame
 		iLogin = new JInternalFrame("Login");
@@ -58,7 +56,7 @@ public class VentanaGeneral extends JFrame {
 		iNuevoUsuario.setLocation(12, 13);
 		
 		//Creamos el panel que contendra el JInternalFrame
-		JPanel login = new VentanaLogin(iLogin);
+		JPanel login = new VentanaLogin(iLogin, iNuevoUsuario);
 		JPanel nuevoUsuario = new VentanaUsuarios();
 		
 		//Añadimos el panel al JInternalFram
@@ -80,15 +78,6 @@ public class VentanaGeneral extends JFrame {
 		// Se mete el internal en el JDesktopPane
 		dp.add(iLogin);
 		dp.add(iNuevoUsuario);
-		
-		JButton btnButton = new JButton("Button");
-		btnButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				iNuevoUsuario.setVisible(true);
-			}
-		});
-		btnButton.setBounds(12, 13, 97, 25);
-		dp.add(btnButton);
 		
 		// Se visualiza el JInternalFrame 
 		iLogin.setVisible(true);

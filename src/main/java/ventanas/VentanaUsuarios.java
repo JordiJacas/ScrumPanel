@@ -1,6 +1,7 @@
 package ventanas;
 
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -22,8 +23,8 @@ import java.awt.event.ActionEvent;
 public class VentanaUsuarios extends JPanel {
 	private JTextField tfNombre;
 	private JTextField tfLogin;
-	private JTextField tfPassword;
-	private JTextField tfPassword2;
+	private JPasswordField tfPassword;
+	private JPasswordField tfPassword2;
 	private JTextField tfEmail;
 	private JComboBox comboBox;
 
@@ -53,10 +54,10 @@ public class VentanaUsuarios extends JPanel {
 		tfLogin = new JTextField();
 		tfLogin.setColumns(10);
 		
-		tfPassword = new JTextField();
+		tfPassword = new JPasswordField();
 		tfPassword.setColumns(10);
 		
-		tfPassword2 = new JTextField();
+		tfPassword2 = new JPasswordField();
 		tfPassword2.setColumns(10);
 		
 		tfEmail = new JTextField();
@@ -65,7 +66,7 @@ public class VentanaUsuarios extends JPanel {
 		JButton btnGenerarPassword = new JButton("Generar password");
 		btnGenerarPassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("[INFO] - Generando Contraseña aleatoria");
+				//System.out.println("[INFO] - Generando Contraseña aleatoria");
 				//System.out.println("[INFO] - Contraseña generada");
 			}
 		});
