@@ -30,4 +30,9 @@ Instrucciones para ejecutar el proyecto
 Datos insertados al ejecutar en la Base de Datos
 ===================================================
 Nombre_Usuario: admin.usuario
-Contrasenya: P@ssw0rd
+Contraseña: P@ssw0rd
+Rol: Administrador Usuario
+
+Nombre_Usuario: user.1
+Contraseña: P@ssw0rd
+Rol: Developer
