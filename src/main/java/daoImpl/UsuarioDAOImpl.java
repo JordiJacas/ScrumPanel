@@ -11,12 +11,12 @@ import iDao.IUsuario;
 import modelo.Usuario;
 
 public class UsuarioDAOImpl implements IUsuario{
+	
+	EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
+	EntityManager entityManager = factory.createEntityManager();
 
 	public void crearUsuario(Usuario usuario) {
 		// TODO Auto-generated method stub
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
-		EntityManager entityManager = factory.createEntityManager();
-		 
 		entityManager.getTransaction().begin();
 		entityManager.persist(usuario);
 		entityManager.getTransaction().commit();
@@ -26,13 +26,13 @@ public class UsuarioDAOImpl implements IUsuario{
 	}
 
 	public Usuario getUsuarioByNombreUsuario(String nombreUsuario) {
-		// TODO Auto-generated method stub
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
-		EntityManager entityManager = factory.createEntityManager();
-		
+		// TODO Auto-generated method stub		
 		String sql = "SELECT u from Usuario u where u.nombre_usuario = '" + nombreUsuario + "'";
 		Query query = entityManager.createQuery(sql);
 		Usuario user = (Usuario) query.getSingleResult();
+		
+		entityManager.close();
+        factory.close();
 		
 		return user;
 	}

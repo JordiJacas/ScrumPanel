@@ -27,6 +27,8 @@ public class Proyecto {
 	
 	@ManyToOne
 	private Usuario productOwner;
+	
+	public Proyecto() {}
 
 	public Proyecto(String nombre_proyecto, String descripcion, Usuario scrumMaster, Usuario productOwner) {
 		super();
