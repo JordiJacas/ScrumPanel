@@ -18,6 +18,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.awt.event.ActionEvent;
 
 public class VentanaUsuarios extends JPanel {
@@ -66,6 +68,11 @@ public class VentanaUsuarios extends JPanel {
 		JButton btnGenerarPassword = new JButton("Generar password");
 		btnGenerarPassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				SecureRandom random = new SecureRandom();
+				 String text = new BigInteger(32, random).toString(32);
+				 tfPassword.setText(text);
+				 tfPassword2.setText(text);
 				//System.out.println("[INFO] - Generando Contraseña aleatoria");
 				//System.out.println("[INFO] - Contraseña generada");
 			}
@@ -82,23 +89,23 @@ public class VentanaUsuarios extends JPanel {
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (formValid()) {
-					String nombre = tfNombre.getText();
-					String login = tfLogin.getText();
-					String password = tfPassword.getText();
-					String email = tfEmail.getText();
-					userTypeEnum rol = userTypeEnum.valueOf(comboBox.getSelectedItem().toString());
-					
-					System.out.println("[INFO] - Creando usuario: ");
-					System.out.println("[INFO] - Nombre: " + nombre);
-					System.out.println("[INFO] - Login: " + login);
-					System.out.println("[INFO] - password: " + password);
-					System.out.println("[INFO] - Email: " + email);
-					System.out.println("[INFO] - Rol: " + rol);
-					
-					IUsuario gestorUsuario = new UsuarioDAOImpl();
-					gestorUsuario.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
-					
-					System.out.println("[INFO] - Usuario creado");
+				String nombre = tfNombre.getText();
+				String login = tfLogin.getText();
+				String password = tfPassword.getText();
+				String email = tfEmail.getText();
+				userTypeEnum rol = userTypeEnum.valueOf(comboBox.getSelectedItem().toString());
+				
+				System.out.println("[INFO] - Creando usuario: ");
+				System.out.println("[INFO] - Nombre: " + nombre);
+				System.out.println("[INFO] - Login: " + login);
+				System.out.println("[INFO] - password: " + password);
+				System.out.println("[INFO] - Email: " + email);
+				System.out.println("[INFO] - Rol: " + rol);
+				
+				IUsuario gestorUsuario = new UsuarioDAOImpl();
+				gestorUsuario.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
+				
+				System.out.println("[INFO] - Usuario creado");
 				}
 			}
 		});
@@ -167,11 +174,6 @@ public class VentanaUsuarios extends JPanel {
 
 	}
 	
-	String nombre = tfNombre.getText();
-	String login = tfLogin.getText();
-	String password = tfPassword.getText();
-	String email = tfEmail.getText();
-	userTypeEnum rol = userTypeEnum.valueOf(comboBox.getSelectedItem().toString());
 	
 	public boolean formValid() {
 		if (tfNombre.getText().isEmpty() || tfLogin.getText().isEmpty() 
