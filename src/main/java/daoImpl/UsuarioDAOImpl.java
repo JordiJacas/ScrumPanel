@@ -1,12 +1,14 @@
 package daoImpl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import enumClass.userTypeEnum;
 import iDao.IUsuario;
 import modelo.Usuario;
 
@@ -37,9 +39,16 @@ public class UsuarioDAOImpl implements IUsuario{
 		return user;
 	}
 
-	public ArrayList<Usuario> getUsarioAll() {
+	public List<Usuario> getUsuariosByRol(userTypeEnum rol) {
 		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT u from Usuario u where u.rol_usuario = '" + rol + "'";
+		Query query = entityManager.createQuery(sql);
+		List<Usuario> users = query.getResultList();
+		
+		entityManager.close();
+        factory.close();
+        
+		return users;
 	}
 
 }
