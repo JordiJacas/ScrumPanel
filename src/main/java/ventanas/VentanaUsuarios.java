@@ -3,6 +3,7 @@ package ventanas;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
@@ -105,7 +106,12 @@ public class VentanaUsuarios extends JPanel {
 				IUsuario gestorUsuario = new UsuarioDAOImpl();
 				gestorUsuario.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
 				
+				JOptionPane.showMessageDialog(null,  "Usuario creado");
+				
 				System.out.println("[INFO] - Usuario creado");
+				}
+				else {
+					JOptionPane.showMessageDialog(null,  "El Usuario no se ha podido crear");
 				}
 			}
 		});
