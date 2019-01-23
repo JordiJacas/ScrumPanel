@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class VentanaUsuarios extends JPanel {
 	private JTextField tfNombre;
@@ -55,6 +56,7 @@ public class VentanaUsuarios extends JPanel {
 		tfNombre.setColumns(10);
 		
 		tfLogin = new JTextField();
+		tfLogin.setEditable(false);
 		tfLogin.setColumns(10);
 		
 		tfPassword = new JPasswordField();
@@ -115,6 +117,10 @@ public class VentanaUsuarios extends JPanel {
 				}
 			}
 		});
+		
+		JLabel lblRepetidas = new JLabel("Las contrase\u00F1as no coinciden");
+		lblRepetidas.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblRepetidas.setForeground(Color.RED);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -129,7 +135,6 @@ public class VentanaUsuarios extends JPanel {
 						.addComponent(lblRol, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
 					.addGap(42)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(tfPassword2, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
 						.addComponent(tfLogin, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
 						.addComponent(tfNombre, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
@@ -138,10 +143,16 @@ public class VentanaUsuarios extends JPanel {
 						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 							.addComponent(btnGuardar, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
 							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(tfPassword, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
-								.addGap(26)
-								.addComponent(btnGenerarPassword))))
-					.addContainerGap(24, Short.MAX_VALUE))
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addComponent(tfPassword, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
+									.addComponent(tfPassword2, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(btnGenerarPassword)
+										.addGap(30))
+									.addComponent(lblRepetidas, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)))))
+					.addContainerGap(28, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -163,7 +174,8 @@ public class VentanaUsuarios extends JPanel {
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblPassword2, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tfPassword2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(tfPassword2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblRepetidas))
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
@@ -174,7 +186,7 @@ public class VentanaUsuarios extends JPanel {
 						.addComponent(lblRol, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnGuardar)
-					.addContainerGap(38, Short.MAX_VALUE))
+					.addContainerGap(15, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 
@@ -189,5 +201,4 @@ public class VentanaUsuarios extends JPanel {
 			return false;
 		return true;
 	}
-	
 }
