@@ -71,9 +71,10 @@ public class VentanaUsuarios extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				SecureRandom random = new SecureRandom();
-				 String text = new BigInteger(32, random).toString(32);
-				 tfPassword.setText(text);
-				 tfPassword2.setText(text);
+				String text = new BigInteger(24, random).toString(32);
+				JOptionPane.showMessageDialog(null, text);
+				tfPassword.setText(text);
+				tfPassword2.setText(text);
 				//System.out.println("[INFO] - Generando Contraseña aleatoria");
 				//System.out.println("[INFO] - Contraseña generada");
 			}
