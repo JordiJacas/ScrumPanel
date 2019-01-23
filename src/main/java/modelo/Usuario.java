@@ -21,22 +21,22 @@ public class Usuario {
 	@GeneratedValue
 	private int usuario_id;
 	
-	@Column
+	@Column(unique = true, nullable = false)
 	private String nombre_usuario;
 	
-	@Column
+	@Column(nullable = false)
 	private String nombre;
 	
-	@Column
+	@Column(nullable = false)
 	private String contraseña;
 	
-	@Column
+	@Column(unique = true)
 	private String email;
 	
 	@OneToMany(cascade=CascadeType.PERSIST)
 	private List<Proyecto> grupo_proyecto_id;
 	
-	@Column
+	@Column(nullable = false)
 	private  userTypeEnum rol_usuario;
 
 	public Usuario() {
