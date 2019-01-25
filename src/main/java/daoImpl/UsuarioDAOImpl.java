@@ -41,7 +41,6 @@ public class UsuarioDAOImpl implements IUsuario{
 
 	public List<Usuario> getUsuariosByRol(userTypeEnum rol) {
 		// TODO Auto-generated method stub
-		System.out.println(rol);
 		String sql = "SELECT u from Usuario u where u.rol_usuario = '" + rol.ordinal() + "'";
 		Query query = entityManager.createQuery(sql);
 		List<Usuario> users = query.getResultList();
