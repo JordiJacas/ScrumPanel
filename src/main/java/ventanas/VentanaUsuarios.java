@@ -19,19 +19,24 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class VentanaUsuarios extends JPanel {
+public class VentanaUsuarios extends JPanel implements FocusListener{
 	private JTextField tfNombre;
 	private JTextField tfLogin;
 	private JPasswordField tfPassword;
 	private JPasswordField tfPassword2;
 	private JTextField tfEmail;
 	private JComboBox comboBox;
-
+	private JLabel lblRepetidas;
 	/**
 	 * Create the panel.
 	 */
@@ -54,6 +59,7 @@ public class VentanaUsuarios extends JPanel {
 		
 		tfNombre = new JTextField();
 		tfNombre.setColumns(10);
+		tfNombre.addFocusListener(this);
 		
 		tfLogin = new JTextField();
 		tfLogin.setEditable(false);
@@ -73,9 +79,10 @@ public class VentanaUsuarios extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				SecureRandom random = new SecureRandom();
-				 String text = new BigInteger(32, random).toString(32);
-				 tfPassword.setText(text);
-				 tfPassword2.setText(text);
+				String text = new BigInteger(28, random).toString(32);
+				JOptionPane.showMessageDialog(null, text);
+				tfPassword.setText(text);
+				tfPassword2.setText(text);
 				//System.out.println("[INFO] - Generando Contraseña aleatoria");
 				//System.out.println("[INFO] - Contraseña generada");
 			}
@@ -91,26 +98,30 @@ public class VentanaUsuarios extends JPanel {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (formValid()) {
-				String nombre = tfNombre.getText();
-				String login = tfLogin.getText();
-				String password = tfPassword.getText();
-				String email = tfEmail.getText();
-				userTypeEnum rol = userTypeEnum.valueOf(comboBox.getSelectedItem().toString());
-				
-				System.out.println("[INFO] - Creando usuario: ");
-				System.out.println("[INFO] - Nombre: " + nombre);
-				System.out.println("[INFO] - Login: " + login);
-				System.out.println("[INFO] - password: " + password);
-				System.out.println("[INFO] - Email: " + email);
-				System.out.println("[INFO] - Rol: " + rol);
-				
-				IUsuario gestorUsuario = new UsuarioDAOImpl();
-				gestorUsuario.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
-				
-				JOptionPane.showMessageDialog(null,  "Usuario creado");
-				
-				System.out.println("[INFO] - Usuario creado");
+				boolean valid = true;
+				valid = !validatePasswords() ? false : valid;
+				valid = !formNotEmpty() ? false : valid;
+				valid = !validateEmail() ? false : valid;
+				if (valid) {
+					String nombre = tfNombre.getText();
+					String login = tfLogin.getText();
+					String password = tfPassword.getText();
+					String email = tfEmail.getText();
+					userTypeEnum rol = userTypeEnum.valueOf(comboBox.getSelectedItem().toString());
+					
+					System.out.println("[INFO] - Creando usuario: ");
+					System.out.println("[INFO] - Nombre: " + nombre);
+					System.out.println("[INFO] - Login: " + login);
+					System.out.println("[INFO] - password: " + password);
+					System.out.println("[INFO] - Email: " + email);
+					System.out.println("[INFO] - Rol: " + rol);
+					
+					IUsuario gestorUsuario = new UsuarioDAOImpl();
+					gestorUsuario.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
+					
+					JOptionPane.showMessageDialog(null,  "Usuario creado");
+					
+					System.out.println("[INFO] - Usuario creado");
 				}
 				else {
 					JOptionPane.showMessageDialog(null,  "El Usuario no se ha podido crear");
@@ -118,9 +129,10 @@ public class VentanaUsuarios extends JPanel {
 			}
 		});
 		
-		JLabel lblRepetidas = new JLabel("Las contrase\u00F1as no coinciden");
+		lblRepetidas = new JLabel("Las contrase\u00F1as no coinciden");
 		lblRepetidas.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblRepetidas.setForeground(Color.RED);
+		lblRepetidas.setVisible(false);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -192,13 +204,53 @@ public class VentanaUsuarios extends JPanel {
 
 	}
 	
+	public boolean validatePasswords() {
+		if(!tfPassword.getText().equals(tfPassword2.getText())) {
+			lblRepetidas.setVisible(true);
+			return false;
+		}
+		lblRepetidas.setVisible(false);
+		return true;
+	}
 	
-	public boolean formValid() {
+	public boolean formNotEmpty() {
 		if (tfNombre.getText().isEmpty() || tfLogin.getText().isEmpty() 
 				|| tfPassword.getText().isEmpty() || tfPassword2.getText().isEmpty()
-				|| !tfPassword.getText().equals(tfPassword2.getText()) || tfEmail.getText().isEmpty()
+				|| tfEmail.getText().isEmpty()
 				|| comboBox.getSelectedItem().toString().isEmpty())
 			return false;
 		return true;
 	}
+	
+	public boolean validateEmail() {
+		String email = tfEmail.getText();
+		String EMAIL_PATTERN = 
+				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		
+		Pattern pattern;
+		Matcher matcher;
+		
+		pattern = Pattern.compile(EMAIL_PATTERN);
+		matcher = pattern.matcher(email);
+		return matcher.matches();
+	}
+	
+	public void generateLogin() {
+		String login, 
+				completeName[] = tfNombre.getText().split(" ");
+		login = completeName[completeName.length - 2];
+		for (int i = 0; i < completeName.length - 2 ; i++) {
+			login = completeName[i].charAt(0) + login;
+		}
+		tfLogin.setText(login.toLowerCase());
+	}
+
+	public void focusGained(FocusEvent e) {
+	}
+
+	public void focusLost(FocusEvent e) {
+		generateLogin();
+	}
+	
 }
