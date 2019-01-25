@@ -1,10 +1,13 @@
 package ventanas;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Panel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
@@ -16,6 +19,8 @@ import javax.swing.border.EmptyBorder;
 
 import daoTest.ConnnectDBDaoTest;
 import enumClass.userTypeEnum;
+import modelo.Usuario;
+import modelo.UsuarioConectado;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -24,6 +29,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
+import javax.swing.JLabel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
 
 public class VentanaGeneral extends JFrame {
 	
@@ -38,6 +48,10 @@ public class VentanaGeneral extends JFrame {
 	private JMenuItem sBuscarmodificarUsuario;
 	private JMenuItem sCrearProyecto;
 	private JMenuItem sBuscarProyecto;
+	private JPanel pNombreSalir;
+	private JLabel lblUsuario;
+	private ArrayList<JInternalFrame> internalFrames;
+	private JButton btnSalir;
 	
 	/**
 	 * Launch the application.
@@ -61,6 +75,8 @@ public class VentanaGeneral extends JFrame {
 	    setTitle("SCRUM - " + state);
 	    setSize(800,500);
 	    setVisible(true);
+	    
+	    internalFrames = new ArrayList<JInternalFrame>();
 	    
 		dp = new JDesktopPane();
 		dp.setBackground(Color.WHITE);
@@ -113,9 +129,13 @@ public class VentanaGeneral extends JFrame {
 	
 		// Se construye el JInternalFrame
 		iLogin = new JInternalFrame("Login");
+		iLogin.setSize(156, 94);
 		iLogin.setLocation(133, 58);
+		internalFrames.add(iLogin);
+		
 		iNuevoUsuario = new JInternalFrame("Nuevo Usuairo");
-		iNuevoUsuario.setLocation(89, 71);
+		iNuevoUsuario.setLocation(28, 107);
+		internalFrames.add(iNuevoUsuario);
 		
 		//Creamos el panel que contendra el JInternalFrame
 		JPanel login = new VentanaLogin(this, iLogin);
@@ -141,19 +161,65 @@ public class VentanaGeneral extends JFrame {
 		dp.add(iLogin);
 		dp.add(iNuevoUsuario);
 		
+		pNombreSalir = new JPanel();
+		pNombreSalir.setBounds(0, 26, 782, 26);
+		dp.add(pNombreSalir);
+		
+		lblUsuario = new JLabel("");
+		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				for(JInternalFrame internalFrame: internalFrames) {
+					internalFrame.setVisible(false);
+				}
+				
+				btnSalir.setVisible(false);
+				lblUsuario.setText("");
+				iLogin.setVisible(true);
+			}
+		});
+		GroupLayout gl_panel = new GroupLayout(pNombreSalir);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblUsuario, GroupLayout.PREFERRED_SIZE, 681, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnSalir, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+					.addGap(6))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+					.addComponent(lblUsuario, GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+					.addComponent(btnSalir))
+		);
+		pNombreSalir.setLayout(gl_panel);
+		btnSalir.setVisible(false);
+		
 		// Se visualiza el JInternalFrame 
 		iLogin.setVisible(true);
 		iNuevoUsuario.setVisible(false);
 	}
 	
-	public VentanaGeneral() {}
-	
-	public void visible(userTypeEnum rol) {
+	public void visible(Usuario usuario) {
+		
 		iLogin.setVisible(false);
-		if(rol.equals(userTypeEnum.USER_ADMINISTRATOR)){
+		if(usuario.getRol_usuario().equals(userTypeEnum.USER_ADMINISTRATOR)){
 			mUsuarios.setVisible(true);
 		}
+		
 		mProyectos.setVisible(true);
+		btnSalir.setVisible(true);
+		pNombreSalir.updateUI();
+		
+		lblUsuario.setText("Usuario: " + UsuarioConectado.getNombreUsuario() + " (" + UsuarioConectado.getRolUsuario() + ")");
+		
+		
 		
 	}
 }
