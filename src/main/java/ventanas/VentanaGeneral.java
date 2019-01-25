@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
@@ -14,9 +15,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import daoTest.ConnnectDBDaoTest;
+import enumClass.userTypeEnum;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenu;
 
 public class VentanaGeneral extends JFrame {
 	
@@ -24,7 +31,14 @@ public class VentanaGeneral extends JFrame {
 	private JInternalFrame iLogin;
 	private JInternalFrame iNuevoUsuario;
 	private JPanel contentPane;
-
+	private JMenuBar menuBar;
+	private JMenu mUsuarios;
+	private JMenu mProyectos;
+	private JMenuItem sNuevoUsuario;
+	private JMenuItem sBuscarmodificarUsuario;
+	private JMenuItem sCrearProyecto;
+	private JMenuItem sBuscarProyecto;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -32,7 +46,7 @@ public class VentanaGeneral extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaGeneral frame = new VentanaGeneral(null);
+					VentanaGeneral frame = new VentanaGeneral("Online");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +54,6 @@ public class VentanaGeneral extends JFrame {
 			}
 		});
 	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -50,16 +63,62 @@ public class VentanaGeneral extends JFrame {
 	    setVisible(true);
 	    
 		dp = new JDesktopPane();
+		dp.setBackground(Color.WHITE);
 		getContentPane().add(dp);
-	    
+		
+		menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, 782, 26);
+		dp.add(menuBar);
+		
+		mUsuarios = new JMenu("Usuarios");
+		menuBar.add(mUsuarios);
+		
+		sNuevoUsuario = new JMenuItem("Nuevo Usuario");
+		sNuevoUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				iNuevoUsuario.setVisible(true);
+			}
+		});
+		mUsuarios.add(sNuevoUsuario);
+		
+		sBuscarmodificarUsuario = new JMenuItem("Buscar/Modificar Usuario");
+		sBuscarmodificarUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				iNuevoUsuario.setVisible(true);
+			}
+		});
+		mUsuarios.add(sBuscarmodificarUsuario);
+		
+		mProyectos = new JMenu("Proyectos");
+		menuBar.add(mProyectos);
+		
+		sCrearProyecto = new JMenuItem("Crear Proyecto");
+		sCrearProyecto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				iNuevoUsuario.setVisible(true);
+			}
+		});
+		mProyectos.add(sCrearProyecto);
+		
+		JMenuItem sBuscarProyecto = new JMenuItem("Buscar Proyectos");
+		sBuscarProyecto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				iNuevoUsuario.setVisible(true);
+			}
+		});
+		mProyectos.add(sBuscarProyecto);
+		
+		mUsuarios.setVisible(false);
+		mProyectos.setVisible(false);
+	
 		// Se construye el JInternalFrame
 		iLogin = new JInternalFrame("Login");
-		iLogin.setLocation(12, 13);
+		iLogin.setLocation(133, 58);
 		iNuevoUsuario = new JInternalFrame("Nuevo Usuairo");
-		iNuevoUsuario.setLocation(12, 13);
+		iNuevoUsuario.setLocation(89, 71);
 		
 		//Creamos el panel que contendra el JInternalFrame
-		JPanel login = new VentanaLogin(iLogin, iNuevoUsuario);
+		JPanel login = new VentanaLogin(this, iLogin);
 		JPanel nuevoUsuario = new VentanaUsuarios();
 		
 		//Añadimos el panel al JInternalFram
@@ -84,7 +143,20 @@ public class VentanaGeneral extends JFrame {
 		
 		// Se visualiza el JInternalFrame 
 		iLogin.setVisible(true);
-		iNuevoUsuario.setVisible(false);		
-	     
+		iNuevoUsuario.setVisible(false);
+	}
+	
+	public VentanaGeneral() {}
+	
+	public void visible(userTypeEnum rol) {
+		iLogin.setVisible(false);
+		if(rol.equals(userTypeEnum.USER_ADMINISTRATOR)){
+			mUsuarios.setVisible(true);
+		}
+		mProyectos.setVisible(true);
+		
 	}
 }
+
+
+

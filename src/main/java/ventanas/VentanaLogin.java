@@ -4,6 +4,7 @@ import javax.swing.JPasswordField;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
@@ -16,11 +17,13 @@ import iDao.IUsuario;
 import modelo.Usuario;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Hashtable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -28,14 +31,14 @@ public class VentanaLogin extends JPanel implements KeyListener{
 	private JTextField tfLogin;
 	private JPasswordField tfPassword;
 	private JInternalFrame iLogin;
-	private JInternalFrame iNuevoUsuario;
+	private VentanaGeneral VentanaGeneral;
 	
 	/**
 	 * Create the panel.
 	 */
-	public VentanaLogin(JInternalFrame iLogin, JInternalFrame iNuevoUsuario) {
+	public VentanaLogin(VentanaGeneral VentanaGeneral, JInternalFrame iLogin) {
 		this.iLogin = iLogin;
-		this.iNuevoUsuario = iNuevoUsuario;
+		this.VentanaGeneral = VentanaGeneral;
 		
 		setFocusable(true);
 		addKeyListener(this);
@@ -139,11 +142,8 @@ public class VentanaLogin extends JPanel implements KeyListener{
 			if(usuario.getNombre_usuario().equals(user) & usuario.getContraseña().equals(password)) {
 				JOptionPane.showMessageDialog(null,  "Usuario " + usuario.getNombre() + " Conectado");
 			
-				iLogin.setVisible(false);
-				if(usuario.getRol_usuario().equals(userTypeEnum.USER_ADMINISTRATOR)) {
-					iNuevoUsuario.setVisible(true);
-				}
-				
+				VentanaGeneral.visible(userTypeEnum.USER_ADMINISTRATOR);
+		
 			}else {
 				JOptionPane.showMessageDialog(null,  "Nombre de Usuario o Contraseña incorrectos");
 				
