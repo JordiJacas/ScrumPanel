@@ -30,6 +30,7 @@ public class VentanaGeneral extends JFrame {
 	protected JDesktopPane dp;
 	private JInternalFrame iLogin;
 	private JInternalFrame iNuevoUsuario;
+	private JInternalFrame iNuevoProyecto;
 	private JPanel contentPane;
 	private JMenuBar menuBar;
 	private JMenu mUsuarios;
@@ -88,14 +89,13 @@ public class VentanaGeneral extends JFrame {
 			}
 		});
 		mUsuarios.add(sBuscarmodificarUsuario);
-		
 		mProyectos = new JMenu("Proyectos");
 		menuBar.add(mProyectos);
 		
 		sCrearProyecto = new JMenuItem("Crear Proyecto");
 		sCrearProyecto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				iNuevoUsuario.setVisible(true);
+				iNuevoProyecto.setVisible(true);
 			}
 		});
 		mProyectos.add(sCrearProyecto);
@@ -103,7 +103,7 @@ public class VentanaGeneral extends JFrame {
 		JMenuItem sBuscarProyecto = new JMenuItem("Buscar Proyectos");
 		sBuscarProyecto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				iNuevoUsuario.setVisible(true);
+				iNuevoProyecto.setVisible(true);
 			}
 		});
 		mProyectos.add(sBuscarProyecto);
@@ -117,18 +117,26 @@ public class VentanaGeneral extends JFrame {
 		iNuevoUsuario = new JInternalFrame("Nuevo Usuairo");
 		iNuevoUsuario.setLocation(89, 71);
 		
+		iNuevoProyecto = new JInternalFrame("Nuevo Proyecto");
+		iNuevoProyecto.setLocation(89, 71);
+		
 		//Creamos el panel que contendra el JInternalFrame
 		JPanel login = new VentanaLogin(this, iLogin);
 		JPanel nuevoUsuario = new VentanaUsuarios();
+		
+		JPanel nuevoProyecto = new VentanaProyecto();
 		
 		//Añadimos el panel al JInternalFram
 		iLogin.getContentPane().add(login);
 		iNuevoUsuario.getContentPane().add(nuevoUsuario);
 		
+		iNuevoProyecto.getContentPane().add(nuevoProyecto);
+		
 		// Es importante darle tamaño -pack()- al JInternalFrame,
 		// porque si no, tendrá tamaño 0,0 y no lo veremos.
 		iLogin.pack();
 		iNuevoUsuario.pack();
+		iNuevoProyecto.pack();
 		
 		// Por defecto el JInternalFrame no es redimensionable ni
 		// tiene el botón de cerrar, así que se lo ponemos.
@@ -137,9 +145,14 @@ public class VentanaGeneral extends JFrame {
 		iNuevoUsuario.setResizable(true);
 		iNuevoUsuario.setClosable(true);
 		
+		iNuevoProyecto.setResizable(true);
+		iNuevoProyecto.setClosable(true);
+		
 		// Se mete el internal en el JDesktopPane
 		dp.add(iLogin);
 		dp.add(iNuevoUsuario);
+		
+		dp.add(iNuevoProyecto);
 		
 		// Se visualiza el JInternalFrame 
 		iLogin.setVisible(true);
