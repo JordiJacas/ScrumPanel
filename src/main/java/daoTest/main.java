@@ -1,6 +1,5 @@
 package daoTest;
 
-import config.InsertarDatos;
 import ventanas.VentanaGeneral;
 
 public class main {
@@ -10,7 +9,5 @@ public class main {
 		ConnnectDBDaoTest connect = new ConnnectDBDaoTest();
 		VentanaGeneral vGeneral = new VentanaGeneral(connect.getState());
 		vGeneral.setVisible(true);
-
 	}
-
 }
