@@ -52,6 +52,17 @@ public class Usuario {
 		this.grupo_proyecto_id = grupo_proyecto_id;
 		this.rol_usuario = rol_usuario;
 	}
+	
+	public Usuario(String nombre_usuario, String nombre, String contraseña, String email,
+			userTypeEnum rol_usuario) {
+		super();
+		this.nombre_usuario = nombre_usuario;
+		this.nombre = nombre;
+		this.contraseña = contraseña;
+		this.email = email;
+		this.grupo_proyecto_id = grupo_proyecto_id;
+		this.rol_usuario = rol_usuario;
+	}
 
 	public String getNombre_usuario() {
 		return nombre_usuario;

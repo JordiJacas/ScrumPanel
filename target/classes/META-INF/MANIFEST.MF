@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Built-By: TNB-20
 Build-Jdk: 1.8.0_191
 Created-By: Maven Integration for Eclipse
 
+=======
+Manifest-Version: 1.0
+Built-By: TNB-20
+Build-Jdk: 1.8.0_181
+Created-By: Maven Integration for Eclipse
+
+>>>>>>> b1f394d83e1155912ba94b7be0cd326c3554f1e1
