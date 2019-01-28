@@ -15,4 +15,16 @@
             <property name="javax.persistence.sql-load-script-source" value="META-INF/data.sql"/>
         </properties>
     </persistence-unit>   
+    <persistence-unit name="ScrumDBEmbebed">
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:./testdb" />
+            <property name="javax.persistence.jdbc.user" value="jsj" />
+            <property name="javax.persistence.jdbc.password" value="jsj12321" />
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="javax.persistence.sql-load-script-source" value="META-INF/data.sql"/>
+        </properties>
+    </persistence-unit>  
 </persistence>																													
