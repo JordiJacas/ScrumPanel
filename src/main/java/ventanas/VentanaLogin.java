@@ -137,10 +137,10 @@ public class VentanaLogin extends JPanel implements KeyListener{
 		} else {
 			System.out.println("[INFO] - Comprobando datos...");
 			
-			VentanaGeneral.visible(new Usuario("nombre_usuario"," String nombre", "String contraseña", "String email",
-					userTypeEnum.USER_ADMINISTRATOR));
+			/*VentanaGeneral.visible(new Usuario("nombre_usuario"," String nombre", "String contraseña", "String email",
+					userTypeEnum.USER_ADMINISTRATOR));*/
 			
-			/*IUsuario gestorUsuarios = new UsuarioDAOImpl();
+			IUsuario gestorUsuarios = new UsuarioDAOImpl();
 			Usuario usuario = gestorUsuarios.getUsuarioByNombreUsuario(user);
 			
 			if(usuario.getNombre_usuario().equals(user) & usuario.getContraseña().equals(password)) {
@@ -152,7 +152,7 @@ public class VentanaLogin extends JPanel implements KeyListener{
 			}else {
 				JOptionPane.showMessageDialog(null,  "Nombre de Usuario o Contraseña incorrectos");
 				
-			}*/
+			}
 		}
 	}
 	
