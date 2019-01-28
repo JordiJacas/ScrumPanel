@@ -16,7 +16,7 @@ public class Proyecto {
 	@GeneratedValue
 	private int proyecto_id;
 	
-	@Column
+	@Column(unique = true, nullable = false)
 	private String nombre_proyecto;
 	
 	@Column
