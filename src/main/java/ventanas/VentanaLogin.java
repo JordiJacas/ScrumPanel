@@ -15,6 +15,7 @@ import daoImpl.UsuarioDAOImpl;
 import enumClass.userTypeEnum;
 import iDao.IUsuario;
 import modelo.Usuario;
+import modelo.UsuarioConectado;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -109,7 +110,7 @@ public class VentanaLogin extends JPanel implements KeyListener{
 		Usuario usuario = new Usuario();
 		usuario.setNombre("Admin");
 		usuario.setNombre_usuario("admin");
-		usuario.setContraseña("admin");
+		usuario.setPassword("admin");
 		usuario.setEmail("admin@gmail.com");
 		usuario.setRol_usuario(userTypeEnum.USER_ADMINISTRATOR);
 		
@@ -139,10 +140,11 @@ public class VentanaLogin extends JPanel implements KeyListener{
 			IUsuario gestorUsuarios = new UsuarioDAOImpl();
 			Usuario usuario = gestorUsuarios.getUsuarioByNombreUsuario(user);
 			
-			if(usuario.getNombre_usuario().equals(user) & usuario.getContraseña().equals(password)) {
+			if(usuario.getNombre_usuario().equals(user) & usuario.getPassword().equals(password)) {
+				UsuarioConectado.setUsuario(usuario);
 				JOptionPane.showMessageDialog(null,  "Usuario " + usuario.getNombre() + " Conectado");
-			
-				VentanaGeneral.visible(userTypeEnum.USER_ADMINISTRATOR);
+				
+				VentanaGeneral.visible(usuario);
 		
 			}else {
 				JOptionPane.showMessageDialog(null,  "Nombre de Usuario o Contraseña incorrectos");
