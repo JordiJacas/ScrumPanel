@@ -36,11 +36,13 @@ public class VentanaProyecto extends JPanel {
 	private UsuarioDAOImpl user;
 	private List<Usuario> scrumMasterList;
 	private ArrayList<String> sMNames;
+	private JComboBox scrumMasterCB;
 	private ComboBoxModel smModel;
 	//Aqui esta el segundo objeto para el Product Owner
 	private UsuarioDAOImpl user2;
 	private List<Usuario> productOwnerList;
 	private ArrayList<String> pONames;
+	private JComboBox productOwnerCB;
 	private ComboBoxModel poModel;
 	private JButton btnAdd;
 	private JLabel lblExiste;
@@ -70,7 +72,7 @@ public class VentanaProyecto extends JPanel {
 			sMNames.add(usuario.getNombre());
 		}	
 
-		JComboBox scrumMasterCB = new JComboBox();
+		scrumMasterCB = new JComboBox();
 		
 		smModel = new DefaultComboBoxModel(sMNames.toArray());
 		
@@ -85,14 +87,14 @@ public class VentanaProyecto extends JPanel {
 		for (Usuario usuario: productOwnerList) {
 			pONames.add(usuario.getNombre());
 		}		
-		JComboBox productOwnerCB = new JComboBox();
+		productOwnerCB = new JComboBox();
 		
 		poModel = new DefaultComboBoxModel(pONames.toArray());
 		
 		productOwnerCB.setModel(poModel);
 		
 		//Aqui tenemos el boton que guarda el proyecto en la BD
-		btnAdd = new JButton("A\u00F1adir");
+		btnAdd = new JButton("Crear");
 		
 		btnAdd.addActionListener(new ActionListener() {
 			
@@ -102,17 +104,17 @@ public class VentanaProyecto extends JPanel {
 				if (valid) {
 					String nombreProyecto = textProyecto.getText();
 					String descripcion = textDescripcion.getText();
-					//userTypeEnum scrumMasterNom = userTypeEnum.valueOf(scrumMasterCB.getSelectedItem().toString());
-					//userTypeEnum productOwnerNom = userTypeEnum.valueOf(productOwnerCB.getSelectedItem().toString());
+					Usuario scrumMasterNom = scrumMasterList.get(scrumMasterCB.getSelectedIndex());
+					Usuario productOwnerNom = productOwnerList.get(productOwnerCB.getSelectedIndex());
 					
 					System.out.println("[INFO] - Creando proyecto: ");
 					System.out.println("[INFO] - Nombre del proyecto: " + textProyecto);
 					System.out.println("[INFO] - Decripcion: " + textDescripcion);
-					//System.out.println("[INFO] - Nombre del Scrum Master: " + scrumMasterNom);
-					//System.out.println("[INFO] - Nombre del Product Owner: " + productOwnerNom);
+					System.out.println("[INFO] - Nombre del Scrum Master: " + scrumMasterNom.getNombre());
+					System.out.println("[INFO] - Nombre del Product Owner: " + productOwnerNom.getNombre());
 					
 					IProyecto gestorProyecto = new ProyectoDAOImpl();
-					//gestorProyecto.crearProyecto(new Proyecto(nombreProyecto,descripcion,scrumMasterNom,productOwnerNom));
+					gestorProyecto.crearProyecto(new Proyecto(nombreProyecto, descripcion, scrumMasterNom, productOwnerNom));
 					
 					JOptionPane.showMessageDialog(null,  "Proyecto creado");
 					
