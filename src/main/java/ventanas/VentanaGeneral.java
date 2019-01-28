@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import daoTest.ConnnectDBDaoTest;
+import config.ConnnectDBDaoRemote;
 import enumClass.userTypeEnum;
 import modelo.Usuario;
 import modelo.UsuarioConectado;

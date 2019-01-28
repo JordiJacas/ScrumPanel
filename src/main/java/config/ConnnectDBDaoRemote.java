@@ -1,4 +1,4 @@
-package daoTest;
+package config;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,7 +9,7 @@ import enumClass.userTypeEnum;
 import modelo.Usuario;
 
 
-public class ConnnectDBDaoTest {
+public class ConnnectDBDaoRemote {
 	
 	private static String state = "ONLINE";
 
@@ -17,7 +17,7 @@ public class ConnnectDBDaoTest {
 		return this.state;
 	}
 	
-	public ConnnectDBDaoTest() {
+	public ConnnectDBDaoRemote() {
 		// TODO Auto-generated method stub
 		try {
 			EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
