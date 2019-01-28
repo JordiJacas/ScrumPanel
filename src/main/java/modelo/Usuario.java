@@ -28,7 +28,7 @@ public class Usuario {
 	private String nombre;
 	
 	@Column(nullable = false)
-	private String contraseña;
+	private String password;
 	
 	@Column(unique = true)
 	private String email;
@@ -42,23 +42,23 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public Usuario(String nombre_usuario, String nombre, String contraseña, String email,
+	public Usuario(String nombre_usuario, String nombre, String password, String email,
 			userTypeEnum rol_usuario, List<Proyecto> grupo_proyecto_id) {
 		super();
 		this.nombre_usuario = nombre_usuario;
 		this.nombre = nombre;
-		this.contraseña = contraseña;
+		this.password = password;
 		this.email = email;
 		this.grupo_proyecto_id = grupo_proyecto_id;
 		this.rol_usuario = rol_usuario;
 	}
 	
-	public Usuario(String nombre_usuario, String nombre, String contraseña, String email,
+	public Usuario(String nombre_usuario, String nombre, String password, String email,
 			userTypeEnum rol_usuario) {
 		super();
 		this.nombre_usuario = nombre_usuario;
 		this.nombre = nombre;
-		this.contraseña = contraseña;
+		this.password = password;
 		this.email = email;
 		this.grupo_proyecto_id = grupo_proyecto_id;
 		this.rol_usuario = rol_usuario;
@@ -80,12 +80,12 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getEmail() {

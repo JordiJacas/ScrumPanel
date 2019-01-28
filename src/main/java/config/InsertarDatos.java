@@ -18,14 +18,14 @@ public class InsertarDatos {
 		Usuario newUser = new Usuario();
 		newUser.setNombre("Administrador Usuario");
 		newUser.setNombre_usuario("admin.usuario");
-		newUser.setContraseña("P@ssw0rd");
+		newUser.setPassword("P@ssw0rd");
 		newUser.setEmail("admin.usuario@gmail.com");
 		newUser.setRol_usuario(userTypeEnum.USER_ADMINISTRATOR);
 		
 		Usuario newUser2 = new Usuario();
 		newUser2.setNombre("User 1");
 		newUser2.setNombre_usuario("user.1");
-		newUser2.setContraseña("P@ssw0rd");
+		newUser2.setPassword("P@ssw0rd");
 		newUser2.setEmail("user.1@gmail.com");
 		newUser2.setRol_usuario(userTypeEnum.DEVELOPER);
 		
