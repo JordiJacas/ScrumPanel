@@ -30,9 +30,19 @@ import modelo.Usuario;
 
 public class ConnnectDBDaoRemote {
 	
-	private static String state = "ONLINE";
-	public String getState() {
+	//private static String state = "ONLINE";
+	private static boolean state = true;
+	
+	public boolean getState() {
 		return this.state;
+	}
+	
+	public String getStateString() {
+		
+		if(this.state) return "ONLINE";
+		if(!this.state) return "OFFLINE";
+		
+		return null;
 	}
 	
 	public ConnnectDBDaoRemote() {
@@ -49,10 +59,9 @@ public class ConnnectDBDaoRemote {
 			while(rs.next()) {
 				System.out.println(rs.getString(1));
 			}
-			
 		} catch (Exception e) {
 			System.out.println(e);
-			state = "OFFLINE";
+			state = false;
 		}
 		
 	}

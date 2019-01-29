@@ -18,9 +18,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import config.ConnnectDBDaoRemote;
+import daoImpl.ProyectoDAOImpl;
+import daoImpl.ProyectoDAOImplEmbeded;
 import daoImpl.UsuarioDAOImpl;
+import daoImpl.UsuarioDAOImplEmbebded;
 import enumClass.userTypeEnum;
+import iDao.IProyecto;
 import iDao.IUsuario;
+import modelo.Proyecto;
 import modelo.Usuario;
 
 import javax.swing.JTextArea;
@@ -29,121 +35,195 @@ import javax.swing.JButton;
 
 public class VentanaProyecto extends JPanel {
 	private JTextField textProyecto;
+	private JTextArea textDescripcion;
+	private UsuarioDAOImpl user;
+	private List<Usuario> scrumMasterList;
+	private ArrayList<String> sMNames;
+	private JComboBox scrumMasterCB;
+	private ComboBoxModel smModel;
+
+	//Aqui esta el segundo objeto para el Product Owner
+	private UsuarioDAOImpl user2;
+	private List<Usuario> productOwnerList;
+	private ArrayList<String> pONames;
+	private JComboBox productOwnerCB;
+	private ComboBoxModel poModel;
+	private JButton btnAdd;
+	private JLabel lblExiste;
+	private IProyecto gestorProyecto;
+	private IProyecto gestorProyectoEmbebed;
 
 	/**
 	 * Create the panel.
 	 */
 	public VentanaProyecto() {
-		
-		
+
+
 		JLabel lblProyecto = new JLabel("Nombre Proyecto:");
-		
+
 		textProyecto = new JTextField();
 		textProyecto.setColumns(10);
-		
+
 		JLabel lblDescripcion = new JLabel("Descripcion:");
-		
-		JTextArea textDescripcion = new JTextArea();
-		
+
+		textDescripcion = new JTextArea();
+
 		JLabel lblScrumMaster = new JLabel("Scrum Master:");
-		
-		//
-		UsuarioDAOImpl user = new UsuarioDAOImpl();
-		List<Usuario> scrumMasterList = user.getUsuariosByRol(userTypeEnum.SCRUM_MASTER);
-		ArrayList<String> sMNames = new ArrayList<String>();
+
+		//Aqui cogemos los usuario que son Scrum Master que encuentra en la base de datos remota
+		user = new UsuarioDAOImpl();
+		scrumMasterList = user.getUsuariosByRol(userTypeEnum.SCRUM_MASTER);
+		sMNames = new ArrayList<String>();
 		for (Usuario usuario: scrumMasterList) {
 			sMNames.add(usuario.getNombre());
 		}	
 
-		//
-		JComboBox scrumMasterCB = new JComboBox();
-		
-		ComboBoxModel smModel = new DefaultComboBoxModel(sMNames.toArray());
-		
+		scrumMasterCB = new JComboBox();
+
+		smModel = new DefaultComboBoxModel(sMNames.toArray());
+
 		scrumMasterCB.setModel(smModel);
-		
+
 		JLabel lblProductOwner = new JLabel("Product Owner:");
-		
-		//
-		UsuarioDAOImpl user2 = new UsuarioDAOImpl();
-		List<Usuario> productOwnerList = user2.getUsuariosByRol(userTypeEnum.PRODUCT_OWNER);
-		
-		ArrayList<String> pONames = new ArrayList<String>();
+
+		//Aqui cogemos los usuario que son Scrum Master que encuentra en la base de datos remota
+		user2 = new UsuarioDAOImpl();
+		productOwnerList = user2.getUsuariosByRol(userTypeEnum.PRODUCT_OWNER);
+		pONames = new ArrayList<String>();
 		for (Usuario usuario: productOwnerList) {
 			pONames.add(usuario.getNombre());
 		}		
-		JComboBox productOwnerCB = new JComboBox();
-		
-		//
-		ComboBoxModel poModel = new DefaultComboBoxModel(pONames.toArray());
-		
+		productOwnerCB = new JComboBox();
+
+		poModel = new DefaultComboBoxModel(pONames.toArray());
+
 		productOwnerCB.setModel(poModel);
-		
-		
-		JButton btnAdd = new JButton("A\u00F1adir");
-		
+
+		//Aqui tenemos el boton que guarda el proyecto en la BD
+		btnAdd = new JButton("Crear");
+
 		btnAdd.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				
+				boolean valid = true;
+				valid = !validateNomProyecto(textProyecto.getText()) ? false : valid;
+
+				if (valid) {
+					System.out.println("eee");
+					String nombreProyecto = textProyecto.getText();
+					String descripcion = textDescripcion.getText();
+					Usuario scrumMasterNom = scrumMasterList.get(scrumMasterCB.getSelectedIndex());
+					Usuario productOwnerNom = productOwnerList.get(productOwnerCB.getSelectedIndex());
+					
+					System.out.println("[INFO] - Creando proyecto: ");
+					System.out.println("[INFO] - Nombre del proyecto: " + textProyecto);
+					System.out.println("[INFO] - Decripcion: " + textDescripcion);
+					System.out.println("[INFO] - Nombre del Scrum Master: " + scrumMasterNom.getNombre());
+					System.out.println("[INFO] - Nombre del Product Owner: " + productOwnerNom.getNombre());
+
+					//Creamos objecto proyecto
+					Proyecto proyecto = new Proyecto(nombreProyecto, descripcion, scrumMasterNom, productOwnerNom);
+					
+					ConnnectDBDaoRemote con = new ConnnectDBDaoRemote();
+					if(con.getState()){
+						//Insertamos el proyecto en la BBDD
+						gestorProyecto = new ProyectoDAOImpl();
+						gestorProyecto.crearProyecto(proyecto);
+
+						//Actualizamos los usuarios responsables del proyecto
+						/*IUsuario gestorUsuario = new UsuarioDAOImpl();
+						gestorUsuario.updateUsuario(scrumMasterNom, proyecto);
+						gestorUsuario.updateUsuario(productOwnerNom, proyecto);*/
+					}
+					
+					gestorProyectoEmbebed = new ProyectoDAOImplEmbeded();
+					gestorProyectoEmbebed.crearProyecto(proyecto);
+					
+					JOptionPane.showMessageDialog(null,  "Proyecto creado");
+
+					System.out.println("[INFO] - Proyecto creado");
+				}
+				else {
+					JOptionPane.showMessageDialog(null,  "El Proyecto no se ha podido crear");
+				} 
 			}
 		});
-		
-		JLabel lblExiste = new JLabel("Nombre ya existente");
-		
+			
+		lblExiste = new JLabel("Nombre ya existente");
+		lblExiste.setVisible(false);
+
+
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGap(18)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblProyecto)
 								.addComponent(lblDescripcion)
 								.addComponent(lblScrumMaster)
-								.addComponent(lblExiste))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(scrumMasterCB, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(textDescripcion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textProyecto, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblProductOwner)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblExiste)
+								.addComponent(lblProductOwner))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(btnAdd)
-								.addComponent(productOwnerCB, 0, 269, Short.MAX_VALUE))))
-					.addContainerGap(77, Short.MAX_VALUE))
-		);
+								.addComponent(scrumMasterCB, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(textProyecto, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+								.addComponent(textDescripcion)
+								.addComponent(productOwnerCB, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addContainerGap(64, Short.MAX_VALUE))
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(36)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblProyecto)
-						.addComponent(textProyecto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDescripcion)
-						.addComponent(textDescripcion, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblScrumMaster)
-						.addComponent(scrumMasterCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(28)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblProductOwner)
-						.addComponent(productOwnerCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-					.addComponent(btnAdd)
-					.addGap(30))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(54, Short.MAX_VALUE)
-					.addComponent(lblExiste)
-					.addGap(232))
-		);
+						.addGap(36)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblProyecto)
+								.addComponent(textProyecto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblDescripcion)
+								.addComponent(textDescripcion, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblScrumMaster)
+								.addComponent(scrumMasterCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(28)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblProductOwner)
+								.addComponent(productOwnerCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+						.addComponent(btnAdd)
+						.addGap(30))
+				.addGroup(groupLayout.createSequentialGroup()
+						.addContainerGap(54, Short.MAX_VALUE)
+						.addComponent(lblExiste)
+						.addGap(232))
+				);
 		setLayout(groupLayout);
 
 	}
+
+	//Aqui hacemos que si el nombre de ya existe en la base de datos, no se podra escoger
+	public boolean validateNomProyecto(String proyectoNombre) {
+		Proyecto proyecto;
+		try {
+			ConnnectDBDaoRemote con = new ConnnectDBDaoRemote();
+			if(con.getState()){
+				proyecto = gestorProyecto.getProyectoByName(proyectoNombre);
+			}else {
+				proyecto = gestorProyectoEmbebed.getProyectoByName(proyectoNombre);
+			}
+		} catch (Exception e) {
+			proyecto = null;
+		}
+		
+		if(proyecto != null) {
+			lblExiste.setVisible(true);
+			return false;
+		}
+		return true;
+	}
 }
+
