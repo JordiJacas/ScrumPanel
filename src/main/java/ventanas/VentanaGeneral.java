@@ -144,13 +144,13 @@ public class VentanaGeneral extends JFrame {
 		JPanel login = new VentanaLogin(this, iLogin);
 		JPanel nuevoUsuario = new VentanaUsuarios();
 		
-		JPanel nuevoProyecto = new VentanaProyecto();
+		//JPanel nuevoProyecto = new VentanaProyecto();
 		
 		//Añadimos el panel al JInternalFram
 		iLogin.getContentPane().add(login);
 		iNuevoUsuario.getContentPane().add(nuevoUsuario);
 		
-		iNuevoProyecto.getContentPane().add(nuevoProyecto);
+		//iNuevoProyecto.getContentPane().add(nuevoProyecto);
 		
 		// Es importante darle tamaño -pack()- al JInternalFrame,
 		// porque si no, tendrá tamaño 0,0 y no lo veremos.
@@ -164,9 +164,12 @@ public class VentanaGeneral extends JFrame {
 		iLogin.setClosable(true);
 		iNuevoUsuario.setResizable(true);
 		iNuevoUsuario.setClosable(true);
-		
 		iNuevoProyecto.setResizable(true);
 		iNuevoProyecto.setClosable(true);
+		
+		iLogin.setDefaultCloseOperation(HIDE_ON_CLOSE);
+		iNuevoUsuario.setDefaultCloseOperation(HIDE_ON_CLOSE);
+		iNuevoProyecto.setDefaultCloseOperation(HIDE_ON_CLOSE);
 		
 		// Se mete el internal en el JDesktopPane
 		dp.add(iLogin);

@@ -11,7 +11,9 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import config.ConnnectDBDaoRemote;
 import daoImpl.UsuarioDAOImpl;
+import daoImpl.UsuarioDAOImplEmbebded;
 import enumClass.userTypeEnum;
 import iDao.IUsuario;
 import modelo.Usuario;
@@ -136,8 +138,15 @@ public class VentanaLogin extends JPanel implements KeyListener{
 			JOptionPane.showMessageDialog(null, "Introduzca el usuario y la contrasena para logearte");
 		} else {
 			System.out.println("[INFO] - Comprobando datos...");
+			IUsuario gestorUsuarios;
+			ConnnectDBDaoRemote con = new ConnnectDBDaoRemote();
+			if(con.getState()){
+				gestorUsuarios = new UsuarioDAOImpl();
+			}
+			else {
+				gestorUsuarios = new UsuarioDAOImplEmbebded();
+			}
 			
-			IUsuario gestorUsuarios = new UsuarioDAOImpl();
 			Usuario usuario = gestorUsuarios.getUsuarioByNombreUsuario(user);
 			
 			if(usuario.getNombre_usuario().equals(user) & usuario.getPassword().equals(password)) {

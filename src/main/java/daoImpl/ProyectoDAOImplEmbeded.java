@@ -3,7 +3,7 @@ package daoImpl;
 import iDao.IProyecto;
 import modelo.Proyecto;
 
-public class ProyectoDAOImplOffline implements IProyecto{
+public class ProyectoDAOImplEmbeded implements IProyecto{
 
 	public Proyecto getProyectoByName(String nombre_proyecto) {
 		// TODO Auto-generated method stub

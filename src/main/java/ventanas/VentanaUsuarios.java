@@ -9,7 +9,9 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import config.ConnnectDBDaoRemote;
 import daoImpl.UsuarioDAOImpl;
+import daoImpl.UsuarioDAOImplEmbebded;
 import enumClass.userTypeEnum;
 import iDao.IUsuario;
 import modelo.Usuario;
@@ -116,9 +118,16 @@ public class VentanaUsuarios extends JPanel implements FocusListener{
 					System.out.println("[INFO] - Email: " + email);
 					System.out.println("[INFO] - Rol: " + rol);
 					
-					IUsuario gestorUsuario = new UsuarioDAOImpl();
-					gestorUsuario.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
 					
+					ConnnectDBDaoRemote con = new ConnnectDBDaoRemote();
+					if(con.getState()){
+						IUsuario gestorUsuarios = new UsuarioDAOImpl();
+						gestorUsuarios.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
+					}
+					
+					IUsuario gestorUsuarios = new UsuarioDAOImplEmbebded();
+					gestorUsuarios.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
+		
 					JOptionPane.showMessageDialog(null,  "Usuario creado");
 					
 					System.out.println("[INFO] - Usuario creado");

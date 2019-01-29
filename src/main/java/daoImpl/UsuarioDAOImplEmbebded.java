@@ -7,7 +7,7 @@ import iDao.IUsuario;
 import modelo.Proyecto;
 import modelo.Usuario;
 
-public class UsuarioDAOImplOffline implements IUsuario{
+public class UsuarioDAOImplEmbebded implements IUsuario{
 
 	public void crearUsuario(Usuario usuario) {
 		// TODO Auto-generated method stub
@@ -16,6 +16,7 @@ public class UsuarioDAOImplOffline implements IUsuario{
 
 	public Usuario getUsuarioByNombreUsuario(String nombreUsuario) {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
