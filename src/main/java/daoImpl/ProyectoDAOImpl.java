@@ -17,11 +17,11 @@ public class ProyectoDAOImpl implements IProyecto{
 	public Proyecto getProyectoByName(String nombre_proyecto) {
 		// TODO Auto-generated method stub
 		connect();
-		
-		String sql = "SELECT p from Proyecto p where p.nombre_proyecto = '" + nombre_proyecto + "'";
+		System.out.println("test");
+		String sql = "SELECT p from Proyecto p";
 		Query query = entityManager.createQuery(sql);
 		Proyecto proyecto = (Proyecto) query.getSingleResult();
-		
+		System.out.println(query.getSingleResult());
 		close();
         
 		return proyecto;

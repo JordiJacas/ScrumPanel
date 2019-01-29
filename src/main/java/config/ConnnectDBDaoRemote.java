@@ -51,8 +51,8 @@ public class ConnnectDBDaoRemote {
 			entityManager.close();
 			factory.close();
 
-			Connection con = DriverManager.getConnection("jdbc:sqlite:./testdb");
 			System.out.println("test");
+//			Connection con = DriverManager.getConnection("jdbc:sqlite:./testdb");
 		} catch (Exception e) {
 			System.out.println(e);
 			state = false;
