@@ -3,6 +3,8 @@ package config;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
@@ -46,12 +48,17 @@ public class ConnnectDBDaoRemote {
 	public ConnnectDBDaoRemote() {
 		// TODO Auto-generated method stub
 		try {
-			EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
-			EntityManager entityManager = factory.createEntityManager();
-			entityManager.close();
-			factory.close();
-			
-			//Connection con = DriverManager.getConnection("jdbc:sqlite:./testdb");
+//			EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
+//			EntityManager entityManager = factory.createEntityManager();
+//			entityManager.close();
+//			factory.close();
+			Connection con;
+			con = DriverManager.getConnection("jdbc:sqlite:./data2.sqlite");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("select * from usuario");
+			while(rs.next()) {
+				System.out.println(rs.getString(1));
+			}
 		} catch (Exception e) {
 			System.out.println(e);
 			state = false;

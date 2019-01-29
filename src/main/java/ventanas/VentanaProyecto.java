@@ -234,3 +234,4 @@ public class VentanaProyecto extends JPanel {
 	}
 }
 
+
