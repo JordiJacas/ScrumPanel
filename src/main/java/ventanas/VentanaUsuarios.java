@@ -10,6 +10,7 @@ import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import config.ConnnectDBDaoRemote;
+import config.fileOffline;
 import daoImpl.UsuarioDAOImpl;
 import daoImpl.UsuarioDAOImplEmbebded;
 import enumClass.userTypeEnum;
@@ -123,6 +124,12 @@ public class VentanaUsuarios extends JPanel implements FocusListener{
 					if(con.getState()){
 						IUsuario gestorUsuarios = new UsuarioDAOImpl();
 						gestorUsuarios.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
+					}
+					else {
+						fileOffline file = new fileOffline();
+						file.addQuery(
+								"INSERT INTO `usuario`(`contraseña`, `email`, `nombre`, `nombre_usuario`, `rol_usuario`)" + 
+								"VALUES  ('" + password + "','"+ email +"','"+ nombre + "','" + login + "',"+rol.ordinal()+");");
 					}
 					
 					IUsuario gestorUsuarios = new UsuarioDAOImplEmbebded();

@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import config.ConnnectDBDaoRemote;
+import config.fileOffline;
 import daoImpl.ProyectoDAOImpl;
 import daoImpl.ProyectoDAOImplEmbeded;
 import daoImpl.UsuarioDAOImpl;
@@ -135,6 +136,12 @@ public class VentanaProyecto extends JPanel {
 						/*IUsuario gestorUsuario = new UsuarioDAOImpl();
 						gestorUsuario.updateUsuario(scrumMasterNom, proyecto);
 						gestorUsuario.updateUsuario(productOwnerNom, proyecto);*/
+					}
+					else {
+						fileOffline file = new fileOffline();
+						file.addQuery(
+								"INSERT INTO `proyecto`(`descripcion`, `nombre_proyecto`, `productOwner_usuario_id`, `scrumMaster_usuario_id`) " +
+								"VALUES ('" + textDescripcion + "','"+textProyecto+"',"+productOwnerNom.getUsuario_id()+","+scrumMasterNom.getUsuario_id()+");");
 					}
 					
 					gestorProyectoEmbebed = new ProyectoDAOImplEmbeded();
