@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import enumClass.userTypeEnum;
 import iDao.IUsuario;
+import modelo.Proyecto;
 import modelo.Usuario;
 
 public class UsuarioDAOImpl implements IUsuario{
@@ -55,6 +56,22 @@ public class UsuarioDAOImpl implements IUsuario{
 		close();
         
 		return users;
+	}
+	
+	public void updateUsuario(Usuario usuario, Proyecto proyecto) {
+		// TODO Auto-generated method stub
+		connect();
+		
+		entityManager.getTransaction().begin();
+		//Usuario user = entityManager.find(Usuario.class, usuario.getUsuario_id());
+		List<Proyecto> proyectos = usuario.getGrupo_proyecto_id();
+		proyectos.add(proyecto);
+		usuario.setGrupo_proyecto_id(proyectos);
+		entityManager.getTransaction().commit();
+		
+		close();
+		
+		
 	}
 	
 	private void connect() {

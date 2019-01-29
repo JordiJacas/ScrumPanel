@@ -28,9 +28,19 @@ import modelo.Usuario;
 
 public class ConnnectDBDaoRemote {
 	
-	private static String state = "ONLINE";
-	public String getState() {
+	//private static String state = "ONLINE";
+	private static boolean state = true;
+	
+	public boolean getState() {
 		return this.state;
+	}
+	
+	public String getStateString() {
+		
+		if(this.state) return "ONLINE";
+		if(!this.state) return "OFFLINE";
+		
+		return null;
 	}
 	
 	public ConnnectDBDaoRemote() {
@@ -38,16 +48,14 @@ public class ConnnectDBDaoRemote {
 		try {
 			EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
 			EntityManager entityManager = factory.createEntityManager();
-//			entityManager.close();
-//			factory.close();
-			EntityManagerFactory factory2 = Persistence.createEntityManagerFactory("ScrumDBEmbebed");
-			EntityManager entityManager2 = factory2.createEntityManager();
+			entityManager.close();
+			factory.close();
 
-//			Connection con = DriverManager.getConnection("jdbc:sqlite:./testdb");
+			Connection con = DriverManager.getConnection("jdbc:sqlite:./testdb");
 			System.out.println("test");
 		} catch (Exception e) {
 			System.out.println(e);
-			state = "OFFLINE";
+			state = false;
 		}
 		
 	}

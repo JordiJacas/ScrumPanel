@@ -38,6 +38,7 @@ public class VentanaProyecto extends JPanel {
 	private ArrayList<String> sMNames;
 	private JComboBox scrumMasterCB;
 	private ComboBoxModel smModel;
+	
 	//Aqui esta el segundo objeto para el Product Owner
 	private UsuarioDAOImpl user2;
 	private List<Usuario> productOwnerList;
@@ -113,8 +114,17 @@ public class VentanaProyecto extends JPanel {
 					System.out.println("[INFO] - Nombre del Scrum Master: " + scrumMasterNom.getNombre());
 					System.out.println("[INFO] - Nombre del Product Owner: " + productOwnerNom.getNombre());
 					
+					//Creamos objecto proyecto
+					Proyecto proyecto = new Proyecto(nombreProyecto, descripcion, scrumMasterNom, productOwnerNom);
+					
+					//Insertamos el proyecto en la BBDD
 					IProyecto gestorProyecto = new ProyectoDAOImpl();
-					gestorProyecto.crearProyecto(new Proyecto(nombreProyecto, descripcion, scrumMasterNom, productOwnerNom));
+					gestorProyecto.crearProyecto(proyecto);
+					
+					//Actualizamos los usuarios responsables del proyecto
+					IUsuario gestorUsuario = new UsuarioDAOImpl();
+					gestorUsuario.updateUsuario(scrumMasterNom, proyecto);
+					gestorUsuario.updateUsuario(productOwnerNom, proyecto);
 					
 					JOptionPane.showMessageDialog(null,  "Proyecto creado");
 					
