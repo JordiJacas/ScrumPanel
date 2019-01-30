@@ -5,9 +5,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EnumType;
+
+import org.hibernate.mapping.Array;
 
 import enumClass.userTypeEnum;
 import iDao.IUsuario;
@@ -40,9 +43,9 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
         
 		try {
         	Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT u from Usuario u where u.nombre_usuario = '" + nombreUsuario + "'");
+			ResultSet rs = stmt.executeQuery("SELECT * from Usuario where nombre_usuario = '" + nombreUsuario + "'");
 			while (rs.next()) {
-                usuario = new Usuario(rs.getString("nombre_usuario"), rs.getString("nombre"), rs.getString("password"), rs.getString("email"), userTypeEnum.valueOf(rs.getString("rol_usuario")));
+                usuario = new Usuario(rs.getString("nombre_usuario"), rs.getString("nombre"), rs.getString("password"), rs.getString("email"), userTypeEnum.values()[rs.getInt("rol_usuario")]);
             }
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -52,20 +55,22 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
 	}
 
 	public List<Usuario> getUsuariosByRol(userTypeEnum rol) {
-		System.out.println("eeeey");
+		//System.out.println("eeeey");
 		connect();
-		List<Usuario> usuarios = null;
+		List<Usuario> usuarios = new ArrayList<Usuario>();
         
 		try {
         	Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT u from Usuario u where u.rol_usuario = '" + rol.ordinal() + "'");
+			ResultSet rs = stmt.executeQuery("SELECT * from Usuario where rol_usuario = '"+rol.ordinal()+"';");
 			while (rs.next()) {
-                usuarios.add(new Usuario(rs.getString("nombre_usuario"), rs.getString("nombre"), rs.getString("password"), rs.getString("email"), userTypeEnum.valueOf(rs.getString("rol_usuario"))));
+                usuarios.add(new Usuario(rs.getString("nombre_usuario"), rs.getString("nombre"), rs.getString("password"), rs.getString("email"), userTypeEnum.values()[rs.getInt("rol_usuario")]));
             }
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		close();
+		
+		System.out.println(usuarios);
 		return usuarios;
 	}
 	

@@ -110,6 +110,16 @@ public class VentanaGeneral extends JFrame {
 		sCrearProyecto = new JMenuItem("Crear Proyecto");
 		sCrearProyecto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				JPanel nuevoProyecto = new VentanaProyecto();
+				iNuevoProyecto = new JInternalFrame("Nuevo Proyecto");
+				iNuevoProyecto.setLocation(89, 71);
+				internalFrames.add(iNuevoProyecto);
+				iNuevoProyecto.getContentPane().add(nuevoProyecto);
+				iNuevoProyecto.pack();
+				iNuevoProyecto.setResizable(true);
+				iNuevoProyecto.setClosable(true);
+				dp.add(iNuevoProyecto);
 				iNuevoProyecto.setVisible(true);
 			}
 		});
@@ -136,25 +146,20 @@ public class VentanaGeneral extends JFrame {
 		iNuevoUsuario.setLocation(28, 107);
 		internalFrames.add(iNuevoUsuario);
 		
-		iNuevoProyecto = new JInternalFrame("Nuevo Proyecto");
-		iNuevoProyecto.setLocation(89, 71);
-		internalFrames.add(iNuevoProyecto);
-		
 		//Creamos el panel que contendra el JInternalFrame
 		JPanel login = new VentanaLogin(this, iLogin);
 		JPanel nuevoUsuario = new VentanaUsuarios();
-		JPanel nuevoProyecto = new VentanaProyecto();
 		
 		//Añadimos el panel al JInternalFram
 		iLogin.getContentPane().add(login);
 		iNuevoUsuario.getContentPane().add(nuevoUsuario);
-		iNuevoProyecto.getContentPane().add(nuevoProyecto);
+		
 		
 		// Es importante darle tamaño -pack()- al JInternalFrame,
 		// porque si no, tendrá tamaño 0,0 y no lo veremos.
 		iLogin.pack();
 		iNuevoUsuario.pack();
-		iNuevoProyecto.pack();
+		
 		
 		// Por defecto el JInternalFrame no es redimensionable ni
 		// tiene el botón de cerrar, así que se lo ponemos.
@@ -162,18 +167,17 @@ public class VentanaGeneral extends JFrame {
 		iLogin.setClosable(true);
 		iNuevoUsuario.setResizable(true);
 		iNuevoUsuario.setClosable(true);
-		iNuevoProyecto.setResizable(true);
-		iNuevoProyecto.setClosable(true);
+		
 		
 		iLogin.setDefaultCloseOperation(HIDE_ON_CLOSE);
 		iNuevoUsuario.setDefaultCloseOperation(HIDE_ON_CLOSE);
-		iNuevoProyecto.setDefaultCloseOperation(HIDE_ON_CLOSE);
+		//iNuevoProyecto.setDefaultCloseOperation(HIDE_ON_CLOSE);
 		
 		// Se mete el internal en el JDesktopPane
 		dp.add(iLogin);
 		dp.add(iNuevoUsuario);
 		
-		dp.add(iNuevoProyecto);
+		
 		pNombreSalir = new JPanel();
 		pNombreSalir.setBounds(0, 26, 782, 26);
 		dp.add(pNombreSalir);

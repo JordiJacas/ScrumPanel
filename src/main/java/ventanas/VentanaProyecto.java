@@ -87,6 +87,7 @@ public class VentanaProyecto extends JPanel {
 		productOwnerList = user2.getUsuariosByRol(userTypeEnum.PRODUCT_OWNER);
 
 		sMNames = new ArrayList<String>();
+		System.out.println(scrumMasterList);
 		for (Usuario usuario: scrumMasterList) {
 			sMNames.add(usuario.getNombre());
 		}	
