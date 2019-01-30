@@ -11,7 +11,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import config.ConnnectDBDaoRemote;
+import config.ConnnectDBDao;
 import daoImpl.UsuarioDAOImpl;
 import daoImpl.UsuarioDAOImplEmbebded;
 import enumClass.userTypeEnum;
@@ -139,7 +139,7 @@ public class VentanaLogin extends JPanel implements KeyListener{
 		} else {
 			System.out.println("[INFO] - Comprobando datos...");
 			IUsuario gestorUsuarios;
-			ConnnectDBDaoRemote con = new ConnnectDBDaoRemote();
+			ConnnectDBDao con = new ConnnectDBDao();
 			if(con.getState()){
 				gestorUsuarios = new UsuarioDAOImpl();
 			}

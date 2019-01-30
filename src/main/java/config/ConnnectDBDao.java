@@ -28,7 +28,7 @@ import enumClass.userTypeEnum;
 import modelo.Usuario;
 
 
-public class ConnnectDBDaoRemote {
+public class ConnnectDBDao {
 	
 	//private static String state = "ONLINE";
 	private static boolean state = true;
@@ -45,24 +45,28 @@ public class ConnnectDBDaoRemote {
 		return null;
 	}
 	
-	public ConnnectDBDaoRemote() {
-		// TODO Auto-generated method stub
+	public ConnnectDBDao() {
+		if (!connectRemoteDB()) state = false;
+	}
+	
+	public boolean connectRemoteDB() {
 		try {
-//			EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
-//			EntityManager entityManager = factory.createEntityManager();
-//			entityManager.close();
-//			factory.close();
+			EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
+			EntityManager entityManager = factory.createEntityManager();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public boolean connectEmbbebedDB() {
+		try {
 			Connection con;
 			con = DriverManager.getConnection("jdbc:sqlite:./data2.sqlite");
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("select * from usuario");
-			while(rs.next()) {
-				System.out.println(rs.getString(1));
-			}
+			return true;
 		} catch (Exception e) {
-			System.out.println(e);
-			state = false;
+			return false;
 		}
-		
 	}
+	
 }

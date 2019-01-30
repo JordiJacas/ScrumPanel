@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import config.ConnnectDBDaoRemote;
+import config.ConnnectDBDao;
 import enumClass.userTypeEnum;
 import modelo.Usuario;
 import modelo.UsuarioConectado;
@@ -76,7 +76,6 @@ public class VentanaGeneral extends JFrame {
 	    setTitle("SCRUM - " + state);
 	    setSize(800,500);
 	    setVisible(true);
-	    
 	    internalFrames = new ArrayList<JInternalFrame>();
 	    
 		dp = new JDesktopPane();
@@ -139,18 +138,17 @@ public class VentanaGeneral extends JFrame {
 		
 		iNuevoProyecto = new JInternalFrame("Nuevo Proyecto");
 		iNuevoProyecto.setLocation(89, 71);
+		internalFrames.add(iNuevoProyecto);
 		
 		//Creamos el panel que contendra el JInternalFrame
 		JPanel login = new VentanaLogin(this, iLogin);
 		JPanel nuevoUsuario = new VentanaUsuarios();
-		
-		//JPanel nuevoProyecto = new VentanaProyecto();
+		JPanel nuevoProyecto = new VentanaProyecto();
 		
 		//Añadimos el panel al JInternalFram
 		iLogin.getContentPane().add(login);
 		iNuevoUsuario.getContentPane().add(nuevoUsuario);
-		
-		//iNuevoProyecto.getContentPane().add(nuevoProyecto);
+		iNuevoProyecto.getContentPane().add(nuevoProyecto);
 		
 		// Es importante darle tamaño -pack()- al JInternalFrame,
 		// porque si no, tendrá tamaño 0,0 y no lo veremos.

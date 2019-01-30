@@ -22,8 +22,8 @@ public class ProyectoDAOImpl implements IProyecto{
 		Query query = entityManager.createQuery(sql);
 		Proyecto proyecto = (Proyecto) query.getSingleResult();
 		
+		System.out.println(proyecto.toString());
 		close();
-        
 		return proyecto;
 	}
 	

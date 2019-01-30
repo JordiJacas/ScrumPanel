@@ -9,7 +9,7 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import config.ConnnectDBDaoRemote;
+import config.ConnnectDBDao;
 import config.fileOffline;
 import daoImpl.UsuarioDAOImpl;
 import daoImpl.UsuarioDAOImplEmbebded;
@@ -120,7 +120,7 @@ public class VentanaUsuarios extends JPanel implements FocusListener{
 					System.out.println("[INFO] - Rol: " + rol);
 					
 					
-					ConnnectDBDaoRemote con = new ConnnectDBDaoRemote();
+					ConnnectDBDao con = new ConnnectDBDao();
 					if(con.getState()){
 						IUsuario gestorUsuarios = new UsuarioDAOImpl();
 						gestorUsuarios.crearUsuario(new Usuario(login,nombre,password,email,rol,null));

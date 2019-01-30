@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import config.ConnnectDBDaoRemote;
+import config.ConnnectDBDao;
 import config.fileOffline;
 import daoImpl.ProyectoDAOImpl;
 import daoImpl.ProyectoDAOImplEmbeded;
@@ -59,7 +59,6 @@ public class VentanaProyecto extends JPanel {
 	 */
 	public VentanaProyecto() {
 
-
 		JLabel lblProyecto = new JLabel("Nombre Proyecto:");
 
 		textProyecto = new JTextField();
@@ -70,7 +69,6 @@ public class VentanaProyecto extends JPanel {
 		textDescripcion = new JTextArea();
 
 		JLabel lblScrumMaster = new JLabel("Scrum Master:");
-
 		//Aqui cogemos los usuario que son Scrum Master que encuentra en la base de datos remota
 		user = new UsuarioDAOImpl();
 		scrumMasterList = user.getUsuariosByRol(userTypeEnum.SCRUM_MASTER);
@@ -106,12 +104,15 @@ public class VentanaProyecto extends JPanel {
 		btnAdd.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				
+				ConnnectDBDao con = new ConnnectDBDao();
+				if(con.getState()){
+					//Insertamos el proyecto en la BBDD
+					gestorProyecto = new ProyectoDAOImpl();
+				}
 				boolean valid = true;
 				valid = !validateNomProyecto(textProyecto.getText()) ? false : valid;
 
 				if (valid) {
-					System.out.println("eee");
 					String nombreProyecto = textProyecto.getText();
 					String descripcion = textDescripcion.getText();
 					Usuario scrumMasterNom = scrumMasterList.get(scrumMasterCB.getSelectedIndex());
@@ -125,8 +126,7 @@ public class VentanaProyecto extends JPanel {
 
 					//Creamos objecto proyecto
 					Proyecto proyecto = new Proyecto(nombreProyecto, descripcion, scrumMasterNom, productOwnerNom);
-					
-					ConnnectDBDaoRemote con = new ConnnectDBDaoRemote();
+
 					if(con.getState()){
 						//Insertamos el proyecto en la BBDD
 						gestorProyecto = new ProyectoDAOImpl();
@@ -216,13 +216,15 @@ public class VentanaProyecto extends JPanel {
 	public boolean validateNomProyecto(String proyectoNombre) {
 		Proyecto proyecto;
 		try {
-			ConnnectDBDaoRemote con = new ConnnectDBDaoRemote();
+			ConnnectDBDao con = new ConnnectDBDao();
 			if(con.getState()){
 				proyecto = gestorProyecto.getProyectoByName(proyectoNombre);
+				System.out.println("prueba");
 			}else {
 				proyecto = gestorProyectoEmbebed.getProyectoByName(proyectoNombre);
 			}
 		} catch (Exception e) {
+			System.out.println("no funciona" + e);
 			proyecto = null;
 		}
 		

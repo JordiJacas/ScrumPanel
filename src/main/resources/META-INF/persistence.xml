@@ -5,7 +5,7 @@
         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="ScrumDB">
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.41.150:3306/test?serverTimezone=UTC" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test?serverTimezone=UTC" />
             <property name="javax.persistence.jdbc.user" value="jsj" />
             <property name="javax.persistence.jdbc.password" value="jsj12321" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
