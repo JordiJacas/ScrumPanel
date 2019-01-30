@@ -46,7 +46,7 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
         
 		try {
         	Statement stmt = con.createStatement();
-        	stmt.executeUpdate("INSERT INTO `proyecto` (`proyecto_id`, `descripcion`, `nombre_proyecto`, `productOwner_usuario_id`, `scrumMaster_usuario_id`) VALUES (NULL, " + proyecto.getDescripcion() +  ", " + proyecto.getNombre_proyecto() +", " + proyecto.getProductOwner().getUsuario_id() + ", " + proyecto.getScrumMaster().getUsuario_id() + ")");
+        	stmt.executeUpdate("INSERT INTO `proyecto` (`proyecto_id`, `descripcion`, `nombre_proyecto`, `productOwner_usuario_id`, `scrumMaster_usuario_id`) VALUES (NULL, '" + proyecto.getDescripcion() +  "', '" + proyecto.getNombre_proyecto() +"', " + proyecto.getProductOwner().getUsuario_id() + ", " + proyecto.getScrumMaster().getUsuario_id() + ")");
 		} catch (SQLException e) {
 			System.out.println(e);
 //			e.printStackTrace();

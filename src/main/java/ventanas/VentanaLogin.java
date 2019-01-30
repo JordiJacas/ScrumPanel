@@ -148,7 +148,7 @@ public class VentanaLogin extends JPanel implements KeyListener{
 			}
 			
 			Usuario usuario = gestorUsuarios.getUsuarioByNombreUsuario(user);
-			
+			System.out.println(usuario);
 			if(usuario.getNombre_usuario().equals(user) & usuario.getPassword().equals(password)) {
 				UsuarioConectado.setUsuario(usuario);
 				JOptionPane.showMessageDialog(null,  "Usuario " + usuario.getNombre() + " Conectado");

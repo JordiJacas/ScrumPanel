@@ -2,6 +2,7 @@ package daoImpl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,10 +25,10 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
 	public void crearUsuario(Usuario usuario) {
 		// TODO Auto-generated method stub
 		connect();
-		String sql = "INSERT INTO `usuario` (`usuario_id`, `email`, `nombre`, `nombre_usuario`, `password`, `rol_usuario`) VALUES (" + usuario.getUsuario_id() + ", " + usuario.getEmail() + ", " + usuario.getNombre() + ", " + usuario.getNombre_usuario() + ", " + usuario.getPassword() + ", " + usuario.getRol_usuario() + ")";
+		String sql = "INSERT INTO usuario (`email`, `nombre`, `nombre_usuario`, `password`, `rol_usuario`) VALUES ('" + usuario.getEmail() + "','" + usuario.getNombre() + "','" + usuario.getNombre_usuario() + "', '" + usuario.getPassword() + "', '" + usuario.getRol_usuario().ordinal() + "')";
     	try {
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate(sql);
+    		PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,7 +56,6 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
 	}
 
 	public List<Usuario> getUsuariosByRol(userTypeEnum rol) {
-		//System.out.println("eeeey");
 		connect();
 		List<Usuario> usuarios = new ArrayList<Usuario>();
         
@@ -70,7 +70,7 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
 		}
 		close();
 		
-		System.out.println(usuarios);
+		System.out.println("usr" + usuarios);
 		return usuarios;
 	}
 	

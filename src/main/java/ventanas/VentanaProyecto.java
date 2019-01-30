@@ -87,9 +87,11 @@ public class VentanaProyecto extends JPanel {
 		productOwnerList = user2.getUsuariosByRol(userTypeEnum.PRODUCT_OWNER);
 
 		sMNames = new ArrayList<String>();
-		System.out.println(scrumMasterList);
+		System.out.println("scrum " + scrumMasterList);
+		System.out.println("product " + productOwnerList);
 		for (Usuario usuario: scrumMasterList) {
 			sMNames.add(usuario.getNombre());
+			System.out.println(usuario.getNombre());
 		}	
 
 		scrumMasterCB = new JComboBox();
