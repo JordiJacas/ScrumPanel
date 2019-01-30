@@ -4,23 +4,29 @@ import javax.swing.JPasswordField;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import config.ConnnectDBDao;
 import daoImpl.UsuarioDAOImpl;
+import daoImpl.UsuarioDAOImplEmbebded;
 import enumClass.userTypeEnum;
 import iDao.IUsuario;
 import modelo.Usuario;
+import modelo.UsuarioConectado;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Hashtable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -28,14 +34,14 @@ public class VentanaLogin extends JPanel implements KeyListener{
 	private JTextField tfLogin;
 	private JPasswordField tfPassword;
 	private JInternalFrame iLogin;
-	private JInternalFrame iNuevoUsuario;
+	private VentanaGeneral VentanaGeneral;
 	
 	/**
 	 * Create the panel.
 	 */
-	public VentanaLogin(JInternalFrame iLogin, JInternalFrame iNuevoUsuario) {
+	public VentanaLogin(VentanaGeneral VentanaGeneral, JInternalFrame iLogin) {
 		this.iLogin = iLogin;
-		this.iNuevoUsuario = iNuevoUsuario;
+		this.VentanaGeneral = VentanaGeneral;
 		
 		setFocusable(true);
 		addKeyListener(this);
@@ -106,7 +112,7 @@ public class VentanaLogin extends JPanel implements KeyListener{
 		Usuario usuario = new Usuario();
 		usuario.setNombre("Admin");
 		usuario.setNombre_usuario("admin");
-		usuario.setContraseña("admin");
+		usuario.setPassword("admin");
 		usuario.setEmail("admin@gmail.com");
 		usuario.setRol_usuario(userTypeEnum.USER_ADMINISTRATOR);
 		
@@ -132,18 +138,23 @@ public class VentanaLogin extends JPanel implements KeyListener{
 			JOptionPane.showMessageDialog(null, "Introduzca el usuario y la contrasena para logearte");
 		} else {
 			System.out.println("[INFO] - Comprobando datos...");
+			IUsuario gestorUsuarios;
+			ConnnectDBDao con = new ConnnectDBDao();
+			if(con.getState()){
+				gestorUsuarios = new UsuarioDAOImpl();
+			}
+			else {
+				gestorUsuarios = new UsuarioDAOImplEmbebded();
+			}
 			
-			IUsuario gestorUsuarios = new UsuarioDAOImpl();
 			Usuario usuario = gestorUsuarios.getUsuarioByNombreUsuario(user);
 			
-			if(usuario.getNombre_usuario().equals(user) & usuario.getContraseña().equals(password)) {
+			if(usuario.getNombre_usuario().equals(user) & usuario.getPassword().equals(password)) {
+				UsuarioConectado.setUsuario(usuario);
 				JOptionPane.showMessageDialog(null,  "Usuario " + usuario.getNombre() + " Conectado");
-			
-				iLogin.setVisible(false);
-				if(usuario.getRol_usuario().equals(userTypeEnum.USER_ADMINISTRATOR)) {
-					iNuevoUsuario.setVisible(true);
-				}
 				
+				VentanaGeneral.visible(usuario);
+		
 			}else {
 				JOptionPane.showMessageDialog(null,  "Nombre de Usuario o Contraseña incorrectos");
 				

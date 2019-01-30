@@ -1,11 +1,14 @@
 package iDao;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import enumClass.userTypeEnum;
+import modelo.Proyecto;
 import modelo.Usuario;
 
 public interface IUsuario {
 	void crearUsuario(Usuario usuario);
 	Usuario getUsuarioByNombreUsuario(String nombreUsuario);
-	ArrayList<Usuario> getUsarioAll();
+	List<Usuario> getUsuariosByRol(userTypeEnum rol);
+	void updateUsuario(Usuario usuario, Proyecto proyectos);
 }

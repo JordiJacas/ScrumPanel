@@ -14,8 +14,8 @@ Instrucciones para ejecutar el proyecto
     
     Ejecutar las sigientes sentecias sql para insertar datos iniziales a la Base de Datos:
     
-    INSERT INTO `usuario`(`contraseña`, `email`, `nombre`, `nombre_usuario`, `rol_usuario`) VALUES  ('P@ssw0rd','admin.usuario@gmail.com','Administrador Usuario','admin.usuario',3)
-    INSERT INTO `usuario`(`contraseña`, `email`, `nombre`, `nombre_usuario`, `rol_usuario`) VALUES ('P@ssw0rd','user.1@gmail.com','User 1','user.1',1)
+    INSERT INTO `usuario`(`password`, `email`, `nombre`, `nombre_usuario`, `rol_usuario`) VALUES  ('P@ssw0rd','admin.usuario@gmail.com','Administrador Usuario','admin.usuario',3);
+    INSERT INTO `usuario`(`password`, `email`, `nombre`, `nombre_usuario`, `rol_usuario`) VALUES ('P@ssw0rd','user.1@gmail.com','User 1','user.1',1);
 
 2 - Importar el repositorio https://github.com/JordiJacas/ScrumPanel.
 
