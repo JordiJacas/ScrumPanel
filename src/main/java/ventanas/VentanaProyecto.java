@@ -37,14 +37,14 @@ import javax.swing.JButton;
 public class VentanaProyecto extends JPanel {
 	private JTextField textProyecto;
 	private JTextArea textDescripcion;
-	private UsuarioDAOImpl user;
+	private IUsuario user;
 	private List<Usuario> scrumMasterList;
 	private ArrayList<String> sMNames;
 	private JComboBox scrumMasterCB;
 	private ComboBoxModel smModel;
 
 	//Aqui esta el segundo objeto para el Product Owner
-	private UsuarioDAOImpl user2;
+	private IUsuario user2;
 	private List<Usuario> productOwnerList;
 	private ArrayList<String> pONames;
 	private JComboBox productOwnerCB;
@@ -69,9 +69,23 @@ public class VentanaProyecto extends JPanel {
 		textDescripcion = new JTextArea();
 
 		JLabel lblScrumMaster = new JLabel("Scrum Master:");
-		//Aqui cogemos los usuario que son Scrum Master que encuentra en la base de datos remota
-		user = new UsuarioDAOImpl();
+		ConnnectDBDao con = new ConnnectDBDao();
+		if(con.getState()){
+			//Aqui cogemos los usuario que son Scrum Master que encuentra en la base de datos remota
+			user = new UsuarioDAOImpl();
+			
+			//Aqui cogemos los usuario que son Scrum Master que encuentra en la base de datos remota
+			user2 = new UsuarioDAOImpl();
+			
+		}
+		else {
+			user = new UsuarioDAOImplEmbebded();
+			user2 = new UsuarioDAOImplEmbebded();
+		}
+		
 		scrumMasterList = user.getUsuariosByRol(userTypeEnum.SCRUM_MASTER);
+		productOwnerList = user2.getUsuariosByRol(userTypeEnum.PRODUCT_OWNER);
+
 		sMNames = new ArrayList<String>();
 		for (Usuario usuario: scrumMasterList) {
 			sMNames.add(usuario.getNombre());
@@ -85,9 +99,7 @@ public class VentanaProyecto extends JPanel {
 
 		JLabel lblProductOwner = new JLabel("Product Owner:");
 
-		//Aqui cogemos los usuario que son Scrum Master que encuentra en la base de datos remota
-		user2 = new UsuarioDAOImpl();
-		productOwnerList = user2.getUsuariosByRol(userTypeEnum.PRODUCT_OWNER);
+
 		pONames = new ArrayList<String>();
 		for (Usuario usuario: productOwnerList) {
 			pONames.add(usuario.getNombre());
