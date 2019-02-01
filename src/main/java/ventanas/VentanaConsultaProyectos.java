@@ -146,10 +146,4 @@ public class VentanaConsultaProyectos extends JPanel {
 		);
 		setLayout(groupLayout);
 	}
-	
-	public static void main(String[] args) {
-		JFrame f = new JFrame();
-		f.getContentPane().add(new VentanaConsultaProyectos());
-		f.setVisible(true);
-	}
 }
