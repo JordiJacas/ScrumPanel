@@ -1,5 +1,7 @@
 package daoImpl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -45,6 +47,18 @@ public class ProyectoDAOImpl implements IProyecto{
 	private void close() {
 		entityManager.close();
         factory.close();
+	}
+
+	public List<Proyecto> getAllProyectos() {
+		// TODO Auto-generated method stub
+		connect();
+		
+		String sql = "SELECT p from Proyecto p";
+		Query query = entityManager.createQuery(sql);
+		List<Proyecto> proyectos = query.getResultList();
+		
+		close();
+		return proyectos;
 	}
 
 }
