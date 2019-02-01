@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -54,6 +56,31 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
 		
 		close();
 	}
+	
+	public List<Proyecto> getAllProyectos() {
+		connect();
+        
+        List<Proyecto> proyectos = new ArrayList<Proyecto>();
+        
+		try {
+        	Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * from Proyecto");
+			while (rs.next()) {
+				Usuario prodOwn = new Usuario();
+				Usuario scmMast = new Usuario();
+				prodOwn.setUsuario_id(rs.getInt("productOwner_usuario_id"));
+				scmMast.setUsuario_id(rs.getInt("scrumMaster_usuario_id"));
+                
+                proyectos.add(new Proyecto(rs.getString("nombre_proyecto"), 
+                		rs.getString("descripcion"), prodOwn, scmMast));
+            }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close();
+		return proyectos;
+	}
+
 
 	private void connect() {
 		try {
@@ -70,6 +97,5 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
 			e.printStackTrace();
 		}
 	}
-
 	
 }

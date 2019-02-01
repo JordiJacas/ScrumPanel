@@ -42,6 +42,7 @@ public class VentanaGeneral extends JFrame {
 	private JInternalFrame iLogin;
 	private JInternalFrame iNuevoUsuario;
 	private JInternalFrame iNuevoProyecto;
+	private JInternalFrame iMostrarProyectos;
 	private JPanel contentPane;
 	private JMenuBar menuBar;
 	private JMenu mUsuarios;
@@ -56,6 +57,7 @@ public class VentanaGeneral extends JFrame {
 	private JButton btnSalir;
 	private JPanel login;
 	private JPanel nuevoUsuario;
+	private JPanel mostrarProyectos;
 	
 	/**
 	 * Launch the application.
@@ -154,6 +156,22 @@ public class VentanaGeneral extends JFrame {
 		menuItems.add(sBuscarProyecto);
 		sBuscarProyecto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				mostrarProyectos = new VentanaConsultaProyectos();
+				iMostrarProyectos = new JInternalFrame("Nuevo Usuario");
+				 
+				iMostrarProyectos.setLocation(100, 107);
+				
+				iMostrarProyectos.getContentPane().add(mostrarProyectos);
+
+				iMostrarProyectos.pack();
+				
+				iMostrarProyectos.setResizable(true);
+				iMostrarProyectos.setClosable(true);
+				
+				iMostrarProyectos.setVisible(true);
+				
+				dp.add(iMostrarProyectos);
 			}
 		});
 		mProyectos.add(sBuscarProyecto);
