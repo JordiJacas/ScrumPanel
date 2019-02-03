@@ -13,19 +13,28 @@ import java.util.List;
 import javax.swing.JTextField;
 
 import daoImpl.ProyectoDAOImpl;
+import daoImpl.ProyectoDAOImplEmbeded;
 import daoImpl.UsuarioDAOImpl;
+import enumClass.userTypeEnum;
 import iDao.IProyecto;
 import modelo.Proyecto;
+import modelo.UsuarioConectado;
 
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.event.ListSelectionListener;
+
+import config.ConnnectDBDao;
+
 import javax.swing.event.ListSelectionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class VentanaConsultaProyectos extends JPanel {
+	
+	private IProyecto gestorProyecto;
 	private JTextField tfNombreProyecto;
 	private JTextField tfProductOwner;
 	private JTextField tfScrumMaster;
@@ -33,14 +42,37 @@ public class VentanaConsultaProyectos extends JPanel {
 	private List<Proyecto> listProyectos;
 	private ArrayList<String> arrayProyectos = new ArrayList<String>();
 	private Hashtable<String, Proyecto> hashProyectos = new Hashtable<String, Proyecto>();
+	private VentanaGeneral vGeneral;
+	private JPanel especificaciones;
+	private JInternalFrame iEspecificaciones;
 
 	/**
 	 * Create the panel.
 	 */
-	public VentanaConsultaProyectos() {
+	public VentanaConsultaProyectos(final VentanaGeneral vGeneral) {
 		
-		IProyecto gestorProyecto = new ProyectoDAOImpl();
-		listProyectos = gestorProyecto.getAllProyectos();
+		this.vGeneral = vGeneral;
+		
+		ConnnectDBDao con = new ConnnectDBDao();
+		
+		if(con.getState()){
+			
+			gestorProyecto = new ProyectoDAOImpl();
+		}else {
+			
+			gestorProyecto = new ProyectoDAOImplEmbeded();
+		}
+		
+		if(UsuarioConectado.getRolUsuario().equals(userTypeEnum.SCRUM_MASTER)) {
+			listProyectos = gestorProyecto.getAllProyectos();
+		}
+		if(UsuarioConectado.getRolUsuario().equals(userTypeEnum.DEVELOPER)) {
+			listProyectos = gestorProyecto.getProyectosByUser(UsuarioConectado.getUsuario());
+		}
+		if(UsuarioConectado.getRolUsuario().equals(userTypeEnum.PRODUCT_OWNER)) {
+			listProyectos = gestorProyecto.getProyectosByUser(UsuarioConectado.getUsuario());
+		}
+		
 		for (Proyecto proyecto : listProyectos) {
 			arrayProyectos.add(proyecto.getNombre_proyecto());
 			hashProyectos.put(proyecto.getNombre_proyecto(), proyecto);
@@ -87,7 +119,16 @@ public class VentanaConsultaProyectos extends JPanel {
 		JButton btnMostarEspecificaciones = new JButton("Mostar Especificaciones");
 		btnMostarEspecificaciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				especificaciones = new VentanaEspecificacion();
+				iEspecificaciones = new JInternalFrame("Especificaciones");
+				iEspecificaciones.setSize(156, 94);
+				iEspecificaciones.setLocation(133, 58);
+				iEspecificaciones.getContentPane().add(especificaciones);
+				iEspecificaciones.pack();
+				iEspecificaciones.setResizable(true);
+				iEspecificaciones.setClosable(true);
+				iEspecificaciones.setVisible(true);
+				vGeneral.dp.add(iEspecificaciones);
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);

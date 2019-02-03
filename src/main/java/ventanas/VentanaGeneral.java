@@ -58,6 +58,7 @@ public class VentanaGeneral extends JFrame {
 	private JPanel login;
 	private JPanel nuevoUsuario;
 	private JPanel mostrarProyectos;
+	private VentanaGeneral that;
 	
 	/**
 	 * Launch the application.
@@ -81,6 +82,8 @@ public class VentanaGeneral extends JFrame {
 	    setTitle("SCRUM - " + state);
 	    setSize(800,500);
 	    setVisible(true);
+	    
+	    that = this;
 	    
 	    menuItems = new ArrayList<JMenuItem>();
 	    
@@ -152,12 +155,12 @@ public class VentanaGeneral extends JFrame {
 		});
 		mProyectos.add(sCrearProyecto);
 		
-		JMenuItem sBuscarProyecto = new JMenuItem("Buscar Proyectos");
+		sBuscarProyecto = new JMenuItem("Buscar Proyectos");
 		menuItems.add(sBuscarProyecto);
 		sBuscarProyecto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				mostrarProyectos = new VentanaConsultaProyectos();
+				mostrarProyectos = new VentanaConsultaProyectos(that);
 				iMostrarProyectos = new JInternalFrame("Nuevo Usuario");
 				 
 				iMostrarProyectos.setLocation(100, 107);
@@ -242,11 +245,11 @@ public class VentanaGeneral extends JFrame {
 		}
 		
 		if(usuario.getRol_usuario().equals(userTypeEnum.DEVELOPER)) {
-			
+			sBuscarProyecto.setEnabled(true);
 		}
 		
 		if(usuario.getRol_usuario().equals(userTypeEnum.PRODUCT_OWNER)){
-			
+			sBuscarProyecto.setEnabled(true);
 		}
 		
 		if(usuario.getRol_usuario().equals(userTypeEnum.SCRUM_MASTER)){

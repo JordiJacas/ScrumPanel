@@ -39,16 +39,6 @@ public class ProyectoDAOImpl implements IProyecto{
 		close();
 	}
 	
-	private void connect() {
-		factory = Persistence.createEntityManagerFactory("ScrumDB");
-		entityManager = factory.createEntityManager();
-	}
-	
-	private void close() {
-		entityManager.close();
-        factory.close();
-	}
-
 	public List<Proyecto> getAllProyectos() {
 		// TODO Auto-generated method stub
 		connect();
@@ -60,5 +50,29 @@ public class ProyectoDAOImpl implements IProyecto{
 		close();
 		return proyectos;
 	}
+
+	public List<Proyecto> getProyectosByUser(Usuario usuario) {
+		// TODO Auto-generated method stub
+		connect();
+		
+		String sql = "SELECT u from Usuario u where u.nombre_usuario = '" + usuario.getNombre_usuario() + "'";
+		Query query = entityManager.createQuery(sql);
+		Usuario user = (Usuario) query.getSingleResult();
+		
+		close();
+		return user.getGrupo_proyecto_id();
+	}
+	
+	private void connect() {
+		factory = Persistence.createEntityManagerFactory("ScrumDB");
+		entityManager = factory.createEntityManager();
+	}
+	
+	private void close() {
+		entityManager.close();
+        factory.close();
+	}
+
+	
 
 }

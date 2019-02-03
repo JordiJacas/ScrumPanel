@@ -80,6 +80,31 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
 		close();
 		return proyectos;
 	}
+	
+	public List<Proyecto> getProyectosByUser(Usuario usuario) {
+		// TODO Auto-generated method stub
+		connect();
+        
+        List<Proyecto> proyectos = new ArrayList<Proyecto>();
+        
+		try {
+        	Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * from Proyecto where nombre_usuario = '"+ usuario.getNombre_usuario() +"'");
+			while (rs.next()) {
+				Usuario prodOwn = new Usuario();
+				Usuario scmMast = new Usuario();
+				prodOwn.setUsuario_id(rs.getInt("productOwner_usuario_id"));
+				scmMast.setUsuario_id(rs.getInt("scrumMaster_usuario_id"));
+                
+                proyectos.add(new Proyecto(rs.getString("nombre_proyecto"), 
+                		rs.getString("descripcion"), prodOwn, scmMast));
+            }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close();
+		return proyectos;
+	}
 
 
 	private void connect() {
@@ -97,5 +122,7 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
 			e.printStackTrace();
 		}
 	}
+
+
 	
 }
