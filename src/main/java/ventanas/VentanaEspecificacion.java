@@ -2,6 +2,7 @@ package ventanas;
 
 import javax.swing.JPanel;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.EventQueue;
@@ -15,14 +16,16 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JScrollPane;
+import javax.swing.BoxLayout;
 
 public class VentanaEspecificacion extends JPanel {
 
 	private JButton btnGuardar;
 	private JButton btnInsertar;
 	private JButton btnEliminar;
-	private JScrollPane scrollPane;
-	private GroupLayout groupLayout;
+	private JPanel panelNorte;
+	private JPanel panelEsp;
+	private JScrollPane scrollPaneEsp;
 	PanelEspecificacion pe;
 	
 	/**
@@ -30,63 +33,56 @@ public class VentanaEspecificacion extends JPanel {
 	 */
 	public VentanaEspecificacion() {
 		
+		//en el panel del norte decimos que lo que añadamos va estar en el centro
+		panelNorte = new JPanel();
+		panelNorte.setLayout(new FlowLayout(FlowLayout.CENTER));
+		
+		//Creaciond de los botones que van al panel del norte
 		btnGuardar = new JButton("Guardar");
-		
 		btnInsertar = new JButton("Insertar");
-		
 		btnEliminar = new JButton("Eliminar");
 		
-		scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);		
-		
-		scrollPane.getViewport().setBackground(Color.RED);
-
-		pe = new PanelEspecificacion();
-		
-
-		Container cont = new Container();
-		cont.add(pe);
-		
-		/*for (int i = 0; i < 3; i++) {	
+		//insertamos los botones que van al panel del norte
+		panelNorte.add(btnGuardar);
+		panelNorte.add(btnInsertar);
+		panelNorte.add(btnEliminar);
 			
-		}*/
+		//Creacion del panel donde va a ir la cantidad de especificaciones en filas
+		panelEsp = new JPanel();
+		scrollPaneEsp = new JScrollPane(panelEsp , ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		panelEsp.setLayout(new BoxLayout(panelEsp, BoxLayout.Y_AXIS));
 		
+		//Esto es para tener el fondo del container de color rojo
+		scrollPaneEsp.getViewport().setBackground(Color.RED);
+
+		/*Esto sera lo que haran los botones de las especificaciones aunque por ahora probaremos un for para ver que se muestran
+		pbEnviar.addActionListener(this);
+		ptfLogin.addActionListener(this);
+		ppfPassword.addActionListener(this);*/
 		
-		groupLayout = new GroupLayout(this);
+		//el new PanelEspecificacion() tiene que estar dentro del for, si no, no se multiplica
+		for (int i = 0; i < 3; i++) {
+			pe = new PanelEspecificacion();
+			panelEsp.add(pe);
+		}
 		
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(113)
-					.addComponent(btnGuardar)
-					.addGap(6)
-					.addComponent(btnInsertar)
-					.addGap(5)
-					.addComponent(btnEliminar))
-				.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 450, GroupLayout.PREFERRED_SIZE)
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(5)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnGuardar)
-						.addComponent(btnInsertar)
-						.addComponent(btnEliminar))
-					.addGap(6)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 266, GroupLayout.PREFERRED_SIZE))
-		);
-		setLayout(groupLayout);
+		//Aqui insertamos los paneles en este orden ya que aunque pongas border layout North o Center,
+		// se pondran en el orden escrito
+		this.add(panelNorte, BorderLayout.NORTH);
+		this.add(scrollPaneEsp, BorderLayout.CENTER);
 	}
 	
+	//Ejemplo main para improvisar
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					JFrame frame = new JFrame();
-					frame.setSize(800,500);
+					frame.setResizable(true);
+					frame.setSize(500,800);
 					frame.setVisible(true);
 					VentanaEspecificacion ve = new VentanaEspecificacion();
-					frame.add(ve);
+					frame.getContentPane().add(ve);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
