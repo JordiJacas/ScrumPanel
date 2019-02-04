@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,6 +31,9 @@ public class Proyecto {
 	
 	@ManyToOne
 	private Usuario productOwner;
+	
+	@OneToMany(cascade=CascadeType.PERSIST)
+	private List<Especificacion> especificacion_id;
 	
 	public Proyecto() {}
 
@@ -75,6 +81,15 @@ public class Proyecto {
 		return proyecto_id;
 	}
 	
-	
+	public void setProyecto_id(int proyecto_id) {
+		this.proyecto_id = proyecto_id;
+	}
 
+	public List<Especificacion> getEspecificacion_id() {
+		return especificacion_id;
+	}
+
+	public void setEspecificacion_id(List<Especificacion> especificacion_id) {
+		this.especificacion_id = especificacion_id;
+	}
 }
