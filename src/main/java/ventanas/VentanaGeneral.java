@@ -80,7 +80,7 @@ public class VentanaGeneral extends JFrame {
 	 */
 	public VentanaGeneral(String state) {		
 	    setTitle("SCRUM - " + state);
-	    setSize(800,500);
+	    setSize(800,800);
 	    setVisible(true);
 	    
 	    that = this;
@@ -161,7 +161,7 @@ public class VentanaGeneral extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				mostrarProyectos = new VentanaConsultaProyectos(that);
-				iMostrarProyectos = new JInternalFrame("Nuevo Usuario");
+				iMostrarProyectos = new JInternalFrame("Mostrando proyecto");
 				 
 				iMostrarProyectos.setLocation(100, 107);
 				

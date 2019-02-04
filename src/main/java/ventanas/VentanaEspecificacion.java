@@ -43,6 +43,7 @@ public class VentanaEspecificacion extends JPanel {
 	private ConnnectDBDao con;
 	private List<Especificacion> especificaciones = new ArrayList<Especificacion>();
 	private PanelEspecificacion pe;
+	private PanelNuevaTarea pnt;
 	
 	/**
 	 * Create the panel.
@@ -53,10 +54,10 @@ public class VentanaEspecificacion extends JPanel {
 			gestorEspecificacion = new EspecificacionDAOImpl();
 		} else {
 			gestorEspecificacion = new EspecifiacionDAOImplEmbebded();
-		}*/
+		}
 		
 		
-		//List<Especificacion> especifiaciones = gestorEspecificacion.getAllEspecifiacionByProyecto(proyecto);
+		especificaciones = gestorEspecificacion.getAllEspecifiacionByProyecto(proyecto);*/
 		
 		System.out.println(proyecto);
 		
@@ -73,6 +74,13 @@ public class VentanaEspecificacion extends JPanel {
 			}
 		});
 		btnInsertar = new JButton("Insertar");
+		btnInsertar.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				pnt = new PanelNuevaTarea();
+				panelEsp.add(pnt);
+			}
+		});
 		btnEliminar = new JButton("Eliminar");
 		
 		//insertamos los botones que van al panel del norte
