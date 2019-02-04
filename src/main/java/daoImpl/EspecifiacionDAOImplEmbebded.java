@@ -18,4 +18,9 @@ public class EspecifiacionDAOImplEmbebded implements iEspecificacion{
 		return null;
 	}
 
+	public List<Especificacion> getAllEspecifiacion(Proyecto proyecto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

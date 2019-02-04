@@ -122,7 +122,11 @@ public class VentanaConsultaProyectos extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				especificaciones = new VentanaEspecificacion(proyecto);
 				iEspecificaciones = new JInternalFrame("Especificaciones");
+<<<<<<< HEAD
 				iEspecificaciones.setSize(136, 94);
+=======
+				iEspecificaciones.setSize(150, 94);
+>>>>>>> branch 'sprint3' of https://github.com/JordiJacas/ScrumPanel.git
 				iEspecificaciones.setLocation(133, 58);
 				iEspecificaciones.getContentPane().add(especificaciones);
 				iEspecificaciones.pack();
