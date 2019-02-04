@@ -49,14 +49,16 @@ public class VentanaEspecificacion extends JPanel {
 	 */
 	public VentanaEspecificacion(Proyecto proyecto) {
 		con = new ConnnectDBDao();
-		if(con.getState()) {
+		/*if(con.getState()) {
 			gestorEspecificacion = new EspecificacionDAOImpl();
 		} else {
 			gestorEspecificacion = new EspecifiacionDAOImplEmbebded();
-		}
+		}*/
 		
 		
-		List<Especificacion> especifiaciones = gestorEspecificacion.getAllEspecifiacionByProyecto(proyecto);
+		//List<Especificacion> especifiaciones = gestorEspecificacion.getAllEspecifiacionByProyecto(proyecto);
+		
+		System.out.println(proyecto);
 		
 		//en el panel del norte decimos que lo que añadamos va estar en el centro
 		panelNorte = new JPanel();
@@ -87,10 +89,10 @@ public class VentanaEspecificacion extends JPanel {
 		scrollPaneEsp.getViewport().setBackground(Color.RED);
 		
 		//el new PanelEspecificacion() tiene que estar dentro del for, si no, no se multiplica
-		for (int i = 0; i < especifiaciones.size(); i++) {
+		/*for (int i = 0; i < especifiaciones.size(); i++) {
 			pe = new PanelEspecificacion();
 			panelEsp.add(pe);
-		}
+		}*/
 		
 		//Aqui insertamos los paneles en este orden ya que aunque pongas border layout North o Center,
 		// se pondran en el orden escrito

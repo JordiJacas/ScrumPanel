@@ -8,7 +8,13 @@ import java.sql.Statement;
 
 import javax.persistence.EnumType;
 
+import config.ConnnectDBDao;
+import daoImpl.EspecificacionDAOImpl;
+import daoImpl.ProyectoDAOImpl;
 import enumClass.userTypeEnum;
+import iDao.IProyecto;
+import iDao.iEspecificacion;
+import modelo.Proyecto;
 import modelo.Usuario;
 import modelo.UsuarioConectado;
 
@@ -19,7 +25,7 @@ public class EnumTypeUsuarioTest {
 		//System.out.println(userTypeEnum.USER_ADMINISTRATOR.ordinal());
 		Connection con;
 		
-		try {
+		/*try {
 			con = DriverManager.getConnection("jdbc:sqlite:./data2.sqlite");
         	Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * from Usuario where rol_usuario = 2;");
@@ -34,7 +40,14 @@ public class EnumTypeUsuarioTest {
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
+		
+		
+		iEspecificacion es = new EspecificacionDAOImpl();
+		IProyecto pro = new ProyectoDAOImpl();
+			
+		
+		System.out.println(es.getAllEspecifiacionByProyecto(pro.getProyectoByName("Scrum")));
 	}
 
 }

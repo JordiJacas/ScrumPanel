@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,6 +34,10 @@ public class Usuario {
 	
 	@Column(unique = true)
 	private String email;
+	
+	@OneToMany
+	@JoinColumn(name="usuario_id_usuario_id")
+	private List<GrupoUsuario> grupo_usuario_id;
 	
 	@OneToMany(cascade=CascadeType.PERSIST)
 	private List<Proyecto> grupo_proyecto_id;
@@ -120,6 +125,16 @@ public class Usuario {
 	public void setUsuario_id(int usuario_id) {
 		this.usuario_id = usuario_id;
 	}
+
+	public List<GrupoUsuario> getGrupo_usuario_id() {
+		return grupo_usuario_id;
+	}
+
+	public void setGrupo_usuario_id(List<GrupoUsuario> grupo_usuario_id) {
+		this.grupo_usuario_id = grupo_usuario_id;
+	}
+	
+	
 	
 	
 }

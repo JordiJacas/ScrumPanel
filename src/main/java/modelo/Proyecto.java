@@ -32,6 +32,9 @@ public class Proyecto {
 	@ManyToOne
 	private Usuario productOwner;
 	
+	@ManyToOne
+	private GrupoUsuario grupo_usuario_id;
+	
 	@OneToMany(cascade=CascadeType.PERSIST)
 	private List<Especificacion> especificacion_id;
 	
@@ -92,4 +95,14 @@ public class Proyecto {
 	public void setEspecificacion_id(List<Especificacion> especificacion_id) {
 		this.especificacion_id = especificacion_id;
 	}
+
+	public GrupoUsuario getGrupo_usuario_id() {
+		return grupo_usuario_id;
+	}
+
+	public void setGrupo_usuario_id(GrupoUsuario grupo_usuario_id) {
+		this.grupo_usuario_id = grupo_usuario_id;
+	}
+	
+	
 }
