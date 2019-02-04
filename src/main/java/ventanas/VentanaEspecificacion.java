@@ -11,12 +11,25 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import java.awt.ScrollPane;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
+
+import config.ConnnectDBDao;
+import daoImpl.EspecifiacionDAOImplEmbebded;
+import daoImpl.EspecificacionDAOImpl;
+import iDao.iEspecificacion;
+import modelo.Especificacion;
+import modelo.Proyecto;
+
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaEspecificacion extends JPanel {
 
@@ -26,12 +39,24 @@ public class VentanaEspecificacion extends JPanel {
 	private JPanel panelNorte;
 	private JPanel panelEsp;
 	private JScrollPane scrollPaneEsp;
-	PanelEspecificacion pe;
+	private iEspecificacion gestorEspecificacion;
+	private ConnnectDBDao con;
+	private List<Especificacion> especificaciones = new ArrayList<Especificacion>();
+	private PanelEspecificacion pe;
 	
 	/**
 	 * Create the panel.
 	 */
-	public VentanaEspecificacion() {
+	public VentanaEspecificacion(Proyecto proyecto) {
+		con = new ConnnectDBDao();
+		if(con.getState()) {
+			gestorEspecificacion = new EspecificacionDAOImpl();
+		} else {
+			gestorEspecificacion = new EspecifiacionDAOImplEmbebded();
+		}
+		
+		
+		List<Especificacion> especifiaciones = gestorEspecificacion.getAllEspecifiacionByProyecto(proyecto);
 		
 		//en el panel del norte decimos que lo que añadamos va estar en el centro
 		panelNorte = new JPanel();
@@ -39,6 +64,12 @@ public class VentanaEspecificacion extends JPanel {
 		
 		//Creaciond de los botones que van al panel del norte
 		btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				pe = new PanelEspecificacion();
+				panelEsp.add(pe);
+			}
+		});
 		btnInsertar = new JButton("Insertar");
 		btnEliminar = new JButton("Eliminar");
 		
@@ -54,14 +85,9 @@ public class VentanaEspecificacion extends JPanel {
 		
 		//Esto es para tener el fondo del container de color rojo
 		scrollPaneEsp.getViewport().setBackground(Color.RED);
-
-		/*Esto sera lo que haran los botones de las especificaciones aunque por ahora probaremos un for para ver que se muestran
-		pbEnviar.addActionListener(this);
-		ptfLogin.addActionListener(this);
-		ppfPassword.addActionListener(this);*/
 		
 		//el new PanelEspecificacion() tiene que estar dentro del for, si no, no se multiplica
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < especifiaciones.size(); i++) {
 			pe = new PanelEspecificacion();
 			panelEsp.add(pe);
 		}
@@ -73,7 +99,7 @@ public class VentanaEspecificacion extends JPanel {
 	}
 	
 	//Ejemplo main para improvisar
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -88,5 +114,5 @@ public class VentanaEspecificacion extends JPanel {
 				}
 			}
 		});
-	}
+	}*/
 }

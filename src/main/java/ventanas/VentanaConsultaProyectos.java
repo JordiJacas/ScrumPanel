@@ -45,6 +45,7 @@ public class VentanaConsultaProyectos extends JPanel {
 	private VentanaGeneral vGeneral;
 	private JPanel especificaciones;
 	private JInternalFrame iEspecificaciones;
+	private Proyecto proyecto;
 
 	/**
 	 * Create the panel.
@@ -81,7 +82,7 @@ public class VentanaConsultaProyectos extends JPanel {
 		final JList<String> list = new JList(arrayProyectos.toArray());
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				Proyecto proyecto = hashProyectos.get(list.getSelectedValue().toString());
+				proyecto = hashProyectos.get(list.getSelectedValue().toString());
 				
 				tfNombreProyecto.setText(proyecto.getNombre_proyecto());
 				tfProductOwner.setText(proyecto.getProductOwner().getNombre());
@@ -119,7 +120,7 @@ public class VentanaConsultaProyectos extends JPanel {
 		JButton btnMostarEspecificaciones = new JButton("Mostar Especificaciones");
 		btnMostarEspecificaciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				especificaciones = new VentanaEspecificacion();
+				especificaciones = new VentanaEspecificacion(proyecto);
 				iEspecificaciones = new JInternalFrame("Especificaciones");
 				iEspecificaciones.setSize(156, 94);
 				iEspecificaciones.setLocation(133, 58);
