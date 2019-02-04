@@ -49,16 +49,16 @@ public class VentanaEspecificacion extends JPanel {
 	 */
 	public VentanaEspecificacion(Proyecto proyecto) {
 		con = new ConnnectDBDao();
-		/*if(con.getState()) {
+		if(con.getState()) {
 			gestorEspecificacion = new EspecificacionDAOImpl();
 		} else {
 			gestorEspecificacion = new EspecifiacionDAOImplEmbebded();
-		}*/
+		}
 		
 		
-		//List<Especificacion> especifiaciones = gestorEspecificacion.getAllEspecifiacionByProyecto(proyecto);
+		List<Especificacion> especificaciones = gestorEspecificacion.getAllEspecifiacionByProyecto(proyecto);
 		
-		System.out.println(proyecto);
+		System.out.println(especificaciones);
 		
 		//en el panel del norte decimos que lo que añadamos va estar en el centro
 		panelNorte = new JPanel();
@@ -66,38 +66,49 @@ public class VentanaEspecificacion extends JPanel {
 		
 		//Creaciond de los botones que van al panel del norte
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.addActionListener(new ActionListener() {
+		btnInsertar = new JButton("Insertar");
+		btnInsertar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				pe = new PanelEspecificacion();
+				pe = new PanelEspecificacion(" ");
 				panelEsp.add(pe);
 			}
 		});
-		btnInsertar = new JButton("Insertar");
 		btnEliminar = new JButton("Eliminar");
 		
 		//insertamos los botones que van al panel del norte
 		panelNorte.add(btnGuardar);
 		panelNorte.add(btnInsertar);
 		panelNorte.add(btnEliminar);
-			
+		
+		//Aqui insertamos los paneles en este orden ya que aunque pongas border layout North o Center,
+		// se pondran en el orden escrito
+		
 		//Creacion del panel donde va a ir la cantidad de especificaciones en filas
 		panelEsp = new JPanel();
-		scrollPaneEsp = new JScrollPane(panelEsp , ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		this.add(panelNorte, BorderLayout.NORTH);
+		scrollPaneEsp = new JScrollPane();
 		panelEsp.setLayout(new BoxLayout(panelEsp, BoxLayout.Y_AXIS));
+		JPanel internalPanel = new JPanel();
+		
+		pe = new PanelEspecificacion("TEST");
+		internalPanel.add(pe);
+		for(Especificacion especificacion: especificaciones) {
+		}
+		scrollPaneEsp.getViewport().add(internalPanel);
+		this.add(scrollPaneEsp, BorderLayout.CENTER);
+
 		
 		//Esto es para tener el fondo del container de color rojo
 		scrollPaneEsp.getViewport().setBackground(Color.RED);
 		
 		//el new PanelEspecificacion() tiene que estar dentro del for, si no, no se multiplica
 		/*for (int i = 0; i < especifiaciones.size(); i++) {
-			pe = new PanelEspecificacion();
+			pe = new PanelEspecificacion(" ");
 			panelEsp.add(pe);
 		}*/
 		
-		//Aqui insertamos los paneles en este orden ya que aunque pongas border layout North o Center,
-		// se pondran en el orden escrito
-		this.add(panelNorte, BorderLayout.NORTH);
-		this.add(scrollPaneEsp, BorderLayout.CENTER);
+		
+
 	}
 	
 	//Ejemplo main para improvisar

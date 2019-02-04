@@ -35,17 +35,17 @@ public class Proyecto {
 	@ManyToOne
 	private GrupoUsuario grupo_usuario_id;
 	
-	@OneToMany(cascade=CascadeType.PERSIST)
+	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="proyecto_id")
 	private List<Especificacion> especificacion_id;
 	
 	public Proyecto() {}
 
-	public Proyecto(String nombre_proyecto, String descripcion, Usuario scrumMaster, Usuario productOwner) {
-		super();
+	public Proyecto(String nombre_proyecto, String descripcion, Usuario scrumMaster, Usuario productOwner, List<Especificacion> especificaciones) {
 		this.nombre_proyecto = nombre_proyecto;
 		this.descripcion = descripcion;
 		this.scrumMaster = scrumMaster;
 		this.productOwner = productOwner;
+		this.especificacion_id = especificaciones;
 	}
 
 	public String getNombre_proyecto() {

@@ -122,7 +122,7 @@ public class VentanaConsultaProyectos extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				especificaciones = new VentanaEspecificacion(proyecto);
 				iEspecificaciones = new JInternalFrame("Especificaciones");
-				iEspecificaciones.setSize(156, 94);
+				iEspecificaciones.setSize(150, 94);
 				iEspecificaciones.setLocation(133, 58);
 				iEspecificaciones.getContentPane().add(especificaciones);
 				iEspecificaciones.pack();

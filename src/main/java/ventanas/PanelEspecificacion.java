@@ -17,13 +17,14 @@ public class PanelEspecificacion extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelEspecificacion() {
+	public PanelEspecificacion(String descripcion) {
 		
 		btnGuardarCambios = new JButton("Guardar cambios");
 		
 		chckbxMarcar = new JCheckBox("Marcar");
 		
 		taEspecificacion = new JTextArea();
+		taEspecificacion.setText(descripcion);
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -52,10 +53,5 @@ public class PanelEspecificacion extends JPanel {
 		);
 		setLayout(groupLayout);
 
-	}
-	
-	public static void main(String[] args) {
-		PanelEspecificacion pa = new PanelEspecificacion();
-		pa.setVisible(true);
 	}
 }
