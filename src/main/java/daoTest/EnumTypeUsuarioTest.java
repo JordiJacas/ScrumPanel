@@ -54,21 +54,25 @@ public class EnumTypeUsuarioTest {
 		IProyecto pro = new ProyectoDAOImpl();
 		iEspecificacion i = new EspecificacionDAOImpl();
 		
-		/*List <Proyecto> p = new ArrayList<Proyecto>();
-		p.add(new Proyecto("String nombre_proyecto", "String descripcion",null, null));
+		List <Proyecto> p = new ArrayList<Proyecto>();
+		p.add(new Proyecto("String nombre_proyecto", "String descripcion",null, null,null));
 		
 		
-		/*IUsuario u = new UsuarioDAOImpl();
-		u.crearUsuario(new Usuario("ombre_usuario", "String nombre", "String password", "String email",
-			userTypeEnum.DEVELOPER, p));*/
+		IUsuario u = new UsuarioDAOImpl();
+		//u.crearUsuario(new Usuario("ombre_usuario", "String nombre", "String password", "String email",
+		//userTypeEnum.DEVELOPER, p));
+		
+		
+		Usuario user = u.getUsuarioByNombreUsuario("ombre_usuario");
+		System.out.println(user.getGrupo_proyecto_id().get(0).getNombre_proyecto());
 		
 		List<Especificacion> list = new ArrayList<Especificacion>();
-		list.add(new Especificacion("String descripcion",2,null));
+		list.add(new Especificacion("String descripcion",null));
 		
 		System.out.println("d");
-		Proyecto proyecto = pro.getProyectoByName("String nombre_proyecto");
+		/*Proyecto proyecto = pro.getProyectoByName("String nombre_proyecto");
 		
-		System.out.println(i.getAllEspecifiacionByProyecto(proyecto).get(0).getDescripcion());
+		System.out.println(i.getAllEspecifiacionByProyecto(proyecto).get(0).getDescripcion());*/
 		
 		
 		

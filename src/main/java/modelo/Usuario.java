@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,11 +36,7 @@ public class Usuario {
 	@Column(unique = true)
 	private String email;
 	
-	@OneToMany
-	@JoinColumn(name="usuario_id_usuario_id")
-	private List<GrupoUsuario> grupo_usuario_id;
-	
-	@OneToMany(cascade=CascadeType.PERSIST)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Proyecto> grupo_proyecto_id;
 	
 	@Column(nullable = false)
@@ -124,17 +121,5 @@ public class Usuario {
 
 	public void setUsuario_id(int usuario_id) {
 		this.usuario_id = usuario_id;
-	}
-
-	public List<GrupoUsuario> getGrupo_usuario_id() {
-		return grupo_usuario_id;
-	}
-
-	public void setGrupo_usuario_id(List<GrupoUsuario> grupo_usuario_id) {
-		this.grupo_usuario_id = grupo_usuario_id;
-	}
-	
-	
-	
-	
+	}	
 }

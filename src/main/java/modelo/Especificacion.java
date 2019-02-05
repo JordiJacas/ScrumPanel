@@ -20,19 +20,15 @@ public class Especificacion {
 	@Column(nullable = false)
 	private String descripcion;
 	
-	@Column(nullable=false)
-	private int sprint;
-	
 	@ManyToOne
 	@JoinColumn(name="proyecto_proyecto_id", nullable=false)
 	private Proyecto proyecto_id;
 	
 	public Especificacion() {}
 	
-	public Especificacion(String descripcion, int sprint, Proyecto proyecto_id) {
+	public Especificacion(String descripcion, Proyecto proyecto_id) {
 		super();
 		this.descripcion = descripcion;
-		this.sprint = sprint;
 		this.proyecto_id = proyecto_id;
 	}
 
@@ -50,14 +46,6 @@ public class Especificacion {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public int getSprint() {
-		return sprint;
-	}
-
-	public void setSprint(int sprint) {
-		this.sprint = sprint;
 	}
 
 	public Proyecto getProyecto_id() {

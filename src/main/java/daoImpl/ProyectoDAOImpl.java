@@ -26,8 +26,8 @@ public class ProyectoDAOImpl implements IProyecto{
 		Query query = entityManager.createQuery(sql);
 		Proyecto proyecto = (Proyecto) query.getSingleResult();
 
-		List<Especificacion> list = new ArrayList<Especificacion>();
-		list.add(new Especificacion("String descr",2,proyecto));
+		/*List<Especificacion> list = new ArrayList<Especificacion>();
+		list.add(new Especificacion("String descr",2,proyecto));*/
 		
 		
 		/*entityManager.getTransaction().begin();

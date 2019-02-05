@@ -17,19 +17,15 @@ public class EspecificacionDAOImpl implements iEspecificacion{
 	EntityManagerFactory factory;
 	EntityManager entityManager;
 	
-	public List<Especificacion> getAllEspecifiacion(Proyecto proyecto) {
+	public void createEspecificacion(Especificacion especificacion) {
 		// TODO Auto-generated method stub
-		
-		
 		connect();
 		
 		entityManager.getTransaction().begin();
-		entityManager.persist(new Especificacion("dsa",1,proyecto));
+		entityManager.persist(especificacion);
 		entityManager.getTransaction().commit();
 		
 		close();
-		
-		return null;
 	}
 
 	public List<Especificacion> getAllEspecifiacionByProyecto(Proyecto proyecto) {

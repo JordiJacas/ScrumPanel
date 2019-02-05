@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
@@ -48,20 +49,14 @@ public class VentanaEspecificacion extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public VentanaEspecificacion(Proyecto proyecto) {
+	public VentanaEspecificacion(final Proyecto proyecto) {
 		con = new ConnnectDBDao();
 		if(con.getState()) {
 			gestorEspecificacion = new EspecificacionDAOImpl();
 		} else {
 			gestorEspecificacion = new EspecifiacionDAOImplEmbebded();
 		}
-		
-		
-<<<<<<< HEAD
-		especificaciones = gestorEspecificacion.getAllEspecifiacionByProyecto(proyecto);*/
-=======
-		List<Especificacion> especificaciones = gestorEspecificacion.getAllEspecifiacionByProyecto(proyecto);
->>>>>>> branch 'sprint3' of https://github.com/JordiJacas/ScrumPanel.git
+		especificaciones = gestorEspecificacion.getAllEspecifiacionByProyecto(proyecto);
 		
 		System.out.println(especificaciones);
 		
@@ -74,21 +69,13 @@ public class VentanaEspecificacion extends JPanel {
 		btnInsertar = new JButton("Insertar");
 		btnInsertar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				pe = new PanelEspecificacion(" ");
+				pe = new PanelEspecificacion(" ", proyecto);
+				pe.setPreferredSize(new Dimension(200, 200));
 				panelEsp.add(pe);
+				
+				panelEsp.updateUI();
 			}
 		});
-<<<<<<< HEAD
-		btnInsertar = new JButton("Insertar");
-		btnInsertar.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				pnt = new PanelNuevaTarea();
-				panelEsp.add(pnt);
-			}
-		});
-=======
->>>>>>> branch 'sprint3' of https://github.com/JordiJacas/ScrumPanel.git
 		btnEliminar = new JButton("Eliminar");
 		
 		//insertamos los botones que van al panel del norte
@@ -96,39 +83,39 @@ public class VentanaEspecificacion extends JPanel {
 		panelNorte.add(btnInsertar);
 		panelNorte.add(btnEliminar);
 		
-		//Aqui insertamos los paneles en este orden ya que aunque pongas border layout North o Center,
-		// se pondran en el orden escrito
-		
 		//Creacion del panel donde va a ir la cantidad de especificaciones en filas
 		panelEsp = new JPanel();
-		this.add(panelNorte, BorderLayout.NORTH);
-		scrollPaneEsp = new JScrollPane();
 		panelEsp.setLayout(new BoxLayout(panelEsp, BoxLayout.Y_AXIS));
-		JPanel internalPanel = new JPanel();
 		
-		pe = new PanelEspecificacion("TEST");
-		internalPanel.add(pe);
-		for(Especificacion especificacion: especificaciones) {
-		}
-		scrollPaneEsp.getViewport().add(internalPanel);
-		this.add(scrollPaneEsp, BorderLayout.CENTER);
-
+		scrollPaneEsp = new JScrollPane(panelEsp, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPaneEsp.setPreferredSize(new Dimension(550, 400));
 		
 		//Esto es para tener el fondo del container de color rojo
 		scrollPaneEsp.getViewport().setBackground(Color.RED);
 		
-		//el new PanelEspecificacion() tiene que estar dentro del for, si no, no se multiplica
-		/*for (int i = 0; i < especifiaciones.size(); i++) {
-			pe = new PanelEspecificacion(" ");
+		//Aqui insertamos los paneles en este orden ya que aunque pongas border layout North o Center,
+		// se pondran en el orden escrito
+		this.add(panelNorte, BorderLayout.NORTH);
+		this.add(scrollPaneEsp, BorderLayout.CENTER);
+		
+		/*for (int i = 0; i < 5; i++) {
+			pe = new PanelEspecificacion("TEST hello" + i);
 			panelEsp.add(pe);
+			panelEsp.updateUI();
 		}*/
 		
+		for (Especificacion especificacion : especificaciones) {
+			pe = new PanelEspecificacion(especificacion.getDescripcion(), proyecto);
+			pe.setPreferredSize(new Dimension(200, 200));
+			panelEsp.add(pe);
+			panelEsp.updateUI();
+		}
 		
 
 	}
 	
 	//Ejemplo main para improvisar
-/*	public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -136,12 +123,12 @@ public class VentanaEspecificacion extends JPanel {
 					frame.setResizable(true);
 					frame.setSize(500,800);
 					frame.setVisible(true);
-					VentanaEspecificacion ve = new VentanaEspecificacion();
+					VentanaEspecificacion ve = new VentanaEspecificacion(null);
 					frame.getContentPane().add(ve);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}*/
+	}
 }

@@ -141,7 +141,7 @@ public class VentanaProyecto extends JPanel {
 					System.out.println("[INFO] - Nombre del Product Owner: " + productOwnerNom.getNombre());
 
 					//Creamos objecto proyecto
-					Proyecto proyecto = new Proyecto(nombreProyecto, descripcion, scrumMasterNom, productOwnerNom);
+					Proyecto proyecto = new Proyecto(nombreProyecto, descripcion, scrumMasterNom, productOwnerNom,null);
 
 					if(con.getState()){
 						//Insertamos el proyecto en la BBDD
