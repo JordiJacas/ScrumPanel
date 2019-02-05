@@ -146,7 +146,12 @@ public class VentanaProyecto extends JPanel {
 					if(con.getState()){
 						//Insertamos el proyecto en la BBDD
 						gestorProyecto = new ProyectoDAOImpl();
-						gestorProyecto.crearProyecto(proyecto);
+						try {
+							gestorProyecto.crearProyecto(proyecto);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 
 						//Actualizamos los usuarios responsables del proyecto
 						/*IUsuario gestorUsuario = new UsuarioDAOImpl();
@@ -157,11 +162,16 @@ public class VentanaProyecto extends JPanel {
 						fileOffline file = new fileOffline();
 						file.addQuery(
 								"INSERT INTO `proyecto`(`descripcion`, `nombre_proyecto`, `productOwner_usuario_id`, `scrumMaster_usuario_id`) " +
-								"VALUES ('" + descripcion + "','"+nombreProyecto+"',"+productOwnerNom.getUsuario_id()+","+scrumMasterNom.getUsuario_id()+");");
+								"VALUES (" + descripcion + ","+nombreProyecto+","+productOwnerNom.getUsuario_id()+","+scrumMasterNom.getUsuario_id()+");");
 					}
 					
 					gestorProyectoEmbebed = new ProyectoDAOImplEmbeded();
-					gestorProyectoEmbebed.crearProyecto(proyecto);
+					try {
+						gestorProyectoEmbebed.crearProyecto(proyecto);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					
 					JOptionPane.showMessageDialog(null,  "Proyecto creado");
 

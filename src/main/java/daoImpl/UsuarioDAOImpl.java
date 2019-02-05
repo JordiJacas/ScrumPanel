@@ -18,14 +18,18 @@ public class UsuarioDAOImpl implements IUsuario{
 	EntityManagerFactory factory;
 	EntityManager entityManager;
 
-	public void crearUsuario(Usuario usuario) {
+	public void crearUsuario(Usuario usuario) throws Exception {
 		// TODO Auto-generated method stub
 		
 		connect();
-		
-		entityManager.getTransaction().begin();
-		entityManager.persist(usuario);
-		entityManager.getTransaction().commit();
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(usuario);
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw e;
+		}
 		
 		close();
 	}
@@ -44,6 +48,18 @@ public class UsuarioDAOImpl implements IUsuario{
 		return user;
 	}
 
+	public Usuario getUsuarioById(int id) {
+		Usuario user;
+		connect();
+		
+		String sql = "SELECT u from Usuario u where u.usuario_id = " + id + "";
+		Query query = entityManager.createQuery(sql);
+		user = (Usuario) query.getSingleResult();
+		
+		close();
+		return user;
+	}
+	
 	public List<Usuario> getUsuariosByRol(userTypeEnum rol) {
 		// TODO Auto-generated method stub
 

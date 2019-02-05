@@ -95,4 +95,21 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
 		}
 	}
 
+	public Usuario getUsuarioById(int id) {
+		connect();
+		Usuario usuario = null;
+        
+		try {
+        	Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * from Usuario where usuario_id = " + id);
+			while (rs.next()) {
+                usuario = new Usuario(rs.getString("nombre_usuario"), rs.getString("nombre"), rs.getString("password"), rs.getString("email"), userTypeEnum.values()[rs.getInt("rol_usuario")]);
+            }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close();
+		return usuario;
+	}
+
 }

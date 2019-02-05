@@ -29,12 +29,15 @@ public class ProyectoDAOImpl implements IProyecto{
 		return proyecto;
 	}
 	
-	public void crearProyecto(Proyecto proyecto) {
+	public void crearProyecto(Proyecto proyecto) throws Exception {
 		connect();
-		
+		try {
 		entityManager.getTransaction().begin();
 		entityManager.persist(proyecto);
 		entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			throw e;
+		}
 		
 		close();
 	}
