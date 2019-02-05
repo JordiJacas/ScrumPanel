@@ -93,6 +93,8 @@ public class VentanaEspecificacion extends JPanel {
 		//Esto es para tener el fondo del container de color rojo
 		scrollPaneEsp.getViewport().setBackground(Color.RED);
 		
+		
+		this.setLayout(new BorderLayout());
 		//Aqui insertamos los paneles en este orden ya que aunque pongas border layout North o Center,
 		// se pondran en el orden escrito
 		this.add(panelNorte, BorderLayout.NORTH);
@@ -104,31 +106,14 @@ public class VentanaEspecificacion extends JPanel {
 			panelEsp.updateUI();
 		}*/
 		
-		for (Especificacion especificacion : especificaciones) {
-			pe = new PanelEspecificacion(especificacion.getDescripcion(), proyecto);
-			pe.setPreferredSize(new Dimension(200, 200));
-			panelEsp.add(pe);
-			panelEsp.updateUI();
-		}
+//		for (Especificacion especificacion : especificaciones) {
+//			pe = new PanelEspecificacion(especificacion.getDescripcion(), proyecto);
+//			pe.setPreferredSize(new Dimension(200, 200));
+//			panelEsp.add(pe);
+//			panelEsp.updateUI();
+//		}
 		
 
 	}
 	
-	//Ejemplo main para improvisar
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JFrame frame = new JFrame();
-					frame.setResizable(true);
-					frame.setSize(500,800);
-					frame.setVisible(true);
-					VentanaEspecificacion ve = new VentanaEspecificacion(null);
-					frame.getContentPane().add(ve);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 }
