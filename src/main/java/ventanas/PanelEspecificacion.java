@@ -1,29 +1,73 @@
 package ventanas;
 
 import javax.swing.JPanel;
+
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import config.ConnnectDBDao;
+import daoImpl.EspecifiacionDAOImplEmbebded;
+import daoImpl.EspecificacionDAOImpl;
+import iDao.iEspecificacion;
+import modelo.Especificacion;
+import modelo.Proyecto;
+
 import javax.swing.JTextArea;
 
 public class PanelEspecificacion extends JPanel {
 	private JButton btnGuardarCambios;
 	private JCheckBox chckbxMarcar;
 	private JTextArea taEspecificacion;
+	private iEspecificacion gestorEspecificacion;
+	private ConnnectDBDao con;
 	
 	
 	/**
 	 * Create the panel.
 	 */
-	public PanelEspecificacion() {
+	public PanelEspecificacion(final String descripcion, final Proyecto proyecto) {
 		
 		btnGuardarCambios = new JButton("Guardar cambios");
+		btnGuardarCambios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				int resp=JOptionPane.showConfirmDialog(null,"Abandonar pantalla para crear tarea?");
+				if (JOptionPane.OK_OPTION == resp){
+					System.out.println("Selecciona opción Afirmativa");
+					
+					Especificacion especificacion = new Especificacion(descripcion, proyecto);
+					
+					if(con.getState()) {
+						gestorEspecificacion = new EspecificacionDAOImpl();
+						gestorEspecificacion.createEspecificacion(especificacion);
+					}
+					else {
+						
+					}
+					
+					gestorEspecificacion = new EspecifiacionDAOImplEmbebded();
+					gestorEspecificacion.createEspecificacion(especificacion);
+					
+					
+				}
+				else{
+				    System.out.println("No selecciona una opción afirmativa");
+				}
+			}
+		});
 		
 		chckbxMarcar = new JCheckBox("Marcar");
 		
 		taEspecificacion = new JTextArea();
+		taEspecificacion.setText(descripcion);
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -52,10 +96,5 @@ public class PanelEspecificacion extends JPanel {
 		);
 		setLayout(groupLayout);
 
-	}
-	
-	public static void main(String[] args) {
-		PanelEspecificacion pa = new PanelEspecificacion();
-		pa.setVisible(true);
 	}
 }

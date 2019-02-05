@@ -34,7 +34,7 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
 				prodOwn.setUsuario_id(rs.getInt("productOwner_usuario_id"));
 				scmMast.setUsuario_id(rs.getInt("scrumMaster_usuario_id"));
                 proyecto = new Proyecto(rs.getString("nombre_proyecto"), 
-                		rs.getString("descripcion"), prodOwn, scmMast);
+                		rs.getString("descripcion"), prodOwn, scmMast,null);
             }
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -72,7 +72,7 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
 				scmMast.setUsuario_id(rs.getInt("scrumMaster_usuario_id"));
                 
                 proyectos.add(new Proyecto(rs.getString("nombre_proyecto"), 
-                		rs.getString("descripcion"), prodOwn, scmMast));
+                		rs.getString("descripcion"), prodOwn, scmMast,null));
             }
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -97,7 +97,7 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
 				scmMast.setUsuario_id(rs.getInt("scrumMaster_usuario_id"));
                 
                 proyectos.add(new Proyecto(rs.getString("nombre_proyecto"), 
-                		rs.getString("descripcion"), prodOwn, scmMast));
+                		rs.getString("descripcion"), prodOwn, scmMast,null));
             }
 		} catch (SQLException e) {
 			e.printStackTrace();

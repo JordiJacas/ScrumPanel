@@ -17,16 +17,22 @@ public class EspecificacionDAOImpl implements iEspecificacion{
 	EntityManagerFactory factory;
 	EntityManager entityManager;
 	
-	public List<Especificacion> getAllEspecifiacion() {
+	public void createEspecificacion(Especificacion especificacion) {
 		// TODO Auto-generated method stub
-		return null;
+		connect();
+		
+		entityManager.getTransaction().begin();
+		entityManager.persist(especificacion);
+		entityManager.getTransaction().commit();
+		
+		close();
 	}
 
 	public List<Especificacion> getAllEspecifiacionByProyecto(Proyecto proyecto) {
 		// TODO Auto-generated method stub
 		connect();
 		
-		String sql = "SELECT e from especificacion e where e.proyecto_id = '" + proyecto + "'";
+		String sql = "SELECT u from Proyecto_Especificacion u where u.Proyecto_proyecto_id = 1";
 		Query query = entityManager.createQuery(sql);
 		List<Especificacion> especificaciones = query.getResultList();
 		
@@ -44,5 +50,4 @@ public class EspecificacionDAOImpl implements iEspecificacion{
 		entityManager.close();
         factory.close();
 	}
-
 }

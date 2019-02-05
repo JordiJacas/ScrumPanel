@@ -6,6 +6,8 @@ import modelo.Especificacion;
 import modelo.Proyecto;
 
 public interface iEspecificacion {
-	List<Especificacion> getAllEspecifiacion();
+	
+	void createEspecificacion(Especificacion especificacion);
 	List<Especificacion> getAllEspecifiacionByProyecto(Proyecto proyecto);
+	
 }

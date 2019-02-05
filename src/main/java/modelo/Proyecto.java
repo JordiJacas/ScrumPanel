@@ -5,9 +5,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,19 +35,19 @@ public class Proyecto {
 	private Usuario productOwner;
 	
 	@ManyToOne
-	private GrupoUsuario grupo_usuario_id;
+	private Usuario usuario_id;
 	
-	@OneToMany(cascade=CascadeType.PERSIST)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Especificacion> especificacion_id;
 	
 	public Proyecto() {}
 
-	public Proyecto(String nombre_proyecto, String descripcion, Usuario scrumMaster, Usuario productOwner) {
-		super();
+	public Proyecto(String nombre_proyecto, String descripcion, Usuario scrumMaster, Usuario productOwner, List<Especificacion> especificaciones) {
 		this.nombre_proyecto = nombre_proyecto;
 		this.descripcion = descripcion;
 		this.scrumMaster = scrumMaster;
 		this.productOwner = productOwner;
+		this.especificacion_id = especificaciones;
 	}
 
 	public String getNombre_proyecto() {
@@ -96,12 +98,12 @@ public class Proyecto {
 		this.especificacion_id = especificacion_id;
 	}
 
-	public GrupoUsuario getGrupo_usuario_id() {
-		return grupo_usuario_id;
+	public Usuario getGrupo_usuario_id() {
+		return usuario_id;
 	}
 
-	public void setGrupo_usuario_id(GrupoUsuario grupo_usuario_id) {
-		this.grupo_usuario_id = grupo_usuario_id;
+	public void setGrupo_usuario_id(Usuario grupo_usuario_id) {
+		this.usuario_id = grupo_usuario_id;
 	}
 	
 	

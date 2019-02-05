@@ -8,14 +8,15 @@ import modelo.Proyecto;
 
 public class EspecifiacionDAOImplEmbebded implements iEspecificacion{
 
-	public List<Especificacion> getAllEspecifiacion() {
+	public void createEspecificacion(Especificacion especificacion) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	public List<Especificacion> getAllEspecifiacionByProyecto(Proyecto proyecto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
