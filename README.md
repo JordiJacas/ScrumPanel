@@ -17,7 +17,7 @@ Instrucciones para ejecutar el proyecto
 3 - Abrir el documento persistence.xml que se encuentra en "src/main/resources/META-INF" modificar la ip. <br/>
     property name="javax.persistence.jdbc.url" value="jdbc:mysql://<IP>:3306/scrumdb?serverTimezone=UTC"
     
-4 - Ejecutar el fichero src/main/java/conf/insertarDatos.java para introducir los datos de prueba a la BBDD remota.
+4 - Ejecutar el fichero src/main/java/conf/insertarDatos.java para introducir los datos de prueba a la BBDD remota. <br/>
     En la carpeta src/main/java/daoTest ejecutar main.java.
 
 
