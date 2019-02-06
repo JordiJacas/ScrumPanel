@@ -11,11 +11,6 @@ Instrucciones para ejecutar el proyecto
 
 1 - Crear una Base de Datos llamada scrumdb y crear un usuario con nombre "jsj" y contraseña "jsj12321" 
     nuevo con todos los permisos para la Base de Datos scrumdb.
-    
-    Ejecutar las sigientes sentecias sql para insertar datos iniziales a la Base de Datos:
-    
-    INSERT INTO `usuario`(`password`, `email`, `nombre`, `nombre_usuario`, `rol_usuario`) VALUES  ('P@ssw0rd','admin.usuario@gmail.com','Administrador Usuario','admin.usuario',3);
-    INSERT INTO `usuario`(`password`, `email`, `nombre`, `nombre_usuario`, `rol_usuario`) VALUES ('P@ssw0rd','user.1@gmail.com','User 1','user.1',1);
 
 2 - Importar el repositorio https://github.com/JordiJacas/ScrumPanel.
 
@@ -24,15 +19,28 @@ Instrucciones para ejecutar el proyecto
     "<property name="javax.persistence.jdbc.url" value="jdbc:mysql://<IP>:3306/scrumdb?serverTimezone=UTC" />"
     modificar la ip
     
-4 - En la carpeta src/main/java/daoTest ejecutar main.java.
+4 - Ejecutar el fichero src/main/java/conf/insertarDatos.java para introducir los datos de prueba a la BBDD remota.
+    En la carpeta src/main/java/daoTest ejecutar main.java.
 
 
-Datos insertados al ejecutar en la Base de Datos
+Usuarios insertados al ejecutar en la Base de Datos
 ===================================================
-Nombre_Usuario: admin.usuario
-Contraseña: P@ssw0rd
+Nombre_Usuario: uadmin
+Contraseña: 123
 Rol: Administrador Usuario
 
-Nombre_Usuario: user.1
-Contraseña: P@ssw0rd
+Nombre_Usuario: udev
+Contraseña: 123
 Rol: Developer
+
+Nombre_Usuario: udev2
+Contraseña: 123
+Rol: Developer
+
+Nombre_Usuario: uowner
+Contraseña: 123
+Rol: Product Owner
+
+Nombre_Usuario: uscrum
+Contraseña: 123
+Rol: Scrum Master
