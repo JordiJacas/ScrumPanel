@@ -47,7 +47,6 @@ public class VentanaEspecificacion extends JPanel {
 	private ConnnectDBDao con;
 	private List<Especificacion> especificaciones = new ArrayList<Especificacion>();
 	private PanelEspecificacion pe;
-	private PanelNuevaTarea pnt;
 	private JPanel nuevaTarea;
 	private JInternalFrame iNuevaTarea;
 	private Proyecto proyecto;
