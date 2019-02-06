@@ -14,7 +14,7 @@ Instrucciones para ejecutar el proyecto
 
 2 - Importar el repositorio https://github.com/JordiJacas/ScrumPanel.
 
-3 - Abrir el documento persistence.xml que se encuentra en "src/main/resources/META-INF" modificar la ip.
+3 - Abrir el documento persistence.xml que se encuentra en "src/main/resources/META-INF" modificar la ip.__
     property name="javax.persistence.jdbc.url" value="jdbc:mysql://<IP>:3306/scrumdb?serverTimezone=UTC"
     
 4 - Ejecutar el fichero src/main/java/conf/insertarDatos.java para introducir los datos de prueba a la BBDD remota.
