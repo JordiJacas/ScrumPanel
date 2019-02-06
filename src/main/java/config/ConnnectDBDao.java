@@ -61,6 +61,8 @@ public class ConnnectDBDao {
 		try {
 			EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
 			EntityManager entityManager = factory.createEntityManager();
+			entityManager.close();
+			factory.close();
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -69,10 +71,7 @@ public class ConnnectDBDao {
 	
 	public void insertChanges() {
 		fileOffline fileManager = new fileOffline();
-		System.out.println("\n\n\n\n\n");
 		ArrayList<String> querys = fileManager.readQuerys();
-		System.out.println(Arrays.toString(querys.toArray()));
-		System.out.println("\n\n\n\n\n");
 		for (String query: querys) {
 			System.out.println(query);
 			String table = query.split("`")[1];

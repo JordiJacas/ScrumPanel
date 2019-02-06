@@ -21,6 +21,8 @@ public class EspecificacionDAOImpl implements iEspecificacion{
 		// TODO Auto-generated method stub
 		connect();
 		
+		System.out.println(especificacion.toString());
+		
 		entityManager.getTransaction().begin();
 		entityManager.persist(especificacion);
 		entityManager.getTransaction().commit();

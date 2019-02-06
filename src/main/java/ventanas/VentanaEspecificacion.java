@@ -81,7 +81,7 @@ public class VentanaEspecificacion extends JPanel {
 
 				
 				nuevaTarea = new PanelEspecificacion(" ", proyecto, that);
-				nuevaTarea.setPreferredSize(new Dimension(200, 200));
+				nuevaTarea.setPreferredSize(new Dimension(450, 200));
 				iNuevaTarea = new JInternalFrame("Nueva Tarea");
 				 
 				iNuevaTarea.setLocation(50, 50);
@@ -138,12 +138,12 @@ public class VentanaEspecificacion extends JPanel {
 			panelEsp.updateUI();
 		}*/
 		
-//		for (Especificacion especificacion : especificaciones) {
-//			pe = new PanelEspecificacion(especificacion.getDescripcion(), proyecto, that);
-//			pe.setPreferredSize(new Dimension(200, 200));
-//			panelEsp.add(pe);
-//			panelEsp.updateUI();
-//		}
+		for (Especificacion especificacion : especificaciones) {
+			pe = new PanelEspecificacion(especificacion.getDescripcion(), proyecto, that);
+			pe.setPreferredSize(new Dimension(200, 200));
+			panelEsp.add(pe);
+			panelEsp.updateUI();
+		}
 		
 
 	}

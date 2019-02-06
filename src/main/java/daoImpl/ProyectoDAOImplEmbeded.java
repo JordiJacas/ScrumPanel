@@ -13,6 +13,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import iDao.IProyecto;
+import iDao.IUsuario;
 import modelo.Proyecto;
 import modelo.Usuario;
 
@@ -66,10 +67,9 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
         	Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * from Proyecto");
 			while (rs.next()) {
-				Usuario prodOwn = new Usuario();
-				Usuario scmMast = new Usuario();
-				prodOwn.setUsuario_id(rs.getInt("productOwner_usuario_id"));
-				scmMast.setUsuario_id(rs.getInt("scrumMaster_usuario_id"));
+				IUsuario userDao = new UsuarioDAOImplEmbebded();
+				Usuario prodOwn = userDao.getUsuarioById(rs.getInt("productOwner_usuario_id"));
+				Usuario scmMast = userDao.getUsuarioById(rs.getInt("scrumMaster_usuario_id"));
                 
                 proyectos.add(new Proyecto(rs.getString("nombre_proyecto"), 
                 		rs.getString("descripcion"), prodOwn, scmMast,null));

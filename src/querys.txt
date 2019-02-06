@@ -1,1 +1,0 @@
-INSERT INTO `proyecto`(`descripcion`, `nombre_proyecto`, `productOwner_usuario_id`, `scrumMaster_usuario_id`) VALUES (Test2,Test2,1,1);

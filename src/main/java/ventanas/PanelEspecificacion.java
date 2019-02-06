@@ -51,7 +51,7 @@ public class PanelEspecificacion extends JPanel {
 					System.out.println("Selecciona opción Afirmativa");					
 					
 					Especificacion especificacion = new Especificacion(taEspecificacion.getText(), proyecto);
-					
+					System.out.println(especificacion.getDescripcion());
 					if(con.getState()) {
 						gestorEspecificacion = new EspecificacionDAOImpl();
 						gestorEspecificacion.createEspecificacion(especificacion);
