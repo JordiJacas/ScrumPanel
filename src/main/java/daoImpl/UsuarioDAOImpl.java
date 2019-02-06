@@ -18,14 +18,18 @@ public class UsuarioDAOImpl implements IUsuario{
 	EntityManagerFactory factory;
 	EntityManager entityManager;
 
-	public void crearUsuario(Usuario usuario) {
+	public void crearUsuario(Usuario usuario) throws Exception {
 		// TODO Auto-generated method stub
 		
 		connect();
-		
-		entityManager.getTransaction().begin();
-		entityManager.persist(usuario);
-		entityManager.getTransaction().commit();
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(usuario);
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw e;
+		}
 		
 		close();
 	}
@@ -44,6 +48,18 @@ public class UsuarioDAOImpl implements IUsuario{
 		return user;
 	}
 
+	public Usuario getUsuarioById(int id) {
+		Usuario user;
+		connect();
+		
+		String sql = "SELECT u from Usuario u where u.usuario_id = " + id + "";
+		Query query = entityManager.createQuery(sql);
+		user = (Usuario) query.getSingleResult();
+		
+		close();
+		return user;
+	}
+	
 	public List<Usuario> getUsuariosByRol(userTypeEnum rol) {
 		// TODO Auto-generated method stub
 
@@ -60,13 +76,14 @@ public class UsuarioDAOImpl implements IUsuario{
 	
 	public void updateUsuario(Usuario usuario, Proyecto proyecto) {
 		// TODO Auto-generated method stub
+		List<Proyecto> proyectos = new ArrayList<Proyecto>();
 		connect();
 		
 		entityManager.getTransaction().begin();
-		//Usuario user = entityManager.find(Usuario.class, usuario.getUsuario_id());
-		List<Proyecto> proyectos = usuario.getGrupo_proyecto_id();
+		proyectos = usuario.getGrupo_proyecto_id();
 		proyectos.add(proyecto);
 		usuario.setGrupo_proyecto_id(proyectos);
+		entityManager.merge(usuario);
 		entityManager.getTransaction().commit();
 		
 		close();

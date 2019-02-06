@@ -5,9 +5,12 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -34,7 +37,7 @@ public class Usuario {
 	@Column(unique = true)
 	private String email;
 	
-	@OneToMany(cascade=CascadeType.PERSIST)
+	@ManyToMany(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
 	private List<Proyecto> grupo_proyecto_id;
 	
 	@Column(nullable = false)
@@ -63,6 +66,10 @@ public class Usuario {
 		this.email = email;
 		this.grupo_proyecto_id = grupo_proyecto_id;
 		this.rol_usuario = rol_usuario;
+	}
+
+	public Usuario(int id) {
+		this.usuario_id = id;
 	}
 
 	public String getNombre_usuario() {
@@ -119,7 +126,5 @@ public class Usuario {
 
 	public void setUsuario_id(int usuario_id) {
 		this.usuario_id = usuario_id;
-	}
-	
-	
+	}	
 }

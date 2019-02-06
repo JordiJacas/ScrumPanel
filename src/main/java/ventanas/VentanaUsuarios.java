@@ -123,17 +123,27 @@ public class VentanaUsuarios extends JPanel implements FocusListener{
 					ConnnectDBDao con = new ConnnectDBDao();
 					if(con.getState()){
 						IUsuario gestorUsuarios = new UsuarioDAOImpl();
-						gestorUsuarios.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
+						try {
+							gestorUsuarios.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					else {
 						fileOffline file = new fileOffline();
 						file.addQuery(
 								"INSERT INTO `usuario`(`contraseña`, `email`, `nombre`, `nombre_usuario`, `rol_usuario`)" + 
-								"VALUES  ('" + password + "','"+ email +"','"+ nombre + "','" + login + "',"+rol.ordinal()+");");
+								"VALUES  (" + password + ","+ email +","+ nombre + "," + login + ","+rol.ordinal()+");");
 					}
 					
 					IUsuario gestorUsuarios = new UsuarioDAOImplEmbebded();
-					gestorUsuarios.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
+					try {
+						gestorUsuarios.crearUsuario(new Usuario(login,nombre,password,email,rol,null));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 		
 					JOptionPane.showMessageDialog(null,  "Usuario creado");
 					

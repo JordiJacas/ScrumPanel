@@ -33,6 +33,7 @@ import modelo.Usuario;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.Color;
 
 public class VentanaProyecto extends JPanel {
 	private JTextField textProyecto;
@@ -134,18 +135,23 @@ public class VentanaProyecto extends JPanel {
 					Usuario productOwnerNom = productOwnerList.get(productOwnerCB.getSelectedIndex());
 					
 					System.out.println("[INFO] - Creando proyecto: ");
-					System.out.println("[INFO] - Nombre del proyecto: " + textProyecto);
-					System.out.println("[INFO] - Decripcion: " + textDescripcion);
+					System.out.println("[INFO] - Nombre del proyecto: " + nombreProyecto);
+					System.out.println("[INFO] - Decripcion: " + descripcion);
 					System.out.println("[INFO] - Nombre del Scrum Master: " + scrumMasterNom.getNombre());
 					System.out.println("[INFO] - Nombre del Product Owner: " + productOwnerNom.getNombre());
 
 					//Creamos objecto proyecto
-					Proyecto proyecto = new Proyecto(nombreProyecto, descripcion, scrumMasterNom, productOwnerNom);
+					Proyecto proyecto = new Proyecto(nombreProyecto, descripcion, scrumMasterNom, productOwnerNom,null);
 
 					if(con.getState()){
 						//Insertamos el proyecto en la BBDD
 						gestorProyecto = new ProyectoDAOImpl();
-						gestorProyecto.crearProyecto(proyecto);
+						try {
+							gestorProyecto.crearProyecto(proyecto);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 
 						//Actualizamos los usuarios responsables del proyecto
 						/*IUsuario gestorUsuario = new UsuarioDAOImpl();
@@ -156,11 +162,17 @@ public class VentanaProyecto extends JPanel {
 						fileOffline file = new fileOffline();
 						file.addQuery(
 								"INSERT INTO `proyecto`(`descripcion`, `nombre_proyecto`, `productOwner_usuario_id`, `scrumMaster_usuario_id`) " +
-								"VALUES ('" + textDescripcion + "','"+textProyecto+"',"+productOwnerNom.getUsuario_id()+","+scrumMasterNom.getUsuario_id()+");");
+								"VALUES (" + descripcion + ","+nombreProyecto+","+productOwnerNom.getUsuario_id()+","+scrumMasterNom.getUsuario_id()+");");
 					}
 					
 					gestorProyectoEmbebed = new ProyectoDAOImplEmbeded();
-					gestorProyectoEmbebed.crearProyecto(proyecto);
+					try {
+//						System.out.println(proyecto.getProductOwner().ge);
+						gestorProyectoEmbebed.crearProyecto(proyecto);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					
 					JOptionPane.showMessageDialog(null,  "Proyecto creado");
 
@@ -173,56 +185,63 @@ public class VentanaProyecto extends JPanel {
 		});
 			
 		lblExiste = new JLabel("Nombre ya existente");
+		lblExiste.setForeground(Color.RED);
 		lblExiste.setVisible(false);
 
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblProyecto)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblDescripcion)
-								.addComponent(lblScrumMaster)
+								.addComponent(lblScrumMaster))
+							.addGap(37)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(textDescripcion, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+								.addComponent(scrumMasterCB, 0, 298, Short.MAX_VALUE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblProyecto)
+							.addGap(19)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblExiste)
-								.addComponent(lblProductOwner))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(textProyecto, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblProductOwner)
+							.addGap(32)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnAdd)
-								.addComponent(scrumMasterCB, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(textProyecto, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
-								.addComponent(textDescripcion)
-								.addComponent(productOwnerCB, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addContainerGap(64, Short.MAX_VALUE))
-				);
+								.addComponent(productOwnerCB, 0, 298, Short.MAX_VALUE))))
+					.addContainerGap())
+		);
 		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addGap(36)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblProyecto)
-								.addComponent(textProyecto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblDescripcion)
-								.addComponent(textDescripcion, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblScrumMaster)
-								.addComponent(scrumMasterCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGap(28)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblProductOwner)
-								.addComponent(productOwnerCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-						.addComponent(btnAdd)
-						.addGap(30))
-				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap(54, Short.MAX_VALUE)
-						.addComponent(lblExiste)
-						.addGap(232))
-				);
+					.addGap(21)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textProyecto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblProyecto))
+					.addGap(7)
+					.addComponent(lblExiste)
+					.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textDescripcion, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDescripcion))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(scrumMasterCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblScrumMaster))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(productOwnerCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblProductOwner))
+					.addGap(18)
+					.addComponent(btnAdd)
+					.addGap(25))
+		);
 		setLayout(groupLayout);
 
 	}

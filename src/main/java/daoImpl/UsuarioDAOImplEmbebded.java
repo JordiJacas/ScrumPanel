@@ -63,14 +63,15 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
         	Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * from Usuario where rol_usuario = '"+rol.ordinal()+"';");
 			while (rs.next()) {
-                usuarios.add(new Usuario(rs.getString("nombre_usuario"), rs.getString("nombre"), rs.getString("password"), rs.getString("email"), userTypeEnum.values()[rs.getInt("rol_usuario")]));
+				Usuario user = new Usuario(rs.getString("nombre_usuario"), rs.getString("nombre"), rs.getString("password"), rs.getString("email"), userTypeEnum.values()[rs.getInt("rol_usuario")]);
+                user.setUsuario_id(rs.getInt("usuario_id"));
+				usuarios.add(user);
             }
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		close();
-		
-		System.out.println("usr" + usuarios);
+
 		return usuarios;
 	}
 	
@@ -93,6 +94,23 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Usuario getUsuarioById(int id) {
+		connect();
+		Usuario usuario = null;
+		try {
+        	Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * from Usuario where usuario_id = '" + id + "'");
+			while (rs.next()) {
+				System.out.println(rs.getString("nombre_usuario"));
+                usuario = new Usuario(rs.getString("nombre_usuario"), rs.getString("nombre"), rs.getString("password"), rs.getString("email"), userTypeEnum.values()[rs.getInt("rol_usuario")]);
+            }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close();
+		return usuario;
 	}
 
 }
