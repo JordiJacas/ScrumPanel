@@ -76,13 +76,14 @@ public class UsuarioDAOImpl implements IUsuario{
 	
 	public void updateUsuario(Usuario usuario, Proyecto proyecto) {
 		// TODO Auto-generated method stub
+		List<Proyecto> proyectos = new ArrayList<Proyecto>();
 		connect();
 		
 		entityManager.getTransaction().begin();
-		//Usuario user = entityManager.find(Usuario.class, usuario.getUsuario_id());
-		List<Proyecto> proyectos = usuario.getGrupo_proyecto_id();
+		proyectos = usuario.getGrupo_proyecto_id();
 		proyectos.add(proyecto);
 		usuario.setGrupo_proyecto_id(proyectos);
+		entityManager.merge(usuario);
 		entityManager.getTransaction().commit();
 		
 		close();

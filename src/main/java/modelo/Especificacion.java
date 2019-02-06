@@ -21,7 +21,6 @@ public class Especificacion {
 	private String descripcion;
 	
 	@ManyToOne
-	@JoinColumn(name="proyecto_proyecto_id", nullable=false)
 	private Proyecto proyecto_id;
 	
 	public Especificacion() {}

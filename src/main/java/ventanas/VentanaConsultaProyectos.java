@@ -120,7 +120,7 @@ public class VentanaConsultaProyectos extends JPanel {
 		JButton btnMostarEspecificaciones = new JButton("Mostar Especificaciones");
 		btnMostarEspecificaciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				especificaciones = new VentanaEspecificacion(proyecto);
+				especificaciones = new VentanaEspecificacion(proyecto, vGeneral);
 				iEspecificaciones = new JInternalFrame("Especificaciones");
 				iEspecificaciones.setSize(130, 94);
 				iEspecificaciones.setLocation(133, 58);

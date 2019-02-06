@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.EnumType;
 
 import config.ConnnectDBDao;
+import config.InsertarDatos;
 import daoImpl.EspecificacionDAOImpl;
 import daoImpl.ProyectoDAOImpl;
 import daoImpl.UsuarioDAOImpl;
@@ -28,7 +29,6 @@ public class EnumTypeUsuarioTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//System.out.println(userTypeEnum.USER_ADMINISTRATOR.ordinal());
-		Connection con;
 		
 		/*try {
 			con = DriverManager.getConnection("jdbc:sqlite:./data2.sqlite");
@@ -47,26 +47,32 @@ public class EnumTypeUsuarioTest {
 			e.printStackTrace();
 		}*/
 		
+		ConnnectDBDao con = new ConnnectDBDao();
 		
-		
-		
-		
-		IProyecto pro = new ProyectoDAOImpl();
+		/*IProyecto pro = new ProyectoDAOImpl();
 		iEspecificacion i = new EspecificacionDAOImpl();
 		
 		List <Proyecto> p = new ArrayList<Proyecto>();
-		p.add(new Proyecto("String nombre_proyecto", "String descripcion",null, null,null));
+		p.add(new Proyecto("String nombre_proyecto", "String descripcion",null, null,null));*/
+		
+		InsertarDatos c = new InsertarDatos();
+		
+		/*IUsuario u = new UsuarioDAOImpl();
+		try {
+			//u.crearUsuario(new Usuario("nombre_usuario", "String nombre", "String password", "String email",
+			//userTypeEnum.DEVELOPER, null));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		
 		
-		IUsuario u = new UsuarioDAOImpl();
-		//u.crearUsuario(new Usuario("ombre_usuario", "String nombre", "String password", "String email",
-		//userTypeEnum.DEVELOPER, p));
+		//Usuario user = u.getUsuarioByNombreUsuario("nombre_usuario");
+		//u.updateUsuario(user, new Proyecto("String nombre_proyecto2", "String descripcion2",null, null,null));
+		//System.out.println(user.getGrupo_proyecto_id().get(0).getNombre_proyecto());
 		
 		
-		Usuario user = u.getUsuarioByNombreUsuario("ombre_usuario");
-		System.out.println(user.getGrupo_proyecto_id().get(0).getNombre_proyecto());
-		
-		List<Especificacion> list = new ArrayList<Especificacion>();
+		/*List<Especificacion> list = new ArrayList<Especificacion>();
 		list.add(new Especificacion("String descripcion",null));
 		
 		System.out.println("d");

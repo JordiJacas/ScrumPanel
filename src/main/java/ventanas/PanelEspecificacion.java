@@ -16,9 +16,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import config.ConnnectDBDao;
 import daoImpl.EspecifiacionDAOImplEmbebded;
 import daoImpl.EspecificacionDAOImpl;
+import enumClass.userTypeEnum;
 import iDao.iEspecificacion;
 import modelo.Especificacion;
 import modelo.Proyecto;
+import modelo.UsuarioConectado;
 
 import javax.swing.JTextArea;
 
@@ -28,12 +30,17 @@ public class PanelEspecificacion extends JPanel {
 	private JTextArea taEspecificacion;
 	private iEspecificacion gestorEspecificacion;
 	private ConnnectDBDao con;
-	
+	private boolean isReturn;
 	
 	/**
 	 * Create the panel.
 	 */
-	public PanelEspecificacion(final String descripcion, final Proyecto proyecto) {
+	public PanelEspecificacion(final String descripcion, final Proyecto proyecto, final VentanaEspecificacion vEspecificacion) {
+		con = new ConnnectDBDao();
+		
+		if(UsuarioConectado.getRolUsuario().equals(userTypeEnum.DEVELOPER)) {
+			btnGuardarCambios.setEnabled(false);
+		}
 		
 		btnGuardarCambios = new JButton("Guardar cambios");
 		btnGuardarCambios.addActionListener(new ActionListener() {
@@ -41,9 +48,9 @@ public class PanelEspecificacion extends JPanel {
 				
 				int resp=JOptionPane.showConfirmDialog(null,"Abandonar pantalla para crear tarea?");
 				if (JOptionPane.OK_OPTION == resp){
-					System.out.println("Selecciona opción Afirmativa");
+					System.out.println("Selecciona opción Afirmativa");					
 					
-					Especificacion especificacion = new Especificacion(descripcion, proyecto);
+					Especificacion especificacion = new Especificacion(taEspecificacion.getText(), proyecto);
 					
 					if(con.getState()) {
 						gestorEspecificacion = new EspecificacionDAOImpl();
@@ -56,11 +63,14 @@ public class PanelEspecificacion extends JPanel {
 					gestorEspecificacion = new EspecifiacionDAOImplEmbebded();
 					gestorEspecificacion.createEspecificacion(especificacion);
 					
-					
+					vEspecificacion.addTareaPanel(taEspecificacion.getText());
 				}
 				else{
 				    System.out.println("No selecciona una opción afirmativa");
 				}
+				
+				
+				
 			}
 		});
 		

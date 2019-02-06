@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import iDao.IProyecto;
+import iDao.IUsuario;
 import modelo.Especificacion;
 import modelo.Proyecto;
 import modelo.Usuario;
@@ -25,14 +26,6 @@ public class ProyectoDAOImpl implements IProyecto{
 		String sql = "SELECT p from Proyecto p where p.nombre_proyecto = '" + nombre_proyecto + "'";
 		Query query = entityManager.createQuery(sql);
 		Proyecto proyecto = (Proyecto) query.getSingleResult();
-
-		/*List<Especificacion> list = new ArrayList<Especificacion>();
-		list.add(new Especificacion("String descr",2,proyecto));*/
-		
-		
-		/*entityManager.getTransaction().begin();
-		proyecto.setEspecificacion_id(list);
-//		entityManager.getTransaction().commit();*/
 		
 		close();
 		return proyecto;
@@ -49,6 +42,12 @@ public class ProyectoDAOImpl implements IProyecto{
 		}
 		
 		close();
+		
+		IUsuario gUsuario = new UsuarioDAOImpl();
+		gUsuario.updateUsuario(proyecto.getProductOwner(), proyecto);
+		
+		IUsuario gUsuario2 = new UsuarioDAOImpl();
+		gUsuario2.updateUsuario(proyecto.getScrumMaster(), proyecto);
 	}
 	
 	public List<Proyecto> getAllProyectos() {

@@ -10,6 +10,7 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 
 import java.awt.ScrollPane;
 import java.util.ArrayList;
@@ -23,9 +24,11 @@ import javax.swing.ScrollPaneConstants;
 import config.ConnnectDBDao;
 import daoImpl.EspecifiacionDAOImplEmbebded;
 import daoImpl.EspecificacionDAOImpl;
+import enumClass.userTypeEnum;
 import iDao.iEspecificacion;
 import modelo.Especificacion;
 import modelo.Proyecto;
+import modelo.UsuarioConectado;
 
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
@@ -45,21 +48,27 @@ public class VentanaEspecificacion extends JPanel {
 	private List<Especificacion> especificaciones = new ArrayList<Especificacion>();
 	private PanelEspecificacion pe;
 	private PanelNuevaTarea pnt;
+	private JPanel nuevaTarea;
+	private JInternalFrame iNuevaTarea;
+	private Proyecto proyecto;
+	private VentanaEspecificacion that;
 	
 	/**
 	 * Create the panel.
 	 */
-	public VentanaEspecificacion(final Proyecto proyecto) {
+	public VentanaEspecificacion(final Proyecto proyecto, final VentanaGeneral vGeneral) {
 		con = new ConnnectDBDao();
 		if(con.getState()) {
 			gestorEspecificacion = new EspecificacionDAOImpl();
 		} else {
 			gestorEspecificacion = new EspecifiacionDAOImplEmbebded();
 		}
+		that = this;
+		this.proyecto = proyecto;
 		especificaciones = gestorEspecificacion.getAllEspecifiacionByProyecto(proyecto);
 		
 		System.out.println(especificaciones);
-		
+				
 		//en el panel del norte decimos que lo que añadamos va estar en el centro
 		panelNorte = new JPanel();
 		panelNorte.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -69,14 +78,37 @@ public class VentanaEspecificacion extends JPanel {
 		btnInsertar = new JButton("Insertar");
 		btnInsertar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				pe = new PanelEspecificacion(" ", proyecto);
-				pe.setPreferredSize(new Dimension(200, 200));
-				panelEsp.add(pe);
+
 				
-				panelEsp.updateUI();
+				nuevaTarea = new PanelEspecificacion(" ", proyecto, that);
+				nuevaTarea.setPreferredSize(new Dimension(200, 200));
+				iNuevaTarea = new JInternalFrame("Nueva Tarea");
+				 
+				iNuevaTarea.setLocation(50, 50);
+				
+				iNuevaTarea.getContentPane().add(nuevaTarea);
+
+				iNuevaTarea.pack();
+				
+				iNuevaTarea.setResizable(true);
+				iNuevaTarea.setClosable(true);
+				
+				iNuevaTarea.setVisible(true);
+				
+				vGeneral.dp.add(iNuevaTarea);
+				
+				//panelEsp.add(nuevaTarea);
+				
+				//panelEsp.updateUI();
 			}
 		});
 		btnEliminar = new JButton("Eliminar");
+		
+		if(UsuarioConectado.getRolUsuario().equals(userTypeEnum.DEVELOPER)) {
+			btnEliminar.setEnabled(false);
+			btnGuardar.setEnabled(false);
+			btnInsertar.setEnabled(false);
+		}
 		
 		//insertamos los botones que van al panel del norte
 		panelNorte.add(btnGuardar);
@@ -107,7 +139,7 @@ public class VentanaEspecificacion extends JPanel {
 		}*/
 		
 //		for (Especificacion especificacion : especificaciones) {
-//			pe = new PanelEspecificacion(especificacion.getDescripcion(), proyecto);
+//			pe = new PanelEspecificacion(especificacion.getDescripcion(), proyecto, that);
 //			pe.setPreferredSize(new Dimension(200, 200));
 //			panelEsp.add(pe);
 //			panelEsp.updateUI();
@@ -116,4 +148,13 @@ public class VentanaEspecificacion extends JPanel {
 
 	}
 	
+	public void addTareaPanel(String descripcion) {
+		pe = new PanelEspecificacion(descripcion, this.proyecto, that);
+		pe.setPreferredSize(new Dimension(200, 200));
+		panelEsp.add(pe);
+		
+		panelEsp.updateUI();
+		
+		iNuevaTarea.dispose();
+	}
 }

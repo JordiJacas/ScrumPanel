@@ -32,7 +32,7 @@ public class EspecificacionDAOImpl implements iEspecificacion{
 		// TODO Auto-generated method stub
 		connect();
 		
-		String sql = "SELECT u from Proyecto_Especificacion u where u.Proyecto_proyecto_id = 1";
+		String sql = "SELECT u from Especificacion u where u.proyecto_id = "+proyecto.getProyecto_id()+"";
 		Query query = entityManager.createQuery(sql);
 		List<Especificacion> especificaciones = query.getResultList();
 		

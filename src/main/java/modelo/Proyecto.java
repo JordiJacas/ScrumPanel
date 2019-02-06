@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -34,20 +35,33 @@ public class Proyecto {
 	@ManyToOne
 	private Usuario productOwner;
 	
-	@ManyToOne
-	private Usuario usuario_id;
+	@ManyToMany
+	private List<Usuario> usuario_id;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<Especificacion> especificacion_id;
 	
 	public Proyecto() {}
-
+	
 	public Proyecto(String nombre_proyecto, String descripcion, Usuario scrumMaster, Usuario productOwner, List<Especificacion> especificaciones) {
 		this.nombre_proyecto = nombre_proyecto;
 		this.descripcion = descripcion;
 		this.scrumMaster = scrumMaster;
 		this.productOwner = productOwner;
 		this.especificacion_id = especificaciones;
+	}
+
+	public Proyecto(int proyecto_id, String nombre_proyecto, String descripcion, Usuario scrumMaster, Usuario productOwner, List<Especificacion> especificaciones) {
+		this.proyecto_id = proyecto_id;
+		this.nombre_proyecto = nombre_proyecto;
+		this.descripcion = descripcion;
+		this.scrumMaster = scrumMaster;
+		this.productOwner = productOwner;
+		this.especificacion_id = especificaciones;
+	}
+
+	public Proyecto(int id) {
+		this.proyecto_id = id;
 	}
 
 	public String getNombre_proyecto() {
@@ -98,11 +112,11 @@ public class Proyecto {
 		this.especificacion_id = especificacion_id;
 	}
 
-	public Usuario getGrupo_usuario_id() {
+	public List<Usuario> getGrupo_usuario_id() {
 		return usuario_id;
 	}
 
-	public void setGrupo_usuario_id(Usuario grupo_usuario_id) {
+	public void setGrupo_usuario_id(List<Usuario> grupo_usuario_id) {
 		this.usuario_id = grupo_usuario_id;
 	}
 	
