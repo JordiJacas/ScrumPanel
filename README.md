@@ -9,7 +9,7 @@ Sean Saez
 Instrucciones para ejecutar el proyecto
 ===========================================
 
-1 - Crear una Base de Datos llamada scrumdb y crear un usuario con nombre "jsj" y contraseña "jsj12321" 
+1 - Crear una Base de Datos llamada test y crear un usuario con nombre "jsj" y contraseña "jsj12321" 
     nuevo con todos los permisos para la Base de Datos scrumdb.
 
 2 - Importar el repositorio https://github.com/JordiJacas/ScrumPanel.
