@@ -202,6 +202,11 @@ public class VentanaGeneral extends JFrame {
 						menuItem.setEnabled(false);
 					}
 				}
+				
+				
+				for (JInternalFrame internalFrame : dp.getAllFrames()) {
+					internalFrame.dispose();
+				}
 				addVentanaLogin();
 			}
 		});

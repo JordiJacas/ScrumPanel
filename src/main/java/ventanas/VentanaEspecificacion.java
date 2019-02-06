@@ -97,9 +97,7 @@ public class VentanaEspecificacion extends JPanel {
 				
 				vGeneral.dp.add(iNuevaTarea);
 				
-				//panelEsp.add(nuevaTarea);
-				
-				//panelEsp.updateUI();
+				iNuevaTarea.toFront();
 			}
 		});
 		btnEliminar = new JButton("Eliminar");
@@ -138,12 +136,12 @@ public class VentanaEspecificacion extends JPanel {
 			panelEsp.updateUI();
 		}*/
 		
-//		for (Especificacion especificacion : especificaciones) {
-//			pe = new PanelEspecificacion(especificacion.getDescripcion(), proyecto, that);
-//			pe.setPreferredSize(new Dimension(200, 200));
-//			panelEsp.add(pe);
-//			panelEsp.updateUI();
-//		}
+		for (Especificacion especificacion : especificaciones) {
+			pe = new PanelEspecificacion(especificacion.getDescripcion(), proyecto, that);
+			pe.setPreferredSize(new Dimension(200, 200));
+			panelEsp.add(pe);
+			panelEsp.updateUI();
+		}
 		
 
 	}

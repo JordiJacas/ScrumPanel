@@ -130,6 +130,7 @@ public class VentanaConsultaProyectos extends JPanel {
 				iEspecificaciones.setClosable(true);
 				iEspecificaciones.setVisible(true);
 				vGeneral.dp.add(iEspecificaciones);
+				iEspecificaciones.toFront();
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);

@@ -38,11 +38,12 @@ public class PanelEspecificacion extends JPanel {
 	public PanelEspecificacion(final String descripcion, final Proyecto proyecto, final VentanaEspecificacion vEspecificacion) {
 		con = new ConnnectDBDao();
 		
+
+		
+		btnGuardarCambios = new JButton("Guardar cambios");
 		if(UsuarioConectado.getRolUsuario().equals(userTypeEnum.DEVELOPER)) {
 			btnGuardarCambios.setEnabled(false);
 		}
-		
-		btnGuardarCambios = new JButton("Guardar cambios");
 		btnGuardarCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				

@@ -114,33 +114,16 @@ public class InsertarDatos {
 		entityManager.persist(newTarea6);
 		entityManager.persist(newTarea7);
 		
-//		entityManager.merge(newUser2);
-//		entityManager.merge(newUser3);
-//		entityManager.merge(newUser4);
-//		entityManager.merge(newUser5);
-		
 		entityManager.getTransaction().commit();
 		
 		entityManager.close();
 	    factory.close();
-	    
-//	    EntityManagerFactory factory2 = Persistence.createEntityManagerFactory("ScrumDB");
-//		EntityManager entityManager2 = factory2.createEntityManager();
-//		
-//		entityManager2.getTransaction().begin();
-//		
-//		newUser4.setGrupo_proyecto_id(proyectos3);
-//		newUser5.setGrupo_proyecto_id(proyectos3);
-//		
-//		entityManager2.merge(newUser4);
-//		entityManager2.merge(newUser5);
-//		
-//		entityManager2.getTransaction().commit();
-//		
-//		entityManager2.close();
-//	    factory2.close();
+	  
 	}
-	 
+	
+	public static void main(String[] args) {
+		InsertarDatos insertar = new InsertarDatos();
+	}
 	
 	
 	
