@@ -35,14 +35,13 @@ public class PanelEspecificacion extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelEspecificacion(final String descripcion, final Proyecto proyecto, final VentanaEspecificacion vEspecificacion) {
+	public PanelEspecificacion(final String descripcion, final Proyecto proyecto, final VentanaEspecificacion vEspecificacion, boolean isBtn) {
 		con = new ConnnectDBDao();
 		
-		if(UsuarioConectado.getRolUsuario().equals(userTypeEnum.DEVELOPER)) {
+		btnGuardarCambios = new JButton("Guardar cambios");
+		if(UsuarioConectado.getRolUsuario().equals(userTypeEnum.DEVELOPER) || isBtn) {
 			btnGuardarCambios.setEnabled(false);
 		}
-		
-		btnGuardarCambios = new JButton("Guardar cambios");
 		btnGuardarCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -51,7 +50,7 @@ public class PanelEspecificacion extends JPanel {
 					System.out.println("Selecciona opción Afirmativa");					
 					
 					Especificacion especificacion = new Especificacion(taEspecificacion.getText(), proyecto);
-					System.out.println(especificacion.getDescripcion());
+					
 					if(con.getState()) {
 						gestorEspecificacion = new EspecificacionDAOImpl();
 						gestorEspecificacion.createEspecificacion(especificacion);

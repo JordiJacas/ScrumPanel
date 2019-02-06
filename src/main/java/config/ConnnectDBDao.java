@@ -28,6 +28,7 @@ import javax.persistence.metamodel.Metamodel;
 
 import daoImpl.ProyectoDAOImpl;
 import daoImpl.UsuarioDAOImpl;
+import daoImpl.UsuarioDAOImplEmbebded;
 import enumClass.userTypeEnum;
 import iDao.IProyecto;
 import iDao.IUsuario;

@@ -167,6 +167,7 @@ public class VentanaProyecto extends JPanel {
 					
 					gestorProyectoEmbebed = new ProyectoDAOImplEmbeded();
 					try {
+//						System.out.println(proyecto.getProductOwner().ge);
 						gestorProyectoEmbebed.crearProyecto(proyecto);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block

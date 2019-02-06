@@ -1,0 +1,6 @@
+INSERT INTO `usuario`(`contraseña`, `email`, `nombre`, `nombre_usuario`, `rol_usuario`)VALUES  (P@ssw0rd,www@www.com,Product Owner test,powner,1);
+INSERT INTO `proyecto`(`descripcion`, `nombre_proyecto`, `productOwner_usuario_id`, `scrumMaster_usuario_id`) VALUES (Por favor,Funciona,0,0);
+INSERT INTO `proyecto`(`descripcion`, `nombre_proyecto`, `productOwner_usuario_id`, `scrumMaster_usuario_id`) VALUES (AAA,AAA,0,2);
+INSERT INTO `usuario`(`contraseña`, `email`, `nombre`, `nombre_usuario`, `rol_usuario`)VALUES  (test,test@test.test,test test test,ttest,2);
+INSERT INTO `proyecto`(`descripcion`, `nombre_proyecto`, `productOwner_usuario_id`, `scrumMaster_usuario_id`) VALUES (proyect,proyect,0,2);
+INSERT INTO `usuario`(`contraseña`, `email`, `nombre`, `nombre_usuario`, `rol_usuario`)VALUES  (123,test@test.test,sprint3 test test,stest,1);

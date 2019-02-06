@@ -70,9 +70,9 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
 				IUsuario userDao = new UsuarioDAOImplEmbebded();
 				Usuario prodOwn = userDao.getUsuarioById(rs.getInt("productOwner_usuario_id"));
 				Usuario scmMast = userDao.getUsuarioById(rs.getInt("scrumMaster_usuario_id"));
-                
-                proyectos.add(new Proyecto(rs.getString("nombre_proyecto"), 
-                		rs.getString("descripcion"), prodOwn, scmMast,null));
+                Proyecto pro = new Proyecto(rs.getString("nombre_proyecto"), rs.getString("descripcion"), prodOwn, scmMast,null);
+                pro.setProyecto_id(rs.getInt("proyecto_id"));
+                proyectos.add(pro);
             }
 		} catch (SQLException e) {
 			e.printStackTrace();

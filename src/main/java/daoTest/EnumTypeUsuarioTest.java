@@ -47,15 +47,13 @@ public class EnumTypeUsuarioTest {
 			e.printStackTrace();
 		}*/
 		
-		ConnnectDBDao con = new ConnnectDBDao();
+		//ConnnectDBDao con = new ConnnectDBDao();
 		
 		/*IProyecto pro = new ProyectoDAOImpl();
 		iEspecificacion i = new EspecificacionDAOImpl();
 		
 		List <Proyecto> p = new ArrayList<Proyecto>();
 		p.add(new Proyecto("String nombre_proyecto", "String descripcion",null, null,null));*/
-		
-		InsertarDatos c = new InsertarDatos();
 		
 		/*IUsuario u = new UsuarioDAOImpl();
 		try {

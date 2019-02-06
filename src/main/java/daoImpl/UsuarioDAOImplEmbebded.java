@@ -63,7 +63,9 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
         	Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * from Usuario where rol_usuario = '"+rol.ordinal()+"';");
 			while (rs.next()) {
-                usuarios.add(new Usuario(rs.getString("nombre_usuario"), rs.getString("nombre"), rs.getString("password"), rs.getString("email"), userTypeEnum.values()[rs.getInt("rol_usuario")]));
+				Usuario user = new Usuario(rs.getString("nombre_usuario"), rs.getString("nombre"), rs.getString("password"), rs.getString("email"), userTypeEnum.values()[rs.getInt("rol_usuario")]);
+                user.setUsuario_id(rs.getInt("usuario_id"));
+				usuarios.add(user);
             }
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -97,7 +99,6 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
 	public Usuario getUsuarioById(int id) {
 		connect();
 		Usuario usuario = null;
-        System.out.println(id);
 		try {
         	Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * from Usuario where usuario_id = '" + id + "'");

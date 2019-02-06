@@ -80,7 +80,7 @@ public class VentanaEspecificacion extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 
 				
-				nuevaTarea = new PanelEspecificacion(" ", proyecto, that);
+				nuevaTarea = new PanelEspecificacion(" ", proyecto, that, false);
 				nuevaTarea.setPreferredSize(new Dimension(450, 200));
 				iNuevaTarea = new JInternalFrame("Nueva Tarea");
 				 
@@ -97,11 +97,10 @@ public class VentanaEspecificacion extends JPanel {
 				
 				vGeneral.dp.add(iNuevaTarea);
 				
-				//panelEsp.add(nuevaTarea);
-				
-				//panelEsp.updateUI();
+				iNuevaTarea.toFront();
 			}
 		});
+
 		btnEliminar = new JButton("Eliminar");
 		
 		if(UsuarioConectado.getRolUsuario().equals(userTypeEnum.DEVELOPER)) {
@@ -132,14 +131,8 @@ public class VentanaEspecificacion extends JPanel {
 		this.add(panelNorte, BorderLayout.NORTH);
 		this.add(scrollPaneEsp, BorderLayout.CENTER);
 		
-		/*for (int i = 0; i < 5; i++) {
-			pe = new PanelEspecificacion("TEST hello" + i);
-			panelEsp.add(pe);
-			panelEsp.updateUI();
-		}*/
-		
 		for (Especificacion especificacion : especificaciones) {
-			pe = new PanelEspecificacion(especificacion.getDescripcion(), proyecto, that);
+			pe = new PanelEspecificacion(especificacion.getDescripcion(), proyecto, that,true);
 			pe.setPreferredSize(new Dimension(200, 200));
 			panelEsp.add(pe);
 			panelEsp.updateUI();
@@ -149,7 +142,7 @@ public class VentanaEspecificacion extends JPanel {
 	}
 	
 	public void addTareaPanel(String descripcion) {
-		pe = new PanelEspecificacion(descripcion, this.proyecto, that);
+		pe = new PanelEspecificacion(descripcion, this.proyecto, that,true);
 		pe.setPreferredSize(new Dimension(200, 200));
 		panelEsp.add(pe);
 		

@@ -20,16 +20,23 @@ public class EspecifiacionDAOImplEmbebded implements iEspecificacion{
 	
 	public void createEspecificacion(Especificacion especificacion) {
 		// TODO Auto-generated method stub
-		
+		connect();
+		try {
+        	Statement stmt = con.createStatement();
+        	stmt.executeUpdate("INSERT INTO `Especificacion` (`descripcion`, `proyecto_id_proyecto_id`) VALUES ('" + especificacion.getDescripcion() + "', '" + especificacion.getProyecto_id() + "')");
+		} catch (SQLException e) {
+			System.out.println(e);
+//			e.printStackTrace();
+		}
+		close();
 	}
 
 	public List<Especificacion> getAllEspecifiacionByProyecto(Proyecto proyecto) {
 		connect();
 		List<Especificacion> especs = new ArrayList<Especificacion>();
-        System.out.println(proyecto.getProyecto_id());
 		try {
         	Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * from Especificacion where proyecto_id_proyecto_id = '1';");
+			ResultSet rs = stmt.executeQuery("SELECT * from Especificacion where proyecto_id_proyecto_id = '" + proyecto.getProyecto_id() + "'");
 			while (rs.next()) {
                 especs.add(new Especificacion(rs.getString("descripcion"), proyecto));
             }
