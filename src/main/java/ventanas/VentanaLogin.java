@@ -30,6 +30,11 @@ import java.util.Hashtable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+2  * @author Jaime Pena Martin
+5  * @version 1
+6  */
+
 public class VentanaLogin extends JPanel implements KeyListener{
 	private JTextField tfLogin;
 	private JPasswordField tfPassword;
@@ -37,9 +42,12 @@ public class VentanaLogin extends JPanel implements KeyListener{
 	private VentanaGeneral VentanaGeneral;
 	
 	/**
-	 * Create the panel.
+	 * Ventana donde te puedes loguear
+	 * @param VentanaGeneral la ventana principal
+	 * @param iLogin es el Internal Frame donde todo se vera en la VentanaGeneral
 	 */
 	public VentanaLogin(VentanaGeneral VentanaGeneral, JInternalFrame iLogin) {
+		
 		this.iLogin = iLogin;
 		this.VentanaGeneral = VentanaGeneral;
 		
@@ -101,6 +109,11 @@ public class VentanaLogin extends JPanel implements KeyListener{
 		setLayout(groupLayout);
 	}
 	
+	
+	/**
+	 * Metodo que recoge los datos del text Field y busca en la base de datos si existen los datos introducidos
+	 * en la columna correcta de la base de datos.
+	 */
 	private void login() {
 		String user = tfLogin.getText();
 		String password = tfPassword.getText();
@@ -162,7 +175,10 @@ public class VentanaLogin extends JPanel implements KeyListener{
 		}
 	}
 	
-	//funciones de keyListener para que enter ejecute login
+	/**
+	 * funciones de keyListener para que enter ejecute login pulsando ENTER
+	 * @param KeyEvent Evento que hace que pueda hacer la siguiente funcion
+	 */
 	public void keyPressed(KeyEvent e) {
 		 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 	        	login();
