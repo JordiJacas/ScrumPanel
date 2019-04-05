@@ -31,7 +31,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
-
+/**
+ * 
+ * @author jaimepm
+ * @version 1
+ */
 public class VentanaUsuarios extends JPanel implements FocusListener{
 	private JTextField tfNombre;
 	private JTextField tfLogin;
@@ -41,7 +45,11 @@ public class VentanaUsuarios extends JPanel implements FocusListener{
 	private JComboBox comboBox;
 	private JLabel lblRepetidas;
 	/**
-	 * Create the panel.
+	 * Crea un panel donde se introduciran todos parametros para 
+	 * crear un usuario.
+	 * Hay diversos botones, uno es para generar una password de forma aleatoria.
+	 * Para guardar el usuario en la base de datos remota y embebida.
+	 * 
 	 */
 	public VentanaUsuarios() {
 		
@@ -230,6 +238,11 @@ public class VentanaUsuarios extends JPanel implements FocusListener{
 
 	}
 	
+	/**
+	 * Comprueba si las contrasenyas estan repetidas
+	 * @return boolean, si existe anteriormente se muestra un label que te dice que ya existe.
+	 * Si no existe no se muestra nada
+	 */
 	public boolean validatePasswords() {
 		if(!tfPassword.getText().equals(tfPassword2.getText())) {
 			lblRepetidas.setVisible(true);
@@ -239,6 +252,10 @@ public class VentanaUsuarios extends JPanel implements FocusListener{
 		return true;
 	}
 	
+	/**
+	 * Comprueba que ninguna casilla esta vacia.
+	 * @return boolean, si hay alguna de estas casillas vacia no se podra guardar.
+	 */
 	public boolean formNotEmpty() {
 		if (tfNombre.getText().isEmpty() || tfLogin.getText().isEmpty() 
 				|| tfPassword.getText().isEmpty() || tfPassword2.getText().isEmpty()
@@ -248,6 +265,10 @@ public class VentanaUsuarios extends JPanel implements FocusListener{
 		return true;
 	}
 	
+	/**
+	 * Valida que el correo sigue los parametros correctos.
+	 * @return boolean, es true si tiene estos parametros texto@texto.texto
+	 */
 	public boolean validateEmail() {
 		String email = tfEmail.getText();
 		String EMAIL_PATTERN = 
@@ -262,6 +283,9 @@ public class VentanaUsuarios extends JPanel implements FocusListener{
 		return matcher.matches();
 	}
 	
+	/**
+	 * Genera el login basandose en tu nombre y apellido
+	 */
 	public void generateLogin() {
 		String login, 
 				completeName[] = tfNombre.getText().split(" ");
