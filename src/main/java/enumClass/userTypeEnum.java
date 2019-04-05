@@ -1,5 +1,10 @@
 package enumClass;
 
+/**
+ * Enum que define los tipos de usuario
+ * @author jaimepm
+ *
+ */
 public enum userTypeEnum {
 	DEVELOPER, //solo visualizar proyectos asignados
 	PRODUCT_OWNER, //visualizar su / sus proyectos y anyadir/modificar/eliminar especiicaciones

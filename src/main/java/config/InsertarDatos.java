@@ -12,8 +12,17 @@ import modelo.Especificacion;
 import modelo.Proyecto;
 import modelo.Usuario;
 
+
+/**
+ * Clase que insertara datos basicos con los que trabajara la bbdd
+ * @author jaimepm
+ *
+ */
 public class InsertarDatos {
 	
+	/**
+	 * Constructor que se encargara de insertar los datos
+	 */
 	public InsertarDatos() {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
 		EntityManager entityManager = factory.createEntityManager();
@@ -121,6 +130,10 @@ public class InsertarDatos {
 	  
 	}
 	
+	/**
+	 * Llama al constructor de la clase
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		InsertarDatos insertar = new InsertarDatos();
 	}

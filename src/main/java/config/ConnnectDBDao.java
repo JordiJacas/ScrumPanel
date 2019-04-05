@@ -36,15 +36,31 @@ import modelo.Proyecto;
 import modelo.Usuario;
 
 
+/**
+ * 
+ * Clase que se encarga de gestionar la conexion con la Base de Datos
+ * 
+ * @author jaimepm
+ * 
+ */
+
 public class ConnnectDBDao {
 	
 	//private static String state = "ONLINE";
 	private static boolean state = true;
 	
+	/**
+	 * Getter del estado de la conexion (si esta conectado o no lo esta)
+	 * @return state
+	 */
 	public boolean getState() {
 		return this.state;
 	}
 	
+	/**
+	 * 
+	 * @return state's string (ONLINE / OFFLINE)
+	 */
 	public String getStateString() {
 		
 		if(this.state) return "ONLINE";
@@ -53,11 +69,19 @@ public class ConnnectDBDao {
 		return null;
 	}
 	
+	
+	/**
+	 * Constructor que cambia la variable state y ejecuta las querys en la bbdd remota si esta online
+	 */
 	public ConnnectDBDao() {
 		if (!connectRemoteDB()) state = false;
 		else insertChanges();
 	}
 	
+	/**
+	 * Trata de conectar con la bbdd
+	 * @return true si se ha conectado, false si no se ha conectado
+	 */
 	public boolean connectRemoteDB() {
 		try {
 			EntityManagerFactory factory = Persistence.createEntityManagerFactory("ScrumDB");
@@ -70,6 +94,10 @@ public class ConnnectDBDao {
 		}
 	}
 	
+	
+	/**
+	 * Se encarga de replicar las querys ejecutadas en la bbdd embebida en la remota
+	 */
 	public void insertChanges() {
 		fileOffline fileManager = new fileOffline();
 		ArrayList<String> querys = fileManager.readQuerys();
@@ -118,6 +146,11 @@ public class ConnnectDBDao {
 		}
 	}
 	
+	
+	/**
+	 * Se conecta a la bbdd embebida y devuelve true o false dependiendo de si se ha podido conectar o no
+	 * @return
+	 */
 	public boolean connectEmbbebedDB() {
 		try {
 			Connection con;
