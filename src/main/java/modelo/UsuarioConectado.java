@@ -2,12 +2,25 @@ package modelo;
 
 import enumClass.userTypeEnum;
 
+/**
+ * Classe para guardar el usuario que esta connectado actualmente
+ * @author: Jordi Jacas
+ * @version: 1
+ */
+
 public final class UsuarioConectado {
 	
 	private static Usuario usuario;
 	
+    /**
+     * Constructor por defecto
+     */
     private UsuarioConectado () {
-    }
+    }//Cierre del contructor
+    
+    /**
+     * Metodos get y set de las variables
+     */
 	
 	public static Usuario getUsuario() {
 		return usuario;
@@ -24,4 +37,4 @@ public final class UsuarioConectado {
 	public static userTypeEnum getRolUsuario() {
 		return usuario.getRol_usuario();
 	}
-}
+}//Cierre de la clase 

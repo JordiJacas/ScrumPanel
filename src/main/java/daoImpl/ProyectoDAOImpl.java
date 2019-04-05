@@ -14,10 +14,21 @@ import modelo.Especificacion;
 import modelo.Proyecto;
 import modelo.Usuario;
 
+/**
+* Esta clase contiene los metodos para acceder a la base de datos mysql y ejecutar la sentecia deseada para los proyectos
+* @author: Jordi Jacas
+* @version: 1
+*/
 public class ProyectoDAOImpl implements IProyecto{
 	
 	private EntityManagerFactory factory;
 	private EntityManager entityManager;
+	
+    /**
+     * Metodo para buscar el proyecto por el nombre
+     * @param nombre_proyecto 
+     * @return El proyecto buscado
+     */
 	
 	public Proyecto getProyectoByName(String nombre_proyecto) {
 		// TODO Auto-generated method stub
@@ -29,7 +40,12 @@ public class ProyectoDAOImpl implements IProyecto{
 		
 		close();
 		return proyecto;
-	}
+	}//Cierre del metodo
+	
+    /**
+     * Metodo insertar un proyecto a la base de datps
+     * @param proyecto 
+     */
 	
 	public void crearProyecto(Proyecto proyecto) throws Exception {
 		connect();
@@ -48,7 +64,12 @@ public class ProyectoDAOImpl implements IProyecto{
 		
 		IUsuario gUsuario2 = new UsuarioDAOImpl();
 		gUsuario2.updateUsuario(proyecto.getScrumMaster(), proyecto);
-	}
+	}//Cierre del metodo
+	
+    /**
+     * Metodo para obtener todos los proyectos
+     * @return Lista de proyectos
+     */
 	
 	public List<Proyecto> getAllProyectos() {
 		// TODO Auto-generated method stub
@@ -60,7 +81,13 @@ public class ProyectoDAOImpl implements IProyecto{
 		
 		close();
 		return proyectos;
-	}
+	}//Cierre del metodo
+	
+    /**
+     * Metodo para buscar todos los proyectos de un usuario
+     * @param usuario
+     * @return Lista de proyectos 
+     */
 
 	public List<Proyecto> getProyectosByUser(Usuario usuario) {
 		// TODO Auto-generated method stub
@@ -72,18 +99,23 @@ public class ProyectoDAOImpl implements IProyecto{
 		
 		close();
 		return user.getGrupo_proyecto_id();
-	}
+	}//Cierre del metodo
+	
+    /**
+     * Metodo para connectar a la base de datos
+     */
 	
 	private void connect() {
 		factory = Persistence.createEntityManagerFactory("ScrumDB");
 		entityManager = factory.createEntityManager();
-	}
+	}//Cierre del metodo
 	
+    /**
+     * Metodo para cerrar la connecion de la base de datos
+     */
 	private void close() {
 		entityManager.close();
         factory.close();
-	}
+	}//Cierre del metodo
 
-	
-
-}
+}//Cierre de la classe

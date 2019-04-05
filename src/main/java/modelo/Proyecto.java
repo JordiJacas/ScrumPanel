@@ -15,6 +15,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Classe para definir un objecto proyecto
+ * @author: Jordi Jacas
+ * @version: 1
+ */
+
 @Entity
 @Table(name="proyecto")
 public class Proyecto {
@@ -41,7 +47,20 @@ public class Proyecto {
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Especificacion> especificacion_id;
 	
-	public Proyecto() {}
+	/**
+     * Constructor por defecto
+     */
+	
+	public Proyecto() {}//Cierre del contructor
+	
+    /**
+     * Constructor con parametros
+     * @param nombre_proyecto
+     * @param descripcion
+     * @param scrumMaster
+     * @param productOwner
+     * @param especificaciones
+     */
 	
 	public Proyecto(String nombre_proyecto, String descripcion, Usuario scrumMaster, Usuario productOwner, List<Especificacion> especificaciones) {
 		this.nombre_proyecto = nombre_proyecto;
@@ -49,7 +68,16 @@ public class Proyecto {
 		this.scrumMaster = scrumMaster;
 		this.productOwner = productOwner;
 		this.especificacion_id = especificaciones;
-	}
+	}//Cierre del contructor
+	
+    /**
+     * Constructor con parametros
+     * @param nombre_proyecto
+     * @param descripcion
+     * @param scrumMaster
+     * @param productOwner
+     * @param especificaciones
+     */
 
 	public Proyecto(int proyecto_id, String nombre_proyecto, String descripcion, Usuario scrumMaster, Usuario productOwner, List<Especificacion> especificaciones) {
 		this.proyecto_id = proyecto_id;
@@ -58,7 +86,11 @@ public class Proyecto {
 		this.scrumMaster = scrumMaster;
 		this.productOwner = productOwner;
 		this.especificacion_id = especificaciones;
-	}
+	}//Cierre del contructor
+	
+	/**
+     * Metodos get y set de las variables
+     */
 
 	public Proyecto(int id) {
 		this.proyecto_id = id;

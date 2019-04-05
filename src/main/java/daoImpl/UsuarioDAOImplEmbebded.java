@@ -18,10 +18,18 @@ import iDao.IUsuario;
 import modelo.Proyecto;
 import modelo.Usuario;
 
+/**
+* Esta clase contiene los metodos para acceder a la base de datos en bebida y ejecutar la sentecia deseada para los usuarios
+* @author: Jordi Jacas
+* @version: 1
+*/
 public class UsuarioDAOImplEmbebded implements IUsuario{
 
 	Connection con;
-
+	/**
+	* Metodo para insertar un usuario a la base de datos
+	* @param usuario
+	*/
 	public void crearUsuario(Usuario usuario) {
 		// TODO Auto-generated method stub
 		connect();
@@ -36,7 +44,13 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
     	
     	close();
 
-	}
+	}//Cierre del metodo
+	
+	/**
+	* Metodo buscar un usuario por nombre
+	* @param nombreUsuario
+	* @return usuario
+	*/
 
 	public Usuario getUsuarioByNombreUsuario(String nombreUsuario) {
 		connect();
@@ -53,7 +67,13 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
 		}
 		close();
 		return usuario;
-	}
+	}//Cierre del metodo
+	
+	/**
+	* Metodo buscar todos los usuarios que sean de un tipo en concreto
+	* @param rol
+	* @return Lista de usuarios
+	*/
 
 	public List<Usuario> getUsuariosByRol(userTypeEnum rol) {
 		connect();
@@ -73,12 +93,23 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
 		close();
 
 		return usuarios;
-	}
+	}//Cierre del metodo
+	
+	/**
+	* Metodo para actualizar un usuario
+	* @param usuario
+	* param proyecto
+	*/
 	
 	public void updateUsuario(Usuario usuario, Proyecto proyectos) {
 		// TODO Auto-generated method stub
 		
-	}
+	}//Cierre del metodo
+	
+	/**
+	* Metodo para conectar a la base de datos
+	*/
+	
 	
 	private void connect() {
 		try {
@@ -86,7 +117,11 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}//Cierre del metodo
+	
+	/**
+	* Metodo cerrar la coneccion a la base de datos
+	*/
 	
 	private void close() {
 		try {
@@ -95,6 +130,13 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
 			e.printStackTrace();
 		}
 	}
+	//Cierre del metodo
+	
+		/**
+		* Metodo buscar un usuario por id
+		* @param id
+		* @return usuario
+		*/
 
 	public Usuario getUsuarioById(int id) {
 		connect();
@@ -111,6 +153,6 @@ public class UsuarioDAOImplEmbebded implements IUsuario{
 		}
 		close();
 		return usuario;
-	}
+	}//Cierre del metodo
 
-}
+}//Cierre de la classe

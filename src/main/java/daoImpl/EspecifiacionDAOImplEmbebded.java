@@ -14,10 +14,21 @@ import modelo.Especificacion;
 import modelo.Proyecto;
 import modelo.Usuario;
 
+/**
+* Esta clase contiene los metodos para acceder a la base de datos en bebiba y ejecutar la sentecia deseada para las especificaciones
+* @author: Jordi Jacas
+* @version: 1
+*/
+
 public class EspecifiacionDAOImplEmbebded implements iEspecificacion{
 
 	Connection con;
 	
+    /**
+     * Metodo para insertar una especificacion en la base de datos
+     * @param especificacion 
+     */
+
 	public void createEspecificacion(Especificacion especificacion) {
 		// TODO Auto-generated method stub
 		connect();
@@ -29,7 +40,13 @@ public class EspecifiacionDAOImplEmbebded implements iEspecificacion{
 //			e.printStackTrace();
 		}
 		close();
-	}
+	}//Cierre de metodo
+	
+    /**
+     * Metodo que busca en la base de datos todas las especificaciones de un proyecto esecifico
+     * @param proyecto 
+     * @return Una lista de todas las especificaciones
+     */
 
 	public List<Especificacion> getAllEspecifiacionByProyecto(Proyecto proyecto) {
 		connect();
@@ -46,7 +63,11 @@ public class EspecifiacionDAOImplEmbebded implements iEspecificacion{
 		close();
 		
 		return especs;
-	}
+	}//Cierre del metodo
+	
+	/**
+     * Metodo que conecta a la base de datos
+     */
 	
 	private void connect() {
 		try {
@@ -54,7 +75,11 @@ public class EspecifiacionDAOImplEmbebded implements iEspecificacion{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}//Cierre del metodo
+	
+	/**
+     * Metodo que cierra la coneccion de la base de datos
+     */
 	
 	private void close() {
 		try {

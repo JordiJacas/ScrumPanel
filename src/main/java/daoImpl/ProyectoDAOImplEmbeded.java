@@ -17,10 +17,19 @@ import iDao.IUsuario;
 import modelo.Proyecto;
 import modelo.Usuario;
 
+/**
+* Esta clase contiene los metodos para acceder a la base de datos en bebida y ejecutar la sentecia deseada para los proyectos
+* @author: Jordi Jacas
+* @version: 1
+*/
 public class ProyectoDAOImplEmbeded implements IProyecto{
 
 	Connection con;
-	
+    /**
+     * Metodo para buscar el proyecto por el nombre
+     * @param nombre_proyecto 
+     * @return El proyecto buscado
+     */
 	public Proyecto getProyectoByName(String nombre_proyecto) {
         connect();
         
@@ -42,7 +51,12 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
 		}
 		close();
 		return proyecto;
-	}
+	}//Cierre del metodo
+	
+    /**
+     * Metodo insertar un proyecto a la base de datps
+     * @param proyecto 
+     */
 
 	public void crearProyecto(Proyecto proyecto) {
 		connect();
@@ -56,7 +70,12 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
 		}
 		
 		close();
-	}
+	}//Cierre del metodo
+	
+    /**
+     * Metodo para obtener todos los proyectos
+     * @return Lista de proyectos
+     */
 	
 	public List<Proyecto> getAllProyectos() {
 		connect();
@@ -79,7 +98,13 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
 		}
 		close();
 		return proyectos;
-	}
+	}//Cierre del metodo
+	
+    /**
+     * Metodo para buscar todos los proyectos de un usuario
+     * @param usuario
+     * @return Lista de proyectos 
+     */
 	
 	public List<Proyecto> getProyectosByUser(Usuario usuario) {
 		// TODO Auto-generated method stub
@@ -104,7 +129,11 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
 		}
 		close();
 		return proyectos;
-	}
+	}//Cierre del metodo
+	
+    /**
+     * Metodo para connectar a la base de datos
+     */
 
 
 	private void connect() {
@@ -113,7 +142,11 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}//Cierre del metodo
+	
+    /**
+     * Metodo para cerrar la connecion de la base de datos
+     */
 	
 	private void close() {
 		try {
@@ -121,8 +154,6 @@ public class ProyectoDAOImplEmbeded implements IProyecto{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}//Cierre del metodo
 
-
-	
-}
+}//Cierre de la classe

@@ -17,6 +17,13 @@ import javax.persistence.Table;
 
 import enumClass.userTypeEnum;
 
+
+/**
+ * Classe para definir un objecto usuario
+ * @author: Jordi Jacas
+ * @version: 1
+ */
+
 @Entity
 @Table(name="usuario")
 public class Usuario {
@@ -42,9 +49,22 @@ public class Usuario {
 	
 	@Column(nullable = false)
 	private  userTypeEnum rol_usuario;
+	
+    /**
+     * Constructor por defecto
+     */
 
-	public Usuario() {
-	}
+	public Usuario() {}//Cierre del contructor
+	
+    /**
+     * Constructor con parametros
+     * @param nombre_usuario - Nombre del usuario
+     * @param nombre - Nombre real del usuario
+     * @param password - Contraseña 
+     * @param email - Correo
+     * @param rol_usuario - Tipo de usuario
+     * @param grupo_proyecto_id - Grupo de proyecto en el que esta
+     */
 
 	public Usuario(String nombre_usuario, String nombre, String password, String email,
 			userTypeEnum rol_usuario, List<Proyecto> grupo_proyecto_id) {
@@ -55,7 +75,17 @@ public class Usuario {
 		this.email = email;
 		this.grupo_proyecto_id = grupo_proyecto_id;
 		this.rol_usuario = rol_usuario;
-	}
+	}//Cierre del contructor
+	
+    /**
+     * Constructor con parametros
+     * @param nombre_usuario - Nombre del usuario
+     * @param nombre - Nombre real del usuario
+     * @param password - Contraseña 
+     * @param email - Correo
+     * @param rol_usuario - Tipo de usuario
+     */
+	
 	
 	public Usuario(String nombre_usuario, String nombre, String password, String email,
 			userTypeEnum rol_usuario) {
@@ -67,6 +97,10 @@ public class Usuario {
 		this.grupo_proyecto_id = grupo_proyecto_id;
 		this.rol_usuario = rol_usuario;
 	}
+	
+    /**
+     * Metodos get y set de las variables
+     */
 
 	public Usuario(int id) {
 		this.usuario_id = id;
@@ -127,4 +161,4 @@ public class Usuario {
 	public void setUsuario_id(int usuario_id) {
 		this.usuario_id = usuario_id;
 	}	
-}
+}//Cierre de la clase 
