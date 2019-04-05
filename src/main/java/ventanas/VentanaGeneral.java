@@ -36,8 +36,12 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 
+/**
+ * @author jaimepm
+ * @version 1
+ */
 public class VentanaGeneral extends JFrame {
-	
+
 	protected JDesktopPane dp;
 	private JInternalFrame iLogin;
 	private JInternalFrame iNuevoUsuario;
@@ -59,9 +63,13 @@ public class VentanaGeneral extends JFrame {
 	private JPanel nuevoUsuario;
 	private JPanel mostrarProyectos;
 	private VentanaGeneral that;
-	
+
+
+
+
 	/**
-	 * Launch the application.
+	 * Arranca la aplicacion.
+	 * 
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -76,55 +84,58 @@ public class VentanaGeneral extends JFrame {
 		});
 	}
 	/**
-	 * Create the frame.
+	 * Crea el frame donde habra un menu que te dejara seleccionar los items adecuados 
+	 * dependiendo de que tipo de usuario es.
+	 * Cada item es un Internal Frame diferente con sus respectivas funciones y metodos.
+	 * @param state muestra si el usuario esta conectado o offline
 	 */
 	public VentanaGeneral(String state) {		
-	    setTitle("SCRUM - " + state);
-	    setSize(800,800);
-	    setVisible(true);
-	    
-	    that = this;
-	    
-	    menuItems = new ArrayList<JMenuItem>();
-	    
+		setTitle("SCRUM - " + state);
+		setSize(800,800);
+		setVisible(true);
+
+		that = this;
+
+		menuItems = new ArrayList<JMenuItem>();
+
 		dp = new JDesktopPane();
 		dp.setBackground(Color.WHITE);
 		getContentPane().add(dp);
-		
+
 		addVentanaLogin();
-		
+
 		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 782, 26);
 		dp.add(menuBar);
 		menuBar.setVisible(false);
-		
+
 		mUsuarios = new JMenu("Usuarios");
 		menuBar.add(mUsuarios);
-		
+
 		sNuevoUsuario = new JMenuItem("Nuevo Usuario");
 		menuItems.add(sNuevoUsuario);
 		sNuevoUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				nuevoUsuario = new VentanaUsuarios();
 				iNuevoUsuario = new JInternalFrame("Nuevo Usuario");
-				 
+
 				iNuevoUsuario.setLocation(100, 107);
-				
+
 				iNuevoUsuario.getContentPane().add(nuevoUsuario);
 
 				iNuevoUsuario.pack();
-				
+
 				iNuevoUsuario.setResizable(true);
 				iNuevoUsuario.setClosable(true);
-				
+
 				iNuevoUsuario.setVisible(true);
-				
+
 				dp.add(iNuevoUsuario);
-				
+
 			}
 		});
 		mUsuarios.add(sNuevoUsuario);
-		
+
 		sBuscarmodificarUsuario = new JMenuItem("Buscar/Modificar Usuario");
 		menuItems.add(sBuscarmodificarUsuario);
 		sBuscarmodificarUsuario.addActionListener(new ActionListener() {
@@ -132,15 +143,15 @@ public class VentanaGeneral extends JFrame {
 			}
 		});
 		mUsuarios.add(sBuscarmodificarUsuario);
-		
+
 		mProyectos = new JMenu("Proyectos");
 		menuBar.add(mProyectos);
-		
+
 		sCrearProyecto = new JMenuItem("Crear Proyecto");
 		menuItems.add(sCrearProyecto);
 		sCrearProyecto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				JPanel nuevoProyecto = new VentanaProyecto();
 				iNuevoProyecto = new JInternalFrame("Nuevo Proyecto");
 				iNuevoProyecto.setLocation(89, 71);
@@ -154,43 +165,43 @@ public class VentanaGeneral extends JFrame {
 			}
 		});
 		mProyectos.add(sCrearProyecto);
-		
+
 		sBuscarProyecto = new JMenuItem("Buscar Proyectos");
 		menuItems.add(sBuscarProyecto);
 		sBuscarProyecto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				mostrarProyectos = new VentanaConsultaProyectos(that);
 				iMostrarProyectos = new JInternalFrame("Mostrando proyecto");
-				 
+
 				iMostrarProyectos.setLocation(100, 107);
-				
+
 				iMostrarProyectos.getContentPane().add(mostrarProyectos);
 
 				iMostrarProyectos.pack();
-				
+
 				iMostrarProyectos.setResizable(true);
 				iMostrarProyectos.setClosable(true);
-				
+
 				iMostrarProyectos.setVisible(true);
-				
+
 				dp.add(iMostrarProyectos);
 			}
 		});
 		mProyectos.add(sBuscarProyecto);
-		
+
 		sBuscarProyecto.setEnabled(false);
 		sCrearProyecto.setEnabled(false);
 		sBuscarmodificarUsuario.setEnabled(false);
 		sNuevoUsuario.setEnabled(false);		
-		
+
 		pNombreSalir = new JPanel();
 		pNombreSalir.setBounds(0, 26, 782, 26);
 		dp.add(pNombreSalir);
-		
+
 		lblUsuario = new JLabel("");
 		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -202,8 +213,8 @@ public class VentanaGeneral extends JFrame {
 						menuItem.setEnabled(false);
 					}
 				}
-				
-				
+
+
 				for (JInternalFrame internalFrame : dp.getAllFrames()) {
 					internalFrame.dispose();
 				}
@@ -212,28 +223,32 @@ public class VentanaGeneral extends JFrame {
 		});
 		GroupLayout gl_panel = new GroupLayout(pNombreSalir);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+				gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblUsuario, GroupLayout.PREFERRED_SIZE, 681, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnSalir, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-					.addGap(6))
-		);
+						.addContainerGap()
+						.addComponent(lblUsuario, GroupLayout.PREFERRED_SIZE, 681, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(btnSalir, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+						.addGap(6))
+				);
 		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+				gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-					.addComponent(lblUsuario, GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-					.addComponent(btnSalir))
-		);
-		
+						.addComponent(lblUsuario, GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+						.addComponent(btnSalir))
+				);
+
 		pNombreSalir.setLayout(gl_panel);
 		btnSalir.setVisible(false);
-		
+
 	}
 	
+	/**
+	 * Aqui es donde se decide que items tiene visible el usuario con un rol en especifico
+	 * @param usuario objeto usuario para coger datos del modelo
+	 */
 	public void visible(Usuario usuario) {
-		
+
 		try {
 			iLogin.setClosed(true);
 		} catch (PropertyVetoException e) {
@@ -243,26 +258,29 @@ public class VentanaGeneral extends JFrame {
 		menuBar.setVisible(true);
 		btnSalir.setVisible(true);
 		lblUsuario.setText("Usuario: " + UsuarioConectado.getNombreUsuario() + " (" + UsuarioConectado.getRolUsuario() + ")");
-		
+
 		if(usuario.getRol_usuario().equals(userTypeEnum.USER_ADMINISTRATOR)){
 			sNuevoUsuario.setEnabled(true);
 			sBuscarmodificarUsuario.setEnabled(true);
 		}
-		
+
 		if(usuario.getRol_usuario().equals(userTypeEnum.DEVELOPER)) {
 			sBuscarProyecto.setEnabled(true);
 		}
-		
+
 		if(usuario.getRol_usuario().equals(userTypeEnum.PRODUCT_OWNER)){
 			sBuscarProyecto.setEnabled(true);
 		}
-		
+
 		if(usuario.getRol_usuario().equals(userTypeEnum.SCRUM_MASTER)){
 			sCrearProyecto.setEnabled(true);
 			sBuscarProyecto.setEnabled(true);
 		}		
 	}
-	
+
+	/**
+	 * Es donde se hace todos los ajustes de la ventana
+	 */
 	public void addVentanaLogin() {
 		login = new VentanaLogin(this, iLogin);
 		iLogin = new JInternalFrame("Login");
@@ -275,7 +293,7 @@ public class VentanaGeneral extends JFrame {
 		iLogin.setVisible(true);
 		iLogin.setDefaultCloseOperation(HIDE_ON_CLOSE);
 		dp.add(iLogin);
-		
+
 	}
 }
 

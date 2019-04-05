@@ -35,6 +35,10 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.Color;
 
+/**
+ * @author Sean Saez Fuller
+ * @version 1
+ */
 public class VentanaProyecto extends JPanel {
 	private JTextField textProyecto;
 	private JTextArea textDescripcion;
@@ -56,7 +60,11 @@ public class VentanaProyecto extends JPanel {
 	private IProyecto gestorProyectoEmbebed;
 
 	/**
-	 * Create the panel.
+	 * Creamos el panel donde insertaremos todos los datos del proyecto
+	 * Cuando le damos al boton crear se guardara en la base de datos 
+	 * en la tabla Proyecto, tambien se guardara en un archivo txt aparte.
+	 * En ese archivo estaran todas las querys necesarias por si estas desconectado
+	 * y asi podemos introducirlo, mas tarde, a la base de datos remota
 	 */
 	public VentanaProyecto() {
 
@@ -246,7 +254,11 @@ public class VentanaProyecto extends JPanel {
 
 	}
 
-	//Aqui hacemos que si el nombre de ya existe en la base de datos, no se podra escoger
+	/**
+	 * Si el nombre de ya existe en la base de datos, no se podra seleccionar y guardar.
+	 * @param proyectoNombre
+	 * @return El nombre del proyecto
+	 */
 	public boolean validateNomProyecto(String proyectoNombre) {
 		Proyecto proyecto;
 		try {

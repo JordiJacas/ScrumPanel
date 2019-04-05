@@ -23,7 +23,11 @@ import modelo.Proyecto;
 import modelo.UsuarioConectado;
 
 import javax.swing.JTextArea;
-
+/**
+ * 
+ * @author Sean Saez Fuller
+ * @version 1
+ */
 public class PanelEspecificacion extends JPanel {
 	private JButton btnGuardarCambios;
 	private JCheckBox chckbxMarcar;
@@ -33,7 +37,12 @@ public class PanelEspecificacion extends JPanel {
 	private boolean isReturn;
 	
 	/**
-	 * Create the panel.
+	 * Aqui creamos las especificaciones donde recogeremos los siguientes parametros para guardarlos a continuacion
+	 * Si esta conectado se guardara en la base de datos remota, si no en la embebida
+	 * @param descripcion
+	 * @param proyecto
+	 * @param vEspecificacion
+	 * @param isBtn
 	 */
 	public PanelEspecificacion(final String descripcion, final Proyecto proyecto, final VentanaEspecificacion vEspecificacion, boolean isBtn) {
 		con = new ConnnectDBDao();

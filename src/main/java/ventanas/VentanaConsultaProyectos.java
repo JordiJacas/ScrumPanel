@@ -32,6 +32,11 @@ import javax.swing.event.ListSelectionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * 
+ * @author jaimepn
+ * @version 1
+ */
 public class VentanaConsultaProyectos extends JPanel {
 	
 	private IProyecto gestorProyecto;
@@ -48,7 +53,9 @@ public class VentanaConsultaProyectos extends JPanel {
 	private Proyecto proyecto;
 
 	/**
-	 * Create the panel.
+	 * Es un panel donde se puede ver en una lista todos los proyectos registrados en la base de datos remota
+	 * Hay un boton donde se podra ir a la ventana especificacion y ver las especificaciones que tiene el proyecto
+	 * @param vGeneral
 	 */
 	public VentanaConsultaProyectos(final VentanaGeneral vGeneral) {
 		

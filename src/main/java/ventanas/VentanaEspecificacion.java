@@ -35,6 +35,11 @@ import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * 
+ * @author Sean Saez Fuller
+ * @version 1
+ */
 public class VentanaEspecificacion extends JPanel {
 
 	private JButton btnGuardar;
@@ -53,7 +58,10 @@ public class VentanaEspecificacion extends JPanel {
 	private VentanaEspecificacion that;
 	
 	/**
-	 * Create the panel.
+	 * Es la ventana donde podremos seleccionar si insertar o eliminar especificaciones del proyecto.
+	 * Dependiendo del rol que tengas.
+	 * @param proyecto
+	 * @param vGeneral
 	 */
 	public VentanaEspecificacion(final Proyecto proyecto, final VentanaGeneral vGeneral) {
 		con = new ConnnectDBDao();
@@ -140,6 +148,10 @@ public class VentanaEspecificacion extends JPanel {
 
 	}
 	
+	/**
+	 * Aqui insertamos una nueva tarea
+	 * @param descripcion
+	 */
 	public void addTareaPanel(String descripcion) {
 		pe = new PanelEspecificacion(descripcion, this.proyecto, that,true);
 		pe.setPreferredSize(new Dimension(200, 200));
