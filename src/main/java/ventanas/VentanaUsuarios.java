@@ -31,7 +31,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
-
+/**
+ * 
+ * @author jaimepm
+ * @version 1
+ */
 public class VentanaUsuarios extends JPanel implements FocusListener{
 	private JTextField tfNombre;
 	private JTextField tfLogin;
